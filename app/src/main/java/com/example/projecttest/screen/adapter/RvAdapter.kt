@@ -1,14 +1,16 @@
-package com.example.projecttest
+package com.example.projecttest.screen.adapter
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.projecttest.data.OutData
 import com.example.projecttest.databinding.LayoutRecyclerItemBinding
 
-lateinit var binding: LayoutRecyclerItemBinding
+
 
 class RvAdapter(var ds: List<OutData>) : RecyclerView.Adapter<RvAdapter.KhoaTapViewholder>() {
+    lateinit var binding: LayoutRecyclerItemBinding
 
     inner class KhoaTapViewholder(itemView: View): RecyclerView.ViewHolder(itemView)
 
@@ -21,9 +23,9 @@ class RvAdapter(var ds: List<OutData>) : RecyclerView.Adapter<RvAdapter.KhoaTapV
 
     override fun onBindViewHolder(holder: KhoaTapViewholder, position: Int) {
         holder.itemView.apply {
-            binding.txtMota.text=ds[position].mieuta
-            binding.txtKhoaHoc.text=ds[position].tenkhoa
-            binding.imgMota.setImageResource(ds[position].img)
+            binding.txtDetail.text=ds[position].detailCourse
+            binding.txtCourse.text=ds[position].nameCourse
+            binding.imgCourse.setImageResource(ds[position].imgCourse)
         }
     }
 

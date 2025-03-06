@@ -1,4 +1,4 @@
-package com.example.projecttest
+package com.example.projecttest.screen
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -6,8 +6,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.projecttest.data.OutData
+import com.example.projecttest.R
 import com.example.projecttest.databinding.FragmentDiscoverBinding
+import com.example.projecttest.screen.adapter.RvAdapter
 
 class Discover : Fragment() {
     private lateinit var binding: FragmentDiscoverBinding
