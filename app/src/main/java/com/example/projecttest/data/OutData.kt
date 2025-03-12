@@ -1,8 +1,8 @@
 package com.example.projecttest.data
 
 class OutData(
-    val imgCourse: Int,
-    val nameCourse: String,
-    val detailCourse: String
+    val img: Int,
+    val name: String,
+    val detail: String
 ) {
 }

@@ -20,8 +20,8 @@ class RvAdapter3(var ds: List<OutData>): RecyclerView.Adapter<RvAdapter3.CourseV
 
     override fun onBindViewHolder(holder: CourseViewholder, position: Int) {
         holder.itemView.apply {
-            binding.imgCourse.setImageResource(ds[position].imgCourse)
-            binding.txtCourse.text=ds[position].nameCourse
+            binding.imgCourse.setImageResource(ds[position].img)
+            binding.txtCourse.text=ds[position].name
         }
     }
 

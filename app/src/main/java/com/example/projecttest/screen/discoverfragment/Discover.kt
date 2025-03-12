@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.example.projecttest.data.OutData
 import com.example.projecttest.R
 import com.example.projecttest.databinding.FragmentDiscoverBinding
+import com.example.projecttest.screen.adapter.LvAdapter
 import com.example.projecttest.screen.adapter.RvAdapter
 import com.example.projecttest.screen.adapter.RvAdapter2
 import com.example.projecttest.screen.adapter.RvAdapter3
@@ -22,23 +23,24 @@ class Discover : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentDiscoverBinding.inflate(inflater, container, false)
-        createItemRecycler()
-        createItemRecycler2()
-        createItemRecyclerStretching()
+        createItemRecycler() // mục đầu tiên
+        createItemRecycler2() // mục dành cho bạn
+        createItemRecyclerStretching() //mục giãn cơ
+        createListView()
         return binding.root
     }
     private fun createItemRecycler(){
         val ds = createOutDataList()
-        setAdapter(ds)
+        setAdapter(ds) // trả về layout ở mục đầu tiên
     }
     private fun createItemRecycler2(){
-        val listforyou = createOutDataListTest()
-        setAdapterForYou(listforyou)
+        val listforyou = createOutDataListForYou()
+        setAdapterForYou(listforyou )//trả về layout ở mục dành cho bạn
 
     }
     private  fun createItemRecyclerStretching(){
         val list = createOutDataListStretching()
-        setAdapterStretching(list)
+        setAdapterStretching(list) // tạo layout ở mục khởi đông
     }
 
 
@@ -64,7 +66,7 @@ class Discover : Fragment() {
         binding.recyclerForYou.layoutManager = GridLayoutManager(requireContext(),2,GridLayoutManager.HORIZONTAL,false) // Sử dụng LinearLayoutManager với hướng ngang
     }
 
-    private fun createOutDataListTest() :MutableList<OutData>{
+    private fun createOutDataListForYou() :MutableList<OutData>{
         val ds = mutableListOf<OutData>()
 
         ds.add(OutData(R.drawable.gapbung, "Sáu múi", "13 bài"))
@@ -94,7 +96,27 @@ class Discover : Fragment() {
 
         return ds
     }
+    private fun createListView(){
+        val ds = createOutDataListview()
+        setAdapterListView(ds)
+    }
 
+    private fun setAdapterListView(ds: List<OutData>) {
+        val adapter = LvAdapter(ds)
+        binding.lvCalo.adapter = adapter
+        binding.lvCalo.layoutManager = GridLayoutManager(requireContext(),1,GridLayoutManager.VERTICAL,false)
+    }
+
+    private fun createOutDataListview(): MutableList<OutData> {
+        val ds = mutableListOf<OutData>()
+
+        ds.add(OutData(R.drawable.tinhboot,"Thực phẩm tinh bột","vd: gạo, bánh mì..."))
+        ds.add(OutData(R.drawable.tinhboot,"Thực phẩm tinh bột","vd: gạo, bánh mì..."))
+        ds.add(OutData(R.drawable.tinhboot,"Thực phẩm tinh bột","vd: gạo, bánh mì..."))
+        ds.add(OutData(R.drawable.tinhboot,"Thực phẩm tinh bột","vd: gạo, bánh mì..."))
+        ds.add(OutData(R.drawable.tinhboot,"Thực phẩm tinh bột","vd: gạo, bánh mì..."))
+        return ds
+    }
 
 
 }

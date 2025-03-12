@@ -23,9 +23,9 @@ class RvAdapter( var ds: List<OutData>) : RecyclerView.Adapter<RvAdapter.KhoaTap
 
     override fun onBindViewHolder(holder: KhoaTapViewholder, position: Int) {
         holder.itemView.apply {
-            binding.txtDetail.text=ds[position].detailCourse
-            binding.txtCourse.text=ds[position].nameCourse
-            binding.imgCourse.setImageResource(ds[position].imgCourse)
+            binding.txtDetail.text=ds[position].detail
+            binding.txtCourse.text=ds[position].name
+            binding.imgCourse.setImageResource(ds[position].img)
         }
     }
 
