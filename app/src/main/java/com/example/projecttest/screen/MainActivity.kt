@@ -8,6 +8,7 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.Fragment
 import com.example.projecttest.R
 import com.example.projecttest.databinding.ActivityMainBinding
+import com.example.projecttest.screen.discoverfragment.Discover
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding

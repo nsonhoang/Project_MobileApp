@@ -41,14 +41,13 @@
                 android:layout_marginTop="5dp"
                 android:layout_weight="1"
                 android:textSize="11sp"
-
                 android:textStyle="normal"
                 android:text="12 bài tập" />
         </LinearLayout>
 
         <ImageView
             android:id="@+id/imgCourse"
-            android:layout_width="80dp"
+            android:layout_width="90dp"
             android:layout_height="90dp"
             android:layout_gravity="end"
             android:scaleType="fitXY"
