@@ -69,10 +69,11 @@ class Discover : Fragment() {
     private fun createOutDataListForYou() :MutableList<OutData>{
         val ds = mutableListOf<OutData>()
 
-        ds.add(OutData(R.drawable.gapbung, "Sáu múi", "13 bài"))
-        ds.add(OutData(R.drawable.gapbung, "Cánh tay & vai", "13 bài"))
-        ds.add(OutData(R.drawable.gapbung, "Sáu múi", "13 bài"))
-        ds.add(OutData(R.drawable.gapbung, "Mông & Chân", "13 bài"))
+        ds.add(OutData(R.drawable.gapbung, "Đốt cháy mỡ bụng với HIIT", "14 phút + Người bắt đầu"))
+        ds.add(OutData(R.drawable.chongday, "Giảm mỡ (KHÔNG NHẢY)", "15 phút + Người trung bình"))
+        ds.add(OutData(R.drawable.hittloaibongucxe, "HIIT loại bỏ ngực xệ", "13 phút + Người bắt đầu"))
+        ds.add(OutData(R.drawable.hiit2, "Bài tập cốt lõi HIIT", "14 phút + Người bắt đầu"))
+        ds.add(OutData(R.drawable.diamodpushup, "Làm rộng vai", "13 phút + Trung bình"))
 
         return ds
     }
@@ -85,14 +86,13 @@ class Discover : Fragment() {
     private fun createOutDataListStretching():MutableList<OutData>{
         val ds = mutableListOf<OutData>()
 
+        ds.add(OutData(R.drawable.keodantoanthan,"Kéo dãn toàn thân",""))
+        ds.add(OutData(R.drawable.giamcangvai,"Giảm căng vai",""))
+        ds.add(OutData(R.drawable.khoidongbuoisang,"Khởi động buổi sáng",""))
+        ds.add(OutData(R.drawable.ngungon,"Kéo dài thời gian ngủ",""))
         ds.add(OutData(R.drawable.covagiamcangvai,"Kéo dãn toàn thân",""))
-        ds.add(OutData(R.drawable.covagiamcangvai,"Kéo dãn toàn thân",""))
-        ds.add(OutData(R.drawable.covagiamcangvai,"Kéo dãn toàn thân",""))
-        ds.add(OutData(R.drawable.covagiamcangvai,"Kéo dãn toàn thân",""))
-        ds.add(OutData(R.drawable.covagiamcangvai,"Kéo dãn toàn thân",""))
-        ds.add(OutData(R.drawable.covagiamcangvai,"Kéo dãn toàn thân",""))
-        ds.add(OutData(R.drawable.covagiamcangvai,"Kéo dãn toàn thân",""))
-        ds.add(OutData(R.drawable.covagiamcangvai,"Kéo dãn toàn thân",""))
+        ds.add(OutData(R.drawable.giamdaulung,"Giảm đâu lưng",""))
+        ds.add(OutData(R.drawable.giamdaudaugoi,"Giảm đau đầu gối",""))
 
         return ds
     }
@@ -110,11 +110,12 @@ class Discover : Fragment() {
     private fun createOutDataListview(): MutableList<OutData> {
         val ds = mutableListOf<OutData>()
 
-        ds.add(OutData(R.drawable.tinhboot,"Thực phẩm tinh bột","vd: gạo, bánh mì..."))
-        ds.add(OutData(R.drawable.tinhboot,"Thực phẩm tinh bột","vd: gạo, bánh mì..."))
-        ds.add(OutData(R.drawable.tinhboot,"Thực phẩm tinh bột","vd: gạo, bánh mì..."))
-        ds.add(OutData(R.drawable.tinhboot,"Thực phẩm tinh bột","vd: gạo, bánh mì..."))
-        ds.add(OutData(R.drawable.tinhboot,"Thực phẩm tinh bột","vd: gạo, bánh mì..."))
+        ds.add(OutData(R.drawable.tinhboot,"Thực phẩm tinh bột","Vd: gạo, bánh mì..."))
+        ds.add(OutData(R.drawable.thit,"Thực phẩm Protein động vật","Vd: thịt heo, thit bò..."))
+        ds.add(OutData(R.drawable.proteinthucvat,"Thực phẩm Protein thực vật","Vd: các loại đậu..."))
+        ds.add(OutData(R.drawable.raucuqua,"Thực phẩm từ rau củ quả","Vd: rau cải, cam..."))
+        ds.add(OutData(R.drawable.douong,"Thực phẩm từ đồ uống ","Vd: bia, đồ uống có gas..."))
+
         return ds
     }
 

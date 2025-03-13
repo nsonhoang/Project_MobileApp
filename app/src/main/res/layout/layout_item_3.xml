@@ -11,7 +11,7 @@
         android:id="@+id/cardItem"
         app:cardCornerRadius="20dp"
         android:layout_width="140dp"
-        android:layout_height="112dp"
+        android:layout_height="100dp"
         >
 
         <ImageView
