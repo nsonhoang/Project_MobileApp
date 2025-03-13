@@ -9,7 +9,7 @@ import com.example.projecttest.data.OutData
 import com.example.projecttest.databinding.LayoutItemBinding
 
 
-class RvAdapter( var ds: List<OutData>) : RecyclerView.Adapter<RvAdapter.KhoaTapViewholder>() {
+class RvAdapter( var ds: List<OutData>,val onItemClickListener: OnItemClickListener) : RecyclerView.Adapter<RvAdapter.KhoaTapViewholder>() {
 
     lateinit var binding: LayoutItemBinding
 
@@ -26,6 +26,11 @@ class RvAdapter( var ds: List<OutData>) : RecyclerView.Adapter<RvAdapter.KhoaTap
             binding.txtDetail.text=ds[position].detail
             binding.txtCourse.text=ds[position].name
             binding.imgCourse.setImageResource(ds[position].img)
+
+            // lắng nghe item click chọn
+            holder.itemView.setOnClickListener{
+                onItemClickListener.onItemClick(position)
+            }
         }
     }
 

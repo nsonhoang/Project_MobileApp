@@ -1,5 +1,6 @@
 package com.example.projecttest.screen.discoverfragment
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -11,9 +12,11 @@ import com.example.projecttest.data.OutData
 import com.example.projecttest.R
 import com.example.projecttest.databinding.FragmentDiscoverBinding
 import com.example.projecttest.screen.adapter.LvAdapter
+import com.example.projecttest.screen.adapter.OnItemClickListener
 import com.example.projecttest.screen.adapter.RvAdapter
 import com.example.projecttest.screen.adapter.RvAdapter2
 import com.example.projecttest.screen.adapter.RvAdapter3
+import com.example.projecttest.screen.course.Course
 
 class Discover : Fragment() {
     private lateinit var binding: FragmentDiscoverBinding
@@ -33,9 +36,11 @@ class Discover : Fragment() {
         val ds = createOutDataList()
         setAdapter(ds) // trả về layout ở mục đầu tiên
     }
+
+
     private fun createItemRecycler2(){
-        val listforyou = createOutDataListForYou()
-        setAdapterForYou(listforyou )//trả về layout ở mục dành cho bạn
+        val listForYou = createOutDataListForYou()
+        setAdapterForYou(listForYou )//trả về layout ở mục dành cho bạn
 
     }
     private  fun createItemRecyclerStretching(){
@@ -55,7 +60,13 @@ class Discover : Fragment() {
         return ds
     }
     private fun setAdapter(ds: List<OutData>){
-        val adapter = RvAdapter(ds)
+        val adapter = RvAdapter(ds,object :OnItemClickListener{
+            override fun onItemClick(position: Int) {
+                val selectedItem = ds[position] // Lấy item được nhấn
+                val i = Intent(requireActivity(), Course::class.java)
+                startActivity(i)
+            }
+        })
         binding.recyclerContainor.adapter = adapter // Set adapter cho RecyclerView
         binding.recyclerContainor.layoutManager = GridLayoutManager(requireContext(),2,GridLayoutManager.HORIZONTAL,false) // Sử dụng LinearLayoutManager với hướng ngang
 
