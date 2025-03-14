@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_height="wrap_content"
+    tools:context=".screen.courses.CourseDetail">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:nestedScrollingEnabled="false"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <FrameLayout
+                android:id="@+id/frameTile"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#3F62A3"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp">
+
+                <ImageView
+                    android:id="@+id/img"
+                    android:layout_width="180dp"
+                    android:layout_height="180dp"
+                    android:layout_gravity="end"
+                    android:scaleType="fitXY"
+                    app:srcCompat="@drawable/saumuireal" />
+
+                <TextView
+                    android:id="@+id/txtNameCousse"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="50dp"
+                    android:fontFamily="@font/roboto_bold"
+                    android:text="Đốt cháy mỡ bụng với HITT người bắt đầu"
+                    android:textColor="@color/white"
+                    android:textSize="17sp" />
+
+                <ImageButton
+                    android:id="@+id/btnExit"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:background="@null"
+                    android:contentDescription="@string/couser"
+                    android:scaleType="fitXY"
+                    app:srcCompat="@drawable/baseline_arrow_back_24" />
+
+            </FrameLayout>
+
+            <LinearLayout
+                android:id="@+id/layoutInforCourse"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="20dp"
+                android:gravity="center"
+                android:weightSum="3"
+                android:orientation="horizontal">
+
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="110dp"
+                    android:layout_height="70dp"
+                    app:cardCornerRadius="20sp"
+                    android:layout_weight="1"
+                    app:cardBackgroundColor="#D9D9D9"
+                    >
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:gravity="center"
+                        >
+
+                        <TextView
+                            android:id="@+id/txtLevel"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="15sp"
+                            android:fontFamily="@font/roboto_bold"
+                            android:textColor="@color/black"
+                            android:text="Người bắt dầu " />
+
+                        <TextView
+                            android:id="@+id/textView2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/roboto_bold"
+                            android:textColor="#7E4D4949"
+                            android:textSize="11sp"
+                            android:text="CẤP ĐỘ"
+                            />
+                    </LinearLayout>
+
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="110dp"
+                    android:layout_height="70dp"
+                    app:cardCornerRadius="20sp"
+                    android:layout_weight="1"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    app:cardBackgroundColor="#D9D9D9"
+                    >
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:gravity="center"
+                        >
+
+                        <TextView
+                            android:id="@+id/txtTime"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="15sp"
+                            android:fontFamily="@font/roboto_bold"
+                            android:textColor="@color/black"
+                            android:text="14 phút " />
+
+                        <TextView
+                            android:id="@+id/textView3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="11sp"
+                            android:textColor="#7E4D4949"
+                            android:fontFamily="@font/roboto_bold"
+                            android:text="THỜI LƯỢNG" />
+                    </LinearLayout>
+
+                </androidx.cardview.widget.CardView>
+                <androidx.cardview.widget.CardView
+                    android:layout_width="110dp"
+                    android:layout_height="70dp"
+                    app:cardCornerRadius="20sp"
+                    android:layout_weight="1"
+                    app:cardBackgroundColor="#D9D9D9"
+                    >
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:gravity="center"
+                        >
+
+                        <TextView
+                            android:id="@+id/txtTotal"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="15sp"
+                            android:fontFamily="@font/roboto_bold"
+                            android:textColor="@color/black"
+                            android:text="24 " />
+
+                        <TextView
+                            android:id="@+id/textView4"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="11sp"
+                            android:textColor="#7E4D4949"
+                            android:fontFamily="@font/roboto_bold"
+                            android:text="BÀI TẬP" />
+                    </LinearLayout>
+
+                </androidx.cardview.widget.CardView>
+            </LinearLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="17sp"
+                android:fontFamily="@font/roboto_bold"
+                android:textColor="@color/black"
+                android:paddingLeft="10dp"
+                android:text="Bài tập"
+                />
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/LvCourseDetail"
+                style="@style/LayoutPadding"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+        </LinearLayout>
+
+
+    </ScrollView>
+
+    <Button
+        android:id="@+id/button"
+        android:backgroundTint="#044FFE"
+        android:layout_gravity="center"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:text="Bắt đầu" />
+</LinearLayout>

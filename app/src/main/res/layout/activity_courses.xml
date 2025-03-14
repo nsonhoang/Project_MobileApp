@@ -2,16 +2,16 @@
 
     <ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
     <LinearLayout
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
         android:id="@+id/main"
         android:layout_width="match_parent"
         android:orientation="vertical"
-        android:layout_height="match_parent"
-        tools:context=".screen.course.Course">
+        android:layout_height="wrap_content"
+        tools:context=".screen.courses.Courses">
 
             <FrameLayout
                 android:id="@+id/frameTile"
@@ -21,17 +21,8 @@
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp">
 
-                <ImageButton
-                    android:id="@+id/imageButton"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:background="@null"
-                    android:contentDescription="@string/couser"
-                    android:scaleType="fitXY"
-                    app:srcCompat="@drawable/baseline_arrow_back_24" />
-
                 <ImageView
-                    android:id="@+id/btnExit"
+                    android:id="@+id/img"
                     android:layout_width="180dp"
                     android:layout_height="180dp"
                     android:layout_gravity="end"
@@ -58,6 +49,15 @@
                     android:text="Khi kết hợp tập bụng với HIIT, bạn có đánh tan mỡ thừa nhanh chóng"
                     android:textColor="@color/white"
                     android:textSize="15sp" />
+
+                <ImageButton
+                    android:id="@+id/btnExit"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:background="@null"
+                    android:contentDescription="@string/couser"
+                    android:scaleType="fitXY"
+                    app:srcCompat="@drawable/baseline_arrow_back_24" />
 
             </FrameLayout>
 

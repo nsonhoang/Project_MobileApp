@@ -16,7 +16,8 @@ import com.example.projecttest.screen.adapter.OnItemClickListener
 import com.example.projecttest.screen.adapter.RvAdapter
 import com.example.projecttest.screen.adapter.RvAdapter2
 import com.example.projecttest.screen.adapter.RvAdapter3
-import com.example.projecttest.screen.course.Course
+import com.example.projecttest.screen.courses.CourseDetail
+import com.example.projecttest.screen.courses.Courses
 
 class Discover : Fragment() {
     private lateinit var binding: FragmentDiscoverBinding
@@ -63,7 +64,7 @@ class Discover : Fragment() {
         val adapter = RvAdapter(ds,object :OnItemClickListener{
             override fun onItemClick(position: Int) {
                 val selectedItem = ds[position] // Lấy item được nhấn
-                val i = Intent(requireActivity(), Course::class.java)
+                val i = Intent(requireActivity(), Courses::class.java)
                 startActivity(i)
             }
         })

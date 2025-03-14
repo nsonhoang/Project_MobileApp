@@ -4,12 +4,12 @@ import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
+
 import androidx.recyclerview.widget.RecyclerView
 import com.example.projecttest.data.OutData
 import com.example.projecttest.databinding.LayoutItemCourseBinding
 
-class LvAdapterCourse(var ds: List<OutData>):RecyclerView.Adapter<LvAdapterCourse.CourseViewHolder >() {
+class LvAdapterCourse(var ds: List<OutData>,val onItemClickListener: OnItemClickListener):RecyclerView.Adapter<LvAdapterCourse.CourseViewHolder >() {
 
     private lateinit var binding: LayoutItemCourseBinding
     inner class CourseViewHolder(view: View):RecyclerView.ViewHolder(view)
@@ -23,6 +23,11 @@ class LvAdapterCourse(var ds: List<OutData>):RecyclerView.Adapter<LvAdapterCours
             binding.txtCourseName.text=ds[position].name
             binding.imgCourse.setImageResource(ds[position].img)
             binding.cardBackgroundCourse.setCardBackgroundColor( getBackgroundColor(position))
+
+            //lắng nghe sự kiên click
+            holder.itemView.setOnClickListener{
+                onItemClickListener.onItemClick(position)
+            }
         }
     }
     private fun getBackgroundColor(position: Int): Int {

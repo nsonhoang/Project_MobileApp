@@ -1,38 +1,47 @@
-package com.example.projecttest.screen.course
+package com.example.projecttest.screen.courses
 
+import android.content.Intent
 import android.os.Bundle
+import android.widget.Toast
 
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.projecttest.R
 import com.example.projecttest.data.OutData
-import com.example.projecttest.databinding.ActivityCourseBinding
+import com.example.projecttest.databinding.ActivityCoursesBinding
 import com.example.projecttest.screen.adapter.LvAdapterCourse
+import com.example.projecttest.screen.adapter.OnItemClickListener
 
-class Course : AppCompatActivity() {
-    private lateinit var binding: ActivityCourseBinding
+class Courses : AppCompatActivity() {
+    private lateinit var binding: ActivityCoursesBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        binding = ActivityCourseBinding.inflate(layoutInflater)
+        binding = ActivityCoursesBinding.inflate(layoutInflater)
         setContentView(binding.root)
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-        addEvent()
+        addEvents()
     }
 
-    private fun addEvent() {
+    private fun addEvents() {
         val ds =createListCourse()
         setAdapterCourse(ds)
         setTextForNameCourse() // đặt text cho mục mình nhấn vào mặc định là "SÁU MÚI"
         setTextForTitleCourse() // đặt text title cho mục mình nhấn vào mặc định là "..."
+        setEventClickBack()
+    }
+
+    private fun setEventClickBack() {
+        binding.btnExit.setOnClickListener({
+            finish() // Kết thúc Activity hiện tại
+        })
     }
 
     private fun setTextForTitleCourse() {
@@ -44,9 +53,16 @@ class Course : AppCompatActivity() {
     }
 
     private fun setAdapterCourse(ds :List<OutData>) {
-        val adapter = LvAdapterCourse(ds)
+        val adapter = LvAdapterCourse(ds, object : OnItemClickListener {
+            override fun onItemClick(position: Int) {
+                Toast.makeText(this@Courses, "Item $position", Toast.LENGTH_SHORT).show()
+                val intent =Intent(this@Courses,CourseDetail::class.java)
+                startActivity(intent)
+            }
+        })
         binding.LvCourse.adapter=adapter
         binding.LvCourse.layoutManager= GridLayoutManager(this,1,GridLayoutManager.VERTICAL,false)
+
 
     }
 
@@ -67,5 +83,6 @@ class Course : AppCompatActivity() {
         return ds
 
     }
+
 
 }

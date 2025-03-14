@@ -43,7 +43,7 @@
             android:layout_height="wrap_content"
             android:textSize="11sp"
             android:textColor="#7E4D4949"
-            android:textStyle="bold"
+            android:fontFamily="@font/roboto_bold"
             android:text="14 phút + người bắt dầu" />
     </LinearLayout>
 </LinearLayout>
