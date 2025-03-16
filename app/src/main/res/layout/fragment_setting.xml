@@ -7,7 +7,7 @@
     android:orientation="vertical"
     android:background="@color/white"
     style="@style/LayoutPadding"
-    tools:context=".Setting">
+    tools:context=".screen.Setting">
 
     <!-- TODO: Update blank fragment layout -->
     <TextView
