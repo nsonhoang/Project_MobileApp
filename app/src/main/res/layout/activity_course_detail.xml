@@ -180,7 +180,7 @@
                 android:textSize="17sp"
                 android:fontFamily="@font/roboto_bold"
                 android:textColor="@color/black"
-                android:paddingLeft="10dp"
+                android:paddingStart="10dp"
                 android:text="Bài tập"
                 />
             <androidx.recyclerview.widget.RecyclerView

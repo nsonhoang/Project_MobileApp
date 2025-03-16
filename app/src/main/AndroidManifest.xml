@@ -13,12 +13,14 @@
         android:theme="@style/Theme.Projecttest"
         tools:targetApi="31">
         <activity
+            android:name=".screen.food.Food"
+            android:exported="false" />
+        <activity
             android:name=".screen.courses.Courses"
             android:exported="false" />
         <activity
             android:name=".screen.courses.CourseDetail"
-            android:exported="true"/>
-
+            android:exported="true" />
         <activity
             android:name=".screen.MainActivity"
             android:exported="true"

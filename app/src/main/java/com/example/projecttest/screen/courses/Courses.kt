@@ -31,11 +31,15 @@ class Courses : AppCompatActivity() {
     }
 
     private fun addEvents() {
-        val ds =createListCourse()
-        setAdapterCourse(ds)
+        setListCourse()
         setTextForNameCourse() // đặt text cho mục mình nhấn vào mặc định là "SÁU MÚI"
         setTextForTitleCourse() // đặt text title cho mục mình nhấn vào mặc định là "..."
         setEventClickBack()
+    }
+
+    private fun setListCourse() {
+        val ds =createListCourse()
+        setAdapterCourse(ds)
     }
 
     private fun setEventClickBack() {
