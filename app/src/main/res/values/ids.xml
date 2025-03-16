@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="imgbtnBack" type="id" />
+    <item name="imageView" type="id" />
+    <item name="textView" type="id" />
+    <item name="txtHoTen" type="id" />
+    <item name="txtNamSinh" type="id" />
+    <item name="txtGioiTinh" type="id" />
+    <item name="txtChieuCao" type="id" />
+    <item name="txtCanNang" type="id" />
+    <item name="txtEmail" type="id" />
+</resources>

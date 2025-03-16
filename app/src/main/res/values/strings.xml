@@ -2,4 +2,8 @@
     <string name="app_name">projecttest</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="_0_nph_t">0\nphút</string>
+    <string name="l_ch_s">Lịch sử</string>
+    <string name="t_ng_quan">TỔNG QUAN</string>
+    <string name="th_i_gian_luy_n_t_p">Thời gian đã luyện tập</string>
 </resources>
