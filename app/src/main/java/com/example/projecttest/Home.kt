@@ -1,59 +1,48 @@
 package com.example.projecttest
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.example.projecttest.databinding.FragmentHomeBinding
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [Home.newInstance] factory method to
- * create an instance of this fragment.
- */
-class Home : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+class Home : Fragment(){
+    private lateinit var binding: FragmentHomeBinding
+    private lateinit var adapter: WorkoutAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_home, container, false)
-    }
-
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment Home.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            Home().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
+    ): View {
+        binding = FragmentHomeBinding.inflate(inflater, container, false)
+        val workoutPrograms = listOf(
+            WorkoutProgram("Toàn thân thử thách 7x4", 50, R.drawable.workout1),
+            WorkoutProgram("Thử thách cơ bụng", 30, R.drawable.workout2),
+        )
+        val workoutlist = listOf(
+            KieuBaiTap("Bụng người bắt đầu", "20 PHÚT", 16, R.drawable.bungnewbie, "Người bắt đầu"),
+            KieuBaiTap("Ngực người bắt đầu", "9 PHÚT", 11, R.drawable.ngucnewbie, "Người bắt đầu"),
+            KieuBaiTap("Cánh tay người bắt đầu", "17 PHÚT", 19, R.drawable.taynewbie, "Người bắt đầu"),
+            KieuBaiTap("Chân người bắt đầu", "26 PHÚT", 23, R.drawable.channewbie, "Người bắt đầu"),
+            KieuBaiTap("Bụng trung bình", "22 PHÚT", 18, R.drawable.bungavg, "Trung bình"),
+            KieuBaiTap("Ngực trung bình", "11 PHÚT", 13, R.drawable.ngucavg, "Trung bình"),
+            KieuBaiTap("Cánh tay trung bình", "19 PHÚT", 21, R.drawable.tayavg, "Trung bình"),
+            KieuBaiTap("Chân trung bình", "28 PHÚT", 25, R.drawable.chanavg, "Trung bình"),
+            KieuBaiTap("Bụng nâng cao", "25 PHÚT", 20, R.drawable.bunghight, "Nâng cao"),
+            KieuBaiTap("Ngực nâng cao", "13 PHÚT", 15, R.drawable.nguchight,"Nâng cao"),
+            KieuBaiTap("Cánh tay nâng cao", "21 PHÚT", 23, R.drawable.tayhight, "Nâng cao"),
+            KieuBaiTap("Chân nâng cao", "30 PHÚT", 27, R.drawable.chanhight, "Nâng cao")
+        )
+        adapter = WorkoutAdapter(workoutlist)
+        binding.rvWorkLevel.layoutManager= LinearLayoutManager(requireContext())
+        binding.rvWorkLevel.adapter=adapter
+        val adapter = WorkoutProgramAdapter(workoutPrograms)
+        val rvWorkoutPrograms = binding.rvWorkPrograms
+        rvWorkoutPrograms.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+        rvWorkoutPrograms.adapter = adapter
+        return binding.root
     }
 }
