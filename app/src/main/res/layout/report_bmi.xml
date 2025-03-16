@@ -6,8 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/white"
-    tools:context=".Report" >
+    android:background="@color/white">
 
     <TextView
         android:id="@+id/textView5"
@@ -16,7 +15,7 @@
         android:layout_marginTop="30dp"
         android:textSize="25sp"
         android:textStyle="bold"
-        android:text="@string/t_ng_quan" />
+        android:text="TỔNG QUAN" />
 
     <TextView
         android:id="@+id/textView17"

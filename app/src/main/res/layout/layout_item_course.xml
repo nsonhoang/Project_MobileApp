@@ -24,8 +24,9 @@
                 android:id="@+id/imgCourse"
                 android:layout_width="40dp"
                 android:layout_height="50dp"
-                android:layout_gravity="center"
-                app:srcCompat="@drawable/fire" />
+                android:layout_gravity="center"/>
+<!--                app:srcCompat="@drawable/fire" -->
+
         </androidx.cardview.widget.CardView>
 
         <LinearLayout
