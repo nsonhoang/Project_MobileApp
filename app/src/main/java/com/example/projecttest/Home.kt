@@ -9,9 +9,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.projecttest.databinding.FragmentHomeBinding
 
-class Home : Fragment(){
+class Home : Fragment() {
     private lateinit var binding: FragmentHomeBinding
-    private lateinit var adapter: WorkoutAdapter
+    private lateinit var TWadapter: WorkoutAdapter
+    private lateinit var WPadapter: WorkoutProgramAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -22,7 +23,7 @@ class Home : Fragment(){
             WorkoutProgram("Toàn thân thử thách 7x4", 50, R.drawable.workout1),
             WorkoutProgram("Thử thách cơ bụng", 30, R.drawable.workout2),
         )
-        val workoutlist = listOf(
+        val workoutList = listOf(
             KieuBaiTap("Bụng người bắt đầu", "20 PHÚT", 16, R.drawable.bungnewbie, "Người bắt đầu"),
             KieuBaiTap("Ngực người bắt đầu", "9 PHÚT", 11, R.drawable.ngucnewbie, "Người bắt đầu"),
             KieuBaiTap("Cánh tay người bắt đầu", "17 PHÚT", 19, R.drawable.taynewbie, "Người bắt đầu"),
@@ -32,17 +33,20 @@ class Home : Fragment(){
             KieuBaiTap("Cánh tay trung bình", "19 PHÚT", 21, R.drawable.tayavg, "Trung bình"),
             KieuBaiTap("Chân trung bình", "28 PHÚT", 25, R.drawable.chanavg, "Trung bình"),
             KieuBaiTap("Bụng nâng cao", "25 PHÚT", 20, R.drawable.bunghight, "Nâng cao"),
-            KieuBaiTap("Ngực nâng cao", "13 PHÚT", 15, R.drawable.nguchight,"Nâng cao"),
+            KieuBaiTap("Ngực nâng cao", "13 PHÚT", 15, R.drawable.nguchight, "Nâng cao"),
             KieuBaiTap("Cánh tay nâng cao", "21 PHÚT", 23, R.drawable.tayhight, "Nâng cao"),
             KieuBaiTap("Chân nâng cao", "30 PHÚT", 27, R.drawable.chanhight, "Nâng cao")
         )
-        adapter = WorkoutAdapter(workoutlist)
-        binding.rvWorkLevel.layoutManager= LinearLayoutManager(requireContext())
-        binding.rvWorkLevel.adapter=adapter
-        val adapter = WorkoutProgramAdapter(workoutPrograms)
-        val rvWorkoutPrograms = binding.rvWorkPrograms
-        rvWorkoutPrograms.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-        rvWorkoutPrograms.adapter = adapter
+        TWadapter = WorkoutAdapter(workoutList)
+        binding.rvWorkLevel.apply {
+            layoutManager = LinearLayoutManager(requireContext())
+            adapter = TWadapter
+        }
+        WPadapter = WorkoutProgramAdapter(workoutPrograms)
+        binding.rvWorkPrograms.apply {
+            layoutManager = LinearLayoutManager(requireContext())
+            adapter = WPadapter
+        }
         return binding.root
     }
 }
