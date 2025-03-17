@@ -1,70 +1,73 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
-    android:orientation="vertical"
     android:layout_height="match_parent"
     tools:context=".screen.food.Food">
 
 
-            <FrameLayout
-                android:id="@+id/frameTile"
-                android:layout_width="match_parent"
-                android:layout_height="180dp"
-                android:background="#3F62A3"
-                >
+    <FrameLayout
+        android:id="@+id/frameTile"
+        android:layout_width="match_parent"
+        android:layout_height="180dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:background="#3F62A3">
 
-                <ImageView
-                    android:id="@+id/img"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="end"
-                    android:scaleType="fitXY"
-                    app:srcCompat="@drawable/tinhboot" />
+        <ImageView
+            android:id="@+id/img"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="end"
+            android:scaleType="fitXY"
+            app:srcCompat="@drawable/tinhboot" />
 
-                <TextView
-                    android:id="@+id/txtNameTypeFood"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="50dp"
-                    android:fontFamily="@font/roboto_bold"
-                    android:text="Thực Phẩm Tinh Bột"
-                    android:textColor="@color/white"
-                    style="@style/SizeTextLabel" />
+        <TextView
+            android:id="@+id/txtNameTypeFood"
+            style="@style/SizeTextLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="50dp"
+            android:fontFamily="@font/roboto_bold"
+            android:text="Thực Phẩm Tinh Bột"
+            android:textColor="@color/white" />
 
-                <ImageButton
-                    android:id="@+id/btnExit"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:background="@null"
-                    android:contentDescription="@string/food"
-                    android:scaleType="fitXY"
-                    app:srcCompat="@drawable/baseline_arrow_back_24" />
+        <ImageButton
+            android:id="@+id/btnExit"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@null"
+            android:contentDescription="@string/food"
+            android:scaleType="fitXY"
+            app:srcCompat="@drawable/baseline_arrow_back_24" />
 
-            </FrameLayout>
+    </FrameLayout>
 
-            <TextView
-                android:id="@+id/textFood"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                style="@style/SizeTextLabelSmall"
-                android:paddingLeft="10dp"
-                android:fontFamily="@font/roboto_bold"
-                android:contentDescription="@string/food"
-                android:text="Thực phẩm" />
+    <TextView
+        android:id="@+id/textFood"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:contentDescription="@string/food"
+        app:layout_constraintTop_toBottomOf="@+id/frameTile"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:fontFamily="@font/roboto_bold"
+        android:paddingLeft="10dp"
+        android:text="Thực phẩm" />
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/LvFood"
-                style="@style/LayoutPadding"
-                android:layout_marginTop="10dp"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1" />
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/LvFood"
+        android:layout_width="match_parent"
+        app:layout_constraintTop_toBottomOf="@+id/textFood"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        style="@style/LayoutPadding"
+        android:layout_height="0dp"
+        android:layout_marginTop="10dp" />
 
 
-
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
