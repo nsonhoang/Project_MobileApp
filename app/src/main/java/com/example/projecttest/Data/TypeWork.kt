@@ -1,9 +1,9 @@
-package com.example.projecttest
+package com.example.projecttest.Data
 
 data class KieuBaiTap(
     val tenkhoatap : String,
     val thoigian : String,
-    val baitap : Int,
+    val baitap : String,
     val imgbaitap : Int,
-    val capdo : String
+    val capdo : String,
 )

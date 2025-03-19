@@ -1,4 +1,4 @@
-package com.example.projecttest
+package com.example.projecttest.Data
 
 data class WorkoutProgram (
     val tenbaitap: String,
