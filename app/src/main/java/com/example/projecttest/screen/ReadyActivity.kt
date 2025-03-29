@@ -1,4 +1,4 @@
-package com.example.projecttest
+package com.example.projecttest.screen
 
 import android.content.Intent
 import android.os.Bundle
@@ -8,6 +8,7 @@ import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import com.example.projecttest.R
 
 class ReadyActivity : AppCompatActivity(){
     private lateinit var tvCountdownReady: TextView

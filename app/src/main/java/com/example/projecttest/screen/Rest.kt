@@ -1,4 +1,4 @@
-package com.example.projecttest
+package com.example.projecttest.screen
 
 import android.content.Intent
 import android.os.Bundle
@@ -6,6 +6,8 @@ import android.os.CountDownTimer
 import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import com.example.projecttest.R
+import com.example.projecttest.screen.Training
 
 class Rest: AppCompatActivity(){
     private lateinit var countDownTimer: CountDownTimer
@@ -15,9 +17,9 @@ class Rest: AppCompatActivity(){
         super.onCreate(savedInstanceState)
         setContentView(R.layout.rest_activity)
 
-        val tvTimer: TextView= findViewById(R.id.tvTimer)
-        val btnAddTime : Button= findViewById(R.id.btnAddTime)
-        val btnSkip : Button= findViewById(R.id.btnSkip)
+        val tvTimer: TextView = findViewById(R.id.tvTimer)
+        val btnAddTime : Button = findViewById(R.id.btnAddTime)
+        val btnSkip : Button = findViewById(R.id.btnSkip)
 
         startCountdown(tvTimer)
 

@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.projecttest.databinding.FragmentDiscoverBinding
+import com.example.projecttest.screen.Adapter.RvAdapter
 
 class Discover : Fragment() {
     private lateinit var binding: FragmentDiscoverBinding

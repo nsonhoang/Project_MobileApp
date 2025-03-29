@@ -1,9 +1,10 @@
-package com.example.projecttest
+package com.example.projecttest.screen.Adapter
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.projecttest.OutData
 import com.example.projecttest.databinding.LayoutRecyclerItemBinding
 
 lateinit var binding: LayoutRecyclerItemBinding

@@ -1,4 +1,4 @@
-package com.example.projecttest
+package com.example.projecttest.screen
 
 import android.content.Intent
 import android.net.Uri
@@ -9,6 +9,7 @@ import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import com.example.projecttest.R
 
 class Training : AppCompatActivity(){
     private lateinit var tvTimer: TextView
@@ -33,7 +34,8 @@ class Training : AppCompatActivity(){
             finish()
         }
         btnVideo.setOnClickListener {
-            val youtubeIntent = Intent(Intent.ACTION_VIEW, Uri.parse("https://www.youtube.com/watch?v=VIDEO_ID"))
+            val youtubeIntent =
+                Intent(Intent.ACTION_VIEW, Uri.parse("https://www.youtube.com/watch?v=VIDEO_ID"))
             startActivity(youtubeIntent)
         }
         btnPause.setOnClickListener {

@@ -1,4 +1,4 @@
-package com.example.projecttest
+package com.example.projecttest.screen
 
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
@@ -6,8 +6,12 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.Fragment
+import com.example.projecttest.screen.Adapter.WorkoutProgramAdapter
+import com.example.projecttest.Discover
+import com.example.projecttest.R
+import com.example.projecttest.Report
+import com.example.projecttest.Setting
 import com.example.projecttest.databinding.ActivityMainBinding
-import com.example.projecttest.Adapter.WorkoutProgramAdapter
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
