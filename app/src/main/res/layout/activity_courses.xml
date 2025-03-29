@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+    <ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/main"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <FrameLayout
+            android:id="@+id/frameTile"
+            android:layout_width="match_parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_height="180dp"
+            android:background="#3F62A3"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp">
+
+            <ImageView
+                android:id="@+id/img"
+                android:layout_width="180dp"
+                android:layout_height="180dp"
+                android:layout_gravity="end"
+                android:scaleType="fitXY"
+                app:srcCompat="@drawable/saumuireal" />
+
+            <TextView
+                android:id="@+id/txtNameCousse"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="50dp"
+                android:fontFamily="@font/roboto_bold"
+                android:text="SÁU MÚI"
+                android:textColor="@color/white"
+                android:textSize="17sp" />
+
+            <TextView
+                android:id="@+id/txtTitleCourse"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="80dp"
+                android:text="Khi kết hợp tập bụng với HIIT, bạn có đánh tan mỡ thừa nhanh chóng"
+                android:textColor="@color/white"
+                android:textSize="15sp" />
+
+            <ImageButton
+                android:id="@+id/btnExit"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@null"
+                android:contentDescription="@string/couser"
+                android:scaleType="fitXY"
+                app:srcCompat="@drawable/baseline_arrow_back_24" />
+
+        </FrameLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/LvCourse"
+            android:layout_width="match_parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/frameTile"
+            style="@style/LayoutPadding"
+            android:layout_height="0dp" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+

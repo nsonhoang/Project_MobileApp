@@ -9,8 +9,9 @@ import androidx.fragment.app.Fragment
 import com.example.projecttest.screen.Adapter.WorkoutProgramAdapter
 import com.example.projecttest.Discover
 import com.example.projecttest.R
-import com.example.projecttest.Report
-import com.example.projecttest.Setting
+import com.example.projecttest.screen.Report
+import com.example.projecttest.screen.Home
+import com.example.projecttest.screen.Setting
 import com.example.projecttest.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {

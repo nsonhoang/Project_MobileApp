@@ -6,12 +6,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.projecttest.screen.Adapter.WorkoutAdapter
-import com.example.projecttest.screen.Adapter.WorkoutProgramAdapter
+import com.example.projecttest.databinding.FragmentHomeBinding
 import com.example.projecttest.Data.KieuBaiTap
 import com.example.projecttest.Data.WorkoutProgram
+import com.example.projecttest.screen.Adapter.WorkoutAdapter
 import com.example.projecttest.R
-import com.example.projecttest.databinding.FragmentHomeBinding
+import com.example.projecttest.screen.Adapter.WorkoutProgramAdapter
 
 class Home : Fragment() {
     private lateinit var binding: FragmentHomeBinding
@@ -28,71 +28,17 @@ class Home : Fragment() {
             WorkoutProgram("Thử thách cơ bụng", 30, R.drawable.workout2),
         )
         val workoutList = listOf(
-            KieuBaiTap(
-                "Bụng người bắt đầu",
-                "20 PHÚT",
-                "16 Bài Tập",
-                R.drawable.bungnewbie,
-                "Người bắt đầu"
-            ),
-            KieuBaiTap(
-                "Ngực người bắt đầu",
-                "9 PHÚT",
-                "11 Bài Tập",
-                R.drawable.ngucnewbie,
-                "Người bắt đầu"
-            ),
-            KieuBaiTap(
-                "Cánh tay người bắt đầu",
-                "17 PHÚT",
-                "19 Bài Tập",
-                R.drawable.taynewbie,
-                "Người bắt đầu"
-            ),
-            KieuBaiTap(
-                "Chân người bắt đầu",
-                "26 PHÚT",
-                "23 Bài Tập",
-                R.drawable.channewbie,
-                "Người bắt đầu"
-            ),
-            KieuBaiTap(
-                "Bụng trung bình",
-                "22 PHÚT",
-                "12 Bài Tập",
-                R.drawable.bungavg,
-                "Trung bình"
-            ),
-            KieuBaiTap(
-                "Ngực trung bình",
-                "11 PHÚT",
-                "14 Bài Tập",
-                R.drawable.ngucavg,
-                "Trung bình"
-            ),
-            KieuBaiTap(
-                "Cánh tay trung bình",
-                "19 PHÚT",
-                "12 Bài Tập",
-                R.drawable.tayavg,
-                "Trung bình"
-            ),
-            KieuBaiTap(
-                "Chân trung bình",
-                "28 PHÚT",
-                "14 Bài Tập",
-                R.drawable.chanavg,
-                "Trung bình"
-            ),
+            KieuBaiTap("Bụng người bắt đầu", "20 PHÚT", "16 Bài Tập", R.drawable.bungnewbie, "Người bắt đầu"),
+            KieuBaiTap("Ngực người bắt đầu", "9 PHÚT", "11 Bài Tập", R.drawable.ngucnewbie, "Người bắt đầu"),
+            KieuBaiTap("Cánh tay người bắt đầu", "17 PHÚT", "19 Bài Tập", R.drawable.taynewbie, "Người bắt đầu"),
+            KieuBaiTap("Chân người bắt đầu", "26 PHÚT", "23 Bài Tập", R.drawable.channewbie, "Người bắt đầu"),
+            KieuBaiTap("Bụng trung bình", "22 PHÚT", "12 Bài Tập", R.drawable.bungavg, "Trung bình"),
+            KieuBaiTap("Ngực trung bình", "11 PHÚT", "14 Bài Tập", R.drawable.ngucavg, "Trung bình"),
+            KieuBaiTap("Cánh tay trung bình", "19 PHÚT", "12 Bài Tập", R.drawable.tayavg, "Trung bình"),
+            KieuBaiTap("Chân trung bình", "28 PHÚT", "14 Bài Tập", R.drawable.chanavg, "Trung bình"),
             KieuBaiTap("Bụng nâng cao", "25 PHÚT", "18 Bài Tập", R.drawable.bunghight, "Nâng cao"),
             KieuBaiTap("Ngực nâng cao", "13 PHÚT", "15 Bài Tập", R.drawable.nguchight, "Nâng cao"),
-            KieuBaiTap(
-                "Cánh tay nâng cao",
-                "21 PHÚT",
-                "23 Bài Tập",
-                R.drawable.tayhight,
-                "Nâng cao"
-            ),
+            KieuBaiTap("Cánh tay nâng cao", "21 PHÚT", "23 Bài Tập", R.drawable.tayhight, "Nâng cao"),
             KieuBaiTap("Chân nâng cao", "30 PHÚT", "27 Bài Tập", R.drawable.chanhight, "Nâng cao")
         )
         TWadapter = WorkoutAdapter(workoutList)
@@ -102,8 +48,7 @@ class Home : Fragment() {
         }
         WPadapter = WorkoutProgramAdapter(workoutPrograms)
         binding.rvWorkPrograms.apply {
-            layoutManager =
-                LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+            layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL,false)
             adapter = WPadapter
         }
         return binding.root

@@ -1,13 +1,13 @@
 package com.example.projecttest
 
 import android.os.Bundle
+import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.projecttest.databinding.FragmentDiscoverBinding
-import com.example.projecttest.screen.Adapter.RvAdapter
 
 class Discover : Fragment() {
     private lateinit var binding: FragmentDiscoverBinding
