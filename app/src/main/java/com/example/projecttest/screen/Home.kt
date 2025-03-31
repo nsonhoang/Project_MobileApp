@@ -1,17 +1,21 @@
 package com.example.projecttest.screen
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.LinearLayout
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.projecttest.databinding.FragmentHomeBinding
 import com.example.projecttest.Data.KieuBaiTap
 import com.example.projecttest.Data.WorkoutProgram
-import com.example.projecttest.screen.Adapter.WorkoutAdapter
+import com.example.projecttest.screen.adapter.WorkoutAdapter
 import com.example.projecttest.R
-import com.example.projecttest.screen.Adapter.WorkoutProgramAdapter
+import com.example.projecttest.screen.adapter.WorkoutProgramAdapter
+import com.example.projecttest.screen.courses.CourseDetail
 
 class Home : Fragment() {
     private lateinit var binding: FragmentHomeBinding
@@ -51,6 +55,24 @@ class Home : Fragment() {
             layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL,false)
             adapter = WPadapter
         }
+        val chuyenThuThach: ImageView= binding.root.findViewById(R.id.ivThumbnail)
+        chuyenThuThach.setOnClickListener {
+            switchCourseDetail()
+        }
+        val chuyenMucDo: ImageView = binding.root.findViewById(R.id.imgWorkout)
+        chuyenMucDo.setOnClickListener {
+            switchCourseDetail()
+        }
+        val chuyenLich: LinearLayout= binding.root.findViewById(R.id.training_info)
+        chuyenLich.setOnClickListener {
+            switchLich()
+        }
         return binding.root
+    }
+    private fun switchCourseDetail(){
+        val intent= Intent(requireContext(), CourseDetail::class.java)
+    }
+    private fun switchLich(){
+//        val intent = Intent(requireContext(), Lich::class.java)
     }
 }
