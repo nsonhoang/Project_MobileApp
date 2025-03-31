@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.projecttest.Data.KieuBaiTap
+import com.example.projecttest.data.KieuBaiTap
 import com.example.projecttest.R
 
 class WorkoutAdapter(private val workouts: List<KieuBaiTap>):

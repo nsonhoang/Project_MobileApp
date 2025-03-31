@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.projecttest.databinding.ItemWorkoutProgramBinding
-import com.example.projecttest.Data.WorkoutProgram
+import com.example.projecttest.data.WorkoutProgram
 
 class WorkoutProgramAdapter(
     private var programs: List<WorkoutProgram>
