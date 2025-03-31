@@ -16,8 +16,6 @@ import com.example.projecttest.screen.adapter.OnItemClickListener
 import com.example.projecttest.screen.adapter.RvAdapter
 import com.example.projecttest.screen.adapter.RvAdapter2
 import com.example.projecttest.screen.adapter.RvAdapter3
-import com.example.projecttest.screen.courses.CourseDetail
-import com.example.projecttest.screen.courses.Courses
 import com.example.projecttest.screen.food.Food
 
 class Discover : Fragment() {
@@ -62,13 +60,7 @@ class Discover : Fragment() {
         return ds
     }
     private fun setAdapter(ds: List<OutData>){
-        val adapter = RvAdapter(ds,object :OnItemClickListener{
-            override fun onItemClick(position: Int) {
-                val selectedItem = ds[position] // Lấy item được nhấn
-                val i = Intent(requireActivity(), Courses::class.java)
-                startActivity(i)
-            }
-        })
+        val adapter = RvAdapter(ds)
         binding.recyclerContainor.adapter = adapter // Set adapter cho RecyclerView
         binding.recyclerContainor.layoutManager = GridLayoutManager(requireContext(),2,GridLayoutManager.HORIZONTAL,false) // Sử dụng LinearLayoutManager với hướng ngang
 
