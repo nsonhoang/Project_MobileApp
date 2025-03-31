@@ -1,3 +1,4 @@
+
 package com.example.projecttest.screen.adapter
 
 
@@ -9,7 +10,7 @@ import com.example.projecttest.data.OutData
 import com.example.projecttest.databinding.LayoutItemBinding
 
 
-class RvAdapter( var ds: List<OutData>,val onItemClickListener: OnItemClickListener) : RecyclerView.Adapter<RvAdapter.KhoaTapViewholder>() {
+class RvAdapter(var ds: List<OutData>) : RecyclerView.Adapter<RvAdapter.KhoaTapViewholder>() {
 
     lateinit var binding: LayoutItemBinding
 

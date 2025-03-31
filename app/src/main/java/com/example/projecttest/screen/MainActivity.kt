@@ -7,13 +7,12 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.Fragment
 import com.example.projecttest.screen.adapter.WorkoutProgramAdapter
+import com.example.projecttest.Discover
 import com.example.projecttest.R
 import com.example.projecttest.databinding.ActivityMainBinding
-import com.example.projecttest.screen.discoverfragment.Discover
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
-    private lateinit var workoutProgramAdapter: WorkoutProgramAdapter
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -42,6 +41,7 @@ class MainActivity : AppCompatActivity() {
             true
         }
     }
+
     private fun replaceFragment(fragment: Fragment){
         val fragmentManager = supportFragmentManager
         val fragmentTransaction = fragmentManager.beginTransaction()
