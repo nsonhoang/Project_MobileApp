@@ -22,7 +22,6 @@ class Training : AppCompatActivity(){
         setContentView(R.layout.activity_wait)
 
         val btnBack : ImageView = findViewById(R.id.btnBack)
-        val btnVideo : ImageView = findViewById(R.id.btnVideo)
         val btnPrevious : ImageButton = findViewById(R.id.btnPrevious)
         val btnSkip : ImageButton = findViewById(R.id.btnSkip)
         tvTimer = findViewById(R.id.tvTimer)
@@ -32,11 +31,6 @@ class Training : AppCompatActivity(){
 
         btnBack.setOnClickListener {
             finish()
-        }
-        btnVideo.setOnClickListener {
-            val youtubeIntent =
-                Intent(Intent.ACTION_VIEW, Uri.parse("https://www.youtube.com/watch?v=VIDEO_ID"))
-            startActivity(youtubeIntent)
         }
         btnPause.setOnClickListener {
             if (countDownTimer != null) {
