@@ -9,7 +9,6 @@ import com.example.projecttest.R
 
 
 class Setting : Fragment() {
-    // TODO: Rename and change types of parameters
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
