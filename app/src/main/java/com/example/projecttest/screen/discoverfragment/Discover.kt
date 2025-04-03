@@ -32,6 +32,7 @@ class Discover : Fragment() {
         createListView()//dem kalo
         return binding.root
     }
+
     private fun createItemRecycler(){
         val ds = createOutDataList()
         setAdapter(ds) // trả về layout ở mục đầu tiên
@@ -41,8 +42,8 @@ class Discover : Fragment() {
     private fun createItemRecycler2(){
         val listForYou = createOutDataListForYou()
         setAdapterForYou(listForYou )//trả về layout ở mục dành cho bạn
-
     }
+
     private  fun createItemRecyclerStretching(){
         val list = createOutDataListStretching()
         setAdapterStretching(list) // tạo layout ở mục khởi đông
@@ -59,6 +60,7 @@ class Discover : Fragment() {
 
         return ds
     }
+
     private fun setAdapter(ds: List<OutData>){
         val adapter = RvAdapter(ds, object : OnItemClickListener{
             override fun onItemClick(position: Int) {
@@ -71,6 +73,7 @@ class Discover : Fragment() {
         binding.recyclerContainor.layoutManager = GridLayoutManager(requireContext(),2,GridLayoutManager.HORIZONTAL,false) // Sử dụng LinearLayoutManager với hướng ngang
 
     }
+
     private fun setAdapterForYou(ds: List<OutData>){
         val adapter = RvAdapter2(ds)
         binding.recyclerForYou.adapter = adapter // Set adapter cho RecyclerView
@@ -88,6 +91,7 @@ class Discover : Fragment() {
 
         return ds
     }
+
     private fun setAdapterStretching(ds: List<OutData>){
         val adapter = RvAdapter3(ds)
         binding.recyclerStretching.adapter =adapter
@@ -107,6 +111,7 @@ class Discover : Fragment() {
 
         return ds
     }
+
     private fun createListView(){
         val ds = createOutDataListview()
         setAdapterListView(ds)
@@ -135,6 +140,4 @@ class Discover : Fragment() {
 
         return ds
     }
-
-
 }
