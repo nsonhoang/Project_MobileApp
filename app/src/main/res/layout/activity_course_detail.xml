@@ -1,28 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
-    android:orientation="vertical"
     android:layout_height="wrap_content"
+    android:orientation="vertical"
     tools:context=".screen.courses.CourseDetail">
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:nestedScrollingEnabled="false"
-        android:layout_weight="1">
+        android:layout_height="match_parent"
+        android:nestedScrollingEnabled="false">
 
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical" >
+            >
 
             <FrameLayout
                 android:id="@+id/frameTile"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
                 android:background="#3F62A3"
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp">
@@ -57,147 +59,164 @@
 
             </FrameLayout>
 
-            <LinearLayout
-                android:id="@+id/layoutInforCourse"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:padding="20dp"
-                android:gravity="center"
-                android:weightSum="3"
-                android:orientation="horizontal">
 
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardView1"
+                android:layout_width="110dp"
+                android:layout_height="70dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
+                android:layout_weight="1"
+                app:cardBackgroundColor="#D9D9D9"
+                app:layout_constraintHorizontal_chainStyle="packed"
+                app:cardCornerRadius="20sp"
+                app:layout_constraintBottom_toTopOf="@+id/txtCourse"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toLeftOf="@id/cardView2"
+                app:layout_constraintTop_toBottomOf="@id/frameTile">
 
-                <androidx.cardview.widget.CardView
-                    android:layout_width="110dp"
-                    android:layout_height="70dp"
-                    app:cardCornerRadius="20sp"
-                    android:layout_weight="1"
-                    app:cardBackgroundColor="#D9D9D9"
-                    >
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="vertical"
-                        android:gravity="center"
-                        >
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:orientation="vertical">
 
-                        <TextView
-                            android:id="@+id/txtLevel"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textSize="15sp"
-                            android:fontFamily="@font/roboto_bold"
-                            android:textColor="@color/black"
-                            android:text="Người bắt dầu " />
+                    <TextView
+                        android:id="@+id/txtLevel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/roboto_bold"
+                        android:text="Người bắt dầu "
+                        android:textColor="@color/black"
+                        android:textSize="15sp" />
 
-                        <TextView
-                            android:id="@+id/textView2"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="@font/roboto_bold"
-                            android:textColor="#7E4D4949"
-                            android:textSize="11sp"
-                            android:text="CẤP ĐỘ"
-                            />
-                    </LinearLayout>
+                    <TextView
+                        android:id="@+id/textView2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/roboto_bold"
+                        android:text="CẤP ĐỘ"
+                        android:textColor="#7E4D4949"
+                        android:textSize="11sp" />
+                </LinearLayout>
 
-                </androidx.cardview.widget.CardView>
+            </androidx.cardview.widget.CardView>
 
                 <androidx.cardview.widget.CardView
+                    android:id="@id/cardView2"
                     android:layout_width="110dp"
                     android:layout_height="70dp"
-                    app:cardCornerRadius="20sp"
-                    android:layout_weight="1"
+                    app:layout_constraintTop_toBottomOf="@+id/frameTile"
+                    app:layout_constraintLeft_toRightOf="@+id/cardView1"
+                    app:layout_constraintRight_toLeftOf="@id/cardView3"
+                    app:layout_constraintBottom_toTopOf="@+id/txtCourse"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
+                    android:layout_weight="1"
                     app:cardBackgroundColor="#D9D9D9"
-                    >
+                    app:cardCornerRadius="20sp">
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:orientation="vertical"
                         android:gravity="center"
-                        >
+                        android:orientation="vertical">
 
                         <TextView
                             android:id="@+id/txtTime"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textSize="15sp"
                             android:fontFamily="@font/roboto_bold"
+                            android:text="14 phút "
                             android:textColor="@color/black"
-                            android:text="14 phút " />
+                            android:textSize="15sp" />
 
                         <TextView
                             android:id="@+id/textView3"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textSize="11sp"
-                            android:textColor="#7E4D4949"
                             android:fontFamily="@font/roboto_bold"
-                            android:text="THỜI LƯỢNG" />
+                            android:text="THỜI LƯỢNG"
+                            android:textColor="#7E4D4949"
+                            android:textSize="11sp" />
                     </LinearLayout>
 
                 </androidx.cardview.widget.CardView>
+
                 <androidx.cardview.widget.CardView
+                    android:id="@+id/cardView3"
                     android:layout_width="110dp"
                     android:layout_height="70dp"
-                    app:cardCornerRadius="20sp"
                     android:layout_weight="1"
+                    app:layout_constraintTop_toBottomOf="@id/frameTile"
+                    app:layout_constraintLeft_toRightOf="@+id/cardView2"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintBottom_toTopOf="@+id/txtCourse"
                     app:cardBackgroundColor="#D9D9D9"
-                    >
+                    app:cardCornerRadius="20sp">
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:orientation="vertical"
                         android:gravity="center"
-                        >
+                        android:orientation="vertical">
 
                         <TextView
                             android:id="@+id/txtTotal"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textSize="15sp"
                             android:fontFamily="@font/roboto_bold"
+                            android:text="24 "
                             android:textColor="@color/black"
-                            android:text="24 " />
+                            android:textSize="15sp" />
 
                         <TextView
                             android:id="@+id/textView4"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textSize="11sp"
-                            android:textColor="#7E4D4949"
                             android:fontFamily="@font/roboto_bold"
-                            android:text="BÀI TẬP" />
+                            android:text="BÀI TẬP"
+                            android:textColor="#7E4D4949"
+                            android:textSize="11sp" />
                     </LinearLayout>
 
                 </androidx.cardview.widget.CardView>
-            </LinearLayout>
+
+
             <TextView
+                android:id="@+id/txtCourse"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="17sp"
                 android:fontFamily="@font/roboto_bold"
-                android:textColor="@color/black"
+                app:layout_constraintTop_toBottomOf="@+id/cardView2"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintBottom_toTopOf="@+id/LvCourseDetail"
                 android:paddingLeft="10dp"
                 android:text="Bài tập"
-                />
+                android:textColor="@color/black"
+                android:textSize="17sp" />
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/LvCourseDetail"
                 style="@style/LayoutPadding"
+                android:layout_marginBottom="50dp"
+                app:layout_constraintTop_toBottomOf="@+id/txtCourse"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
-        </LinearLayout>
+                android:layout_height="match_parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
 
     </ScrollView>
 
     <Button
         android:id="@+id/button"
-        android:backgroundTint="#044FFE"
-        android:layout_gravity="center"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:backgroundTint="#044FFE"
         android:text="Bắt đầu" />
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

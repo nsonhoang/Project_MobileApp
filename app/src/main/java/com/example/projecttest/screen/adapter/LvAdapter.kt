@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.projecttest.data.OutData
 import com.example.projecttest.databinding.ListviewItemBinding
 
-class LvAdapter(var ds:List<OutData>):RecyclerView.Adapter<LvAdapter.ListViewHolder>() {
+class LvAdapter(var ds:List<OutData>,val onItemClick: OnItemClickListener):RecyclerView.Adapter<LvAdapter.ListViewHolder>() {
 
     private lateinit var binding: ListviewItemBinding
     open inner class ListViewHolder(itemView: View):RecyclerView.ViewHolder(itemView)
@@ -26,6 +26,10 @@ class LvAdapter(var ds:List<OutData>):RecyclerView.Adapter<LvAdapter.ListViewHol
             binding.txtEx.text=ds[position].detail
             binding.txtFoodName.text=ds[position].name
             binding.imgFood.setImageResource(ds[position].img)
+
+            holder.itemView.setOnClickListener {
+                onItemClick.onItemClick(position)
+            }
         }
     }
 }

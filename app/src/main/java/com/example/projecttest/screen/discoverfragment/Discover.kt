@@ -18,6 +18,7 @@ import com.example.projecttest.screen.adapter.RvAdapter2
 import com.example.projecttest.screen.adapter.RvAdapter3
 import com.example.projecttest.screen.courses.CourseDetail
 import com.example.projecttest.screen.courses.Courses
+import com.example.projecttest.screen.food.Food
 
 class Discover : Fragment() {
     private lateinit var binding: FragmentDiscoverBinding
@@ -30,7 +31,7 @@ class Discover : Fragment() {
         createItemRecycler() // mục đầu tiên
         createItemRecycler2() // mục dành cho bạn
         createItemRecyclerStretching() //mục giãn cơ
-        createListView()
+        createListView()//dem kalo
         return binding.root
     }
     private fun createItemRecycler(){
@@ -114,7 +115,13 @@ class Discover : Fragment() {
     }
 
     private fun setAdapterListView(ds: List<OutData>) {
-        val adapter = LvAdapter(ds)
+        val adapter = LvAdapter(ds,object :OnItemClickListener{
+            override fun onItemClick(position: Int) {
+                val i = Intent(requireActivity(),Food::class.java)
+
+                startActivity(i)
+            }
+        })
         binding.lvCalo.adapter = adapter
         binding.lvCalo.layoutManager = GridLayoutManager(requireContext(),1,GridLayoutManager.VERTICAL,false)
     }

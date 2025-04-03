@@ -31,11 +31,15 @@ class Courses : AppCompatActivity() {
     }
 
     private fun addEvents() {
-        val ds =createListCourse()
-        setAdapterCourse(ds)
+        setListCourse()
         setTextForNameCourse() // đặt text cho mục mình nhấn vào mặc định là "SÁU MÚI"
         setTextForTitleCourse() // đặt text title cho mục mình nhấn vào mặc định là "..."
         setEventClickBack()
+    }
+
+    private fun setListCourse() {
+        val ds =createListCourse()
+        setAdapterCourse(ds)
     }
 
     private fun setEventClickBack() {
@@ -69,15 +73,15 @@ class Courses : AppCompatActivity() {
     private fun createListCourse():MutableList<OutData> {
         val ds  = mutableListOf<OutData>()
 
-//        ds.add(OutData(R.drawable.fire,"Đốt cháy mỡ bụng với HIIT người mới bắt đầu","14 phút + Người bắt đầu"))
-//        ds.add(OutData(R.drawable.fire,"Đốt cháy mỡ bụng với HIIT người mới bắt đầu","14 phút + Người bắt đầu"))
-//        ds.add(OutData(R.drawable.fire,"Đốt cháy mỡ bụng với HIIT người mới bắt đầu","14 phút + Người bắt đầu"))
-//        ds.add(OutData(R.drawable.fire,"Đốt cháy mỡ bụng với HIIT người mới bắt đầu","14 phút + Người bắt đầu"))
-//        ds.add(OutData(R.drawable.fire,"Đốt cháy mỡ bụng với HIIT người mới bắt đầu","14 phút + Người bắt đầu"))
-//        ds.add(OutData(R.drawable.fire,"Đốt cháy mỡ bụng với HIIT người mới bắt đầu","14 phút + Người bắt đầu"))
-//        ds.add(OutData(R.drawable.fire,"Đốt cháy mỡ bụng với HIIT người mới bắt đầu","14 phút + Người bắt đầu"))
-//        ds.add(OutData(R.drawable.fire,"Đốt cháy mỡ bụng với HIIT người mới bắt đầu","14 phút + Người bắt đầu"))
-//        ds.add(OutData(R.drawable.fire,"Đốt cháy mỡ bụng với HIIT người mới bắt đầu","14 phút + Người bắt đầu"))
+        ds.add(OutData(R.drawable.fire,"Đốt cháy mỡ bụng với HIIT người mới bắt đầu","14 phút + Người bắt đầu"))
+        ds.add(OutData(R.drawable.fire,"Đốt cháy mỡ bụng với HIIT người mới bắt đầu","14 phút + Người bắt đầu"))
+        ds.add(OutData(R.drawable.fire,"Đốt cháy mỡ bụng với HIIT người mới bắt đầu","14 phút + Người bắt đầu"))
+        ds.add(OutData(R.drawable.fire,"Đốt cháy mỡ bụng với HIIT người mới bắt đầu","14 phút + Người bắt đầu"))
+        ds.add(OutData(R.drawable.fire,"Đốt cháy mỡ bụng với HIIT người mới bắt đầu","14 phút + Người bắt đầu"))
+        ds.add(OutData(R.drawable.fire,"Đốt cháy mỡ bụng với HIIT người mới bắt đầu","14 phút + Người bắt đầu"))
+        ds.add(OutData(R.drawable.fire,"Đốt cháy mỡ bụng với HIIT người mới bắt đầu","14 phút + Người bắt đầu"))
+        ds.add(OutData(R.drawable.fire,"Đốt cháy mỡ bụng với HIIT người mới bắt đầu","14 phút + Người bắt đầu"))
+        ds.add(OutData(R.drawable.fire,"Đốt cháy mỡ bụng với HIIT người mới bắt đầu","14 phút + Người bắt đầu"))
 
 
         return ds
