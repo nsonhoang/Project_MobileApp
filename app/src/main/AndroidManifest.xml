@@ -12,6 +12,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Projecttest"
         tools:targetApi="31">
+        <activity android:name=".screen.courses.CourseDetail" android:exported="false"/>
+        <activity android:name=".screen.ReadyActivity" android:exported="false"/>
+        <activity android:name=".screen.Training" android:exported="false"/>
+        <activity android:name=".screen.Rest" android:exported="false"/>
         <activity
             android:name=".screen.MainActivity"
             android:exported="true">

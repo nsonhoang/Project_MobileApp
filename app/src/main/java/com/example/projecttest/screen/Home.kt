@@ -2,9 +2,11 @@ package com.example.projecttest.screen
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
 import android.widget.ImageView
 import android.widget.LinearLayout
 import androidx.fragment.app.Fragment
@@ -16,17 +18,20 @@ import com.example.projecttest.screen.adapter.WorkoutAdapter
 import com.example.projecttest.R
 import com.example.projecttest.screen.adapter.WorkoutProgramAdapter
 import com.example.projecttest.screen.courses.CourseDetail
+import com.example.projecttest.screen.adapter.OnItemClickListener
 
-class Home : Fragment() {
+class Home : Fragment(), OnItemClickListener {
+
     private lateinit var binding: FragmentHomeBinding
-    private lateinit var TWadapter: WorkoutAdapter
-    private lateinit var WPadapter: WorkoutProgramAdapter
+    private lateinit var twAdapter: WorkoutAdapter
+    private lateinit var wpAdapter: WorkoutProgramAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentHomeBinding.inflate(inflater, container, false)
+
         val workoutPrograms = listOf(
             WorkoutProgram("Toàn thân thử thách 7x4", 50, R.drawable.workout1),
             WorkoutProgram("Thử thách cơ bụng", 30, R.drawable.workout2),
@@ -45,37 +50,49 @@ class Home : Fragment() {
             KieuBaiTap("Cánh tay nâng cao", "21 PHÚT", "23 Bài Tập", R.drawable.tayhight, "Nâng cao"),
             KieuBaiTap("Chân nâng cao", "30 PHÚT", "27 Bài Tập", R.drawable.chanhight, "Nâng cao")
         )
-        TWadapter = WorkoutAdapter(workoutList)
+
+        // Truyền sự kiện click vào Adapter
+        twAdapter = WorkoutAdapter(workoutList, this)
         binding.rvWorkLevel.apply {
             layoutManager = LinearLayoutManager(requireContext())
-            adapter = TWadapter
+            adapter = twAdapter
         }
-        WPadapter = WorkoutProgramAdapter(workoutPrograms)
+
+        wpAdapter = WorkoutProgramAdapter(workoutPrograms) { selectedProgram ->
+            Log.d("HomeFragment", "Đã nhấn vào: ${selectedProgram.tenbaitap}")
+            val intent = Intent(requireContext(), CourseDetail::class.java).apply {
+                putExtra("PROGRAM_NAME", selectedProgram.tenbaitap)
+            }
+            startActivity(intent)
+        }
+
         binding.rvWorkPrograms.apply {
-            layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL,false)
-            adapter = WPadapter
+            layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+            adapter = wpAdapter
         }
-        val itemWorkout = inflater.inflate(R.layout.item_workout, container,false)
-        val chuyenMucDo: ImageView= itemWorkout.findViewById(R.id.imgWorkout)
-        chuyenMucDo.setOnClickListener {
-            switchCourseDetail()
-        }
-        val itemWorkoutProgramView = inflater.inflate(R.layout.item_workout_program, container,false)
-        val chuyenThuThach: ImageView = itemWorkoutProgramView.findViewById(R.id.ivThumbnail)
-        chuyenThuThach.setOnClickListener {
-            switchCourseDetail()
-        }
-        val chuyenLich: LinearLayout= binding.root.findViewById(R.id.training_info)
-        chuyenLich.setOnClickListener {
+
+        wpAdapter.notifyDataSetChanged()
+        binding.trainingInfo.setOnClickListener {
             switchLich()
         }
+
         return binding.root
     }
-    private fun switchCourseDetail(){
-        val intent= Intent(requireContext(), CourseDetail::class.java)
+
+    override fun onItemClick(position: Int) {
+        switchCourseDetail()
+    }
+
+    private fun switchCourseDetail() {
+        val intent = Intent(requireContext(), CourseDetail::class.java)
         startActivity(intent)
     }
-    private fun switchLich(){
-//        val intent = Intent(requireContext(), Lich::class.java)
+
+    private fun switchLich() {
+        val transaction = parentFragmentManager.beginTransaction()
+        transaction.replace(R.id.fragment_container, Report()) // Đảm bảo R.id.fragment_container đúng
+        transaction.addToBackStack(null) // Cho phép quay lại fragment trước đó
+        transaction.commit()
     }
+
 }

@@ -52,7 +52,7 @@ class Training : AppCompatActivity(){
             finish()
         }
         btnSkip.setOnClickListener {
-//            val intent(this, Tranining::class.java)
+            val intent = Intent(this, Rest::class.java)  // Chuyển đến RestActivity
             startActivity(intent)
         }
 
