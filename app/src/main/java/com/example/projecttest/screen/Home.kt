@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.projecttest.databinding.FragmentHomeBinding
 import com.example.projecttest.Data.KieuBaiTap
 import com.example.projecttest.Data.WorkoutProgram
-import com.example.projecttest.screen.adapter.WorkoutAdapter
 import com.example.projecttest.R
 import com.example.projecttest.screen.adapter.WorkoutProgramAdapter
 import com.example.projecttest.screen.courses.CourseDetail
@@ -76,3 +75,4 @@ class Home : Fragment() {
 //        val intent = Intent(requireContext(), Lich::class.java)
     }
 }
+
