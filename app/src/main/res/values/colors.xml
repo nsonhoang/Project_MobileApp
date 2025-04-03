@@ -3,6 +3,7 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="blue">#99FFFF</color>
+    <color name="hight_blue">#107BAB</color>
     <color name="purple_500">#673AB7</color> <!-- Màu tím -->
     <color name="light_purple">#D1C4E9</color> <!-- Màu tím nhạt -->
 </resources>
