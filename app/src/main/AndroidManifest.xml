@@ -21,6 +21,10 @@
         <activity
             android:name=".screen.courses.CourseDetail"
             android:exported="true" />
+        <activity android:name=".screen.ReadyActivity"
+            android:exported="false"
+            />
+
         <activity
             android:name=".screen.MainActivity"
             android:exported="true"
