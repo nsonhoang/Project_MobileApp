@@ -5,13 +5,14 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.projecttest.databinding.ItemWorkoutProgramBinding
-import com.example.projecttest.Data.WorkoutProgram
+import com.example.projecttest.data.WorkoutProgram
 
 class WorkoutProgramAdapter(
-    private var programs: List<WorkoutProgram>
-) : RecyclerView.Adapter<WorkoutProgramAdapter.WorkoutViewHolder>() {
+    private var programs: List<WorkoutProgram>,
+    private val onItemClick: (WorkoutProgram) -> Unit
+) : RecyclerView.Adapter<WorkoutProgramAdapter.ViewHolder>() {
 
-    inner class WorkoutViewHolder(val binding: ItemWorkoutProgramBinding) :
+    inner class ViewHolder(private val binding: ItemWorkoutProgramBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(program: WorkoutProgram) {
             binding.tvTitle.text = program.tenbaitap
@@ -21,18 +22,21 @@ class WorkoutProgramAdapter(
 
             // Thêm contentDescription cho hình ảnh
             binding.ivThumbnail.contentDescription = "Hình ảnh bài tập: ${program.tenbaitap}"
+
+            // Gọi hàm onItemClick khi người dùng nhấn vào item
+            binding.root.setOnClickListener {
+                onItemClick(program)  // Gọi onItemClick và truyền program vào
+            }
         }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): WorkoutViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding = ItemWorkoutProgramBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return WorkoutViewHolder(binding)
+        return ViewHolder(binding)
     }
 
-    override fun onBindViewHolder(holder: WorkoutViewHolder, position: Int) {
-        if (position in programs.indices) { // Kiểm tra tránh lỗi IndexOutOfBounds
-            holder.bind(programs[position])
-        }
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        holder.bind(programs[position])
     }
 
     override fun getItemCount() = programs.size
@@ -44,11 +48,11 @@ class WorkoutProgramAdapter(
             override fun getNewListSize() = newPrograms.size
 
             override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
-                return programs[oldItemPosition].imageResId == newPrograms[newItemPosition].imageResId
+                return programs.getOrNull(oldItemPosition)?.imageResId == newPrograms.getOrNull(newItemPosition)?.imageResId
             }
 
             override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
-                return programs[oldItemPosition] == newPrograms[newItemPosition]
+                return programs.getOrNull(oldItemPosition) == newPrograms.getOrNull(newItemPosition)
             }
         }
 

@@ -2,20 +2,20 @@ package com.example.projecttest.screen.discoverfragment
 
 import android.content.Intent
 import android.os.Bundle
+import com.example.projecttest.screen.adapter.RvAdapter
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.projecttest.data.OutData
 import com.example.projecttest.R
 import com.example.projecttest.databinding.FragmentDiscoverBinding
 import com.example.projecttest.screen.adapter.LvAdapter
 import com.example.projecttest.screen.adapter.OnItemClickListener
-import com.example.projecttest.screen.adapter.RvAdapter
 import com.example.projecttest.screen.adapter.RvAdapter2
 import com.example.projecttest.screen.adapter.RvAdapter3
+import com.example.projecttest.screen.courses.Courses
 import com.example.projecttest.screen.food.Food
 
 class Discover : Fragment() {
@@ -60,7 +60,13 @@ class Discover : Fragment() {
         return ds
     }
     private fun setAdapter(ds: List<OutData>){
-        val adapter = RvAdapter(ds)
+        val adapter = RvAdapter(ds, object : OnItemClickListener{
+            override fun onItemClick(position: Int) {
+                val selectedId = ds[position]
+                val i = Intent(requireActivity(), Courses::class.java)
+                startActivity(i)
+            }
+        })
         binding.recyclerContainor.adapter = adapter // Set adapter cho RecyclerView
         binding.recyclerContainor.layoutManager = GridLayoutManager(requireContext(),2,GridLayoutManager.HORIZONTAL,false) // Sử dụng LinearLayoutManager với hướng ngang
 

@@ -29,7 +29,7 @@ class ReadyActivity : AppCompatActivity(){
          startCountdown()
 
         btnNextReady.setOnClickListener {
-            finish()
+            navigateToExercise()
         }
     }
     private fun startCountdown() {

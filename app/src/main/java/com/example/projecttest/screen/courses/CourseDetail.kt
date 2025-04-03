@@ -1,5 +1,6 @@
 package com.example.projecttest.screen.courses
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -11,6 +12,7 @@ import com.example.projecttest.data.OutData
 import com.example.projecttest.databinding.ActivityCourseDetailBinding
 import com.example.projecttest.screen.adapter.LvAdapterCourse
 import com.example.projecttest.screen.adapter.OnItemClickListener
+import com.example.projecttest.screen.ReadyActivity
 
 class CourseDetail : AppCompatActivity() {
     private lateinit var binding: ActivityCourseDetailBinding
@@ -38,6 +40,11 @@ class CourseDetail : AppCompatActivity() {
     }
 
     private fun setEventOnClickStart() {
+        binding.button.setOnClickListener {
+            // Chuyển đến màn hình Ready
+            val intent = Intent(this, ReadyActivity::class.java)
+            startActivity(intent)
+        }
 
     }
 

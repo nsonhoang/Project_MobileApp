@@ -3,73 +3,83 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
+    android:background="@android:color/white"
+    android:backgroundTint="@color/white"
     android:gravity="center"
-    android:background="@android:color/white">
+    android:orientation="vertical">
 
     <!-- Hình ảnh bài tập -->
     <ImageView
         android:id="@+id/imgExerciseReady"
         android:layout_width="300dp"
-        android:layout_height="300dp"
+        android:layout_height="347dp"
         android:scaleType="centerInside" />
 
     <!-- Tiêu đề "ĐÃ SẴN SÀNG TẬP!" -->
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="ĐÃ SẴN SÀNG TẬP!"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        android:textColor="@android:color/holo_blue_dark"
-        android:paddingTop="16dp" />
+        android:layout_height="match_parent"
 
-    <!-- Tên bài tập -->
-    <TextView
-        android:id="@+id/tvExerciseName"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="Bật nhảy"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        android:paddingTop="4dp" />
-
-    <!-- Bộ đếm thời gian dạng Progress -->
-    <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:paddingTop="16dp">
-
-        <ProgressBar
-            android:id="@+id/progressCountdownReady"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            style="?android:attr/progressBarStyleHorizontal"
-            android:progressDrawable="@drawable/circular_progress"
-            android:max="30" />
+        android:orientation="vertical">
 
         <TextView
-            android:id="@+id/tvCountdownReady"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:text="30"
-            android:textSize="32sp"
+            android:gravity="center"
+            android:paddingTop="16dp"
+            android:text="ĐÃ SẴN SÀNG TẬP!"
+            android:textSize="24sp"
             android:textStyle="bold" />
 
-    </RelativeLayout>
+        <TextView
+            android:id="@+id/tvExerciseName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:paddingTop="4dp"
+            android:text="Bật nhảy"
+            android:textSize="18sp"
+            android:textStyle="bold" />
 
-    <Button
-        android:id="@+id/btnNextReady"
-        style="@style/Widget.AppCompat.Button"
-        android:layout_width="wrap_content"
-        android:layout_height="48dp"
-        android:layout_marginTop="16dp"
-        android:backgroundTint="@color/white"
-        android:text="Bỏ qua" />
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="127dp"
+            android:layout_gravity="center"
+            android:paddingTop="16dp">
+
+            <ProgressBar
+                android:id="@+id/progressCountdownReady"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:max="30"
+                android:progressDrawable="@drawable/circular_progress" />
+
+            <TextView
+                android:id="@+id/tvCountdownReady"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="30"
+                android:textSize="32sp"
+                android:textStyle="bold" />
+
+        </RelativeLayout>
+
+        <Button
+            android:id="@+id/btnNextReady"
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:layout_marginLeft="150dp"
+            android:layout_marginTop="50dp"
+            android:backgroundTint="@color/white"
+            android:text="Bỏ qua"
+            android:textColor="@color/black"
+            android:textSize="20sp" />
+    </LinearLayout>
+
+    <!-- Tên bài tập -->
+
+    <!-- Bộ đếm thời gian dạng Progress -->
 
     <!-- Nút mũi tên chuyển bài -->
 </LinearLayout>
