@@ -5,9 +5,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.projecttest.data.OutData
+import com.example.projecttest.data.TrainingProgram
 import com.example.projecttest.databinding.ListviewItemBinding
 
-class LvAdapter(var ds:List<OutData>,val onItemClick: OnItemClickListener):RecyclerView.Adapter<LvAdapter.ListViewHolder>() {
+class LvAdapter(var ds:List<OutData>, val onItemClick: OnItemClickListener):RecyclerView.Adapter<LvAdapter.ListViewHolder>() {
 
     private lateinit var binding: ListviewItemBinding
     open inner class ListViewHolder(itemView: View):RecyclerView.ViewHolder(itemView)

@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.projecttest.data.OutData
+import com.example.projecttest.data.TrainingProgram
 import com.example.projecttest.databinding.LayoutItem2Binding
 
 class RvAdapter2(var ds: List<OutData>) : RecyclerView.Adapter<RvAdapter2.KhoaTapViewholder2>() {

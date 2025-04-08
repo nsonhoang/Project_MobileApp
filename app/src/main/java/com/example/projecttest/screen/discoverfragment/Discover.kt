@@ -7,34 +7,61 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
-import com.example.projecttest.data.OutData
 import com.example.projecttest.R
+import com.example.projecttest.data.OutData
+import com.example.projecttest.data.TargetCourse
 import com.example.projecttest.databinding.FragmentDiscoverBinding
+import com.example.projecttest.model.CourseViewModel
 import com.example.projecttest.screen.adapter.LvAdapter
 import com.example.projecttest.screen.adapter.OnItemClickListener
 import com.example.projecttest.screen.adapter.RvAdapter2
 import com.example.projecttest.screen.adapter.RvAdapter3
 import com.example.projecttest.screen.courses.Courses
 import com.example.projecttest.screen.food.Food
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
+
 
 class Discover : Fragment() {
+
+    private lateinit var courseViewModel: CourseViewModel
+
     private lateinit var binding: FragmentDiscoverBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+
+
+        courseViewModel = ViewModelProvider(this).get(CourseViewModel::class.java)
+
+        courseViewModel.fetchData()
+
+        lifecycleScope.launch {
+            courseViewModel.trainingProgram.collectLatest {
+
+                course ->
+                println(course)
+                course.forEach {
+                    createItemRecycler(it.targetCourses)
+                }
+            }
+        }
+
         binding = FragmentDiscoverBinding.inflate(inflater, container, false)
-        createItemRecycler() // mục đầu tiên
+//        createItemRecycler() // mục đầu tiên
         createItemRecycler2() // mục dành cho bạn
         createItemRecyclerStretching() //mục giãn cơ
         createListView()//dem kalo
         return binding.root
     }
 
-    private fun createItemRecycler(){
-        val ds = createOutDataList()
+    private fun createItemRecycler(list: List<TargetCourse>){
+        val ds = createOutDataList(list)
         setAdapter(ds) // trả về layout ở mục đầu tiên
     }
 
@@ -50,22 +77,28 @@ class Discover : Fragment() {
     }
 
 
-    private fun  createOutDataList() : MutableList<OutData>{
-        val ds = mutableListOf<OutData>()
+    private fun  createOutDataList(list: List<TargetCourse>) : MutableList<TargetCourse>{
+        val ds = mutableListOf<TargetCourse>()
 
-        ds.add(OutData(R.drawable.saumuireal, "Sáu múi", "13 bài"))
-        ds.add(OutData(R.drawable.arm, "Cánh tay & vai", "13 bài"))
-        ds.add(OutData(R.drawable.nguc, "Sáu múi", "13 bài"))
-        ds.add(OutData(R.drawable.leg, "Mông & Chân", "13 bài"))
+        list.forEach {
+            it->
+            ds.add(TargetCourse(it.img,it.name,it.detail))
+        }
+
+//        ds.add(OutData(R.drawable.saumuireal, "Sáu múi", "13 bài"))
+//        ds.add(OutData(R.drawable.arm, "Cánh tay & vai", "13 bài"))
+//        ds.add(OutData(R.drawable.nguc, "Sáu múi", "13 bài"))
+//        ds.add(OutData(R.drawable.leg, "Mông & Chân", "13 bài"))
 
         return ds
     }
 
-    private fun setAdapter(ds: List<OutData>){
+    private fun setAdapter(ds: List<TargetCourse>){
         val adapter = RvAdapter(ds, object : OnItemClickListener{
             override fun onItemClick(position: Int) {
                 val selectedId = ds[position]
                 val i = Intent(requireActivity(), Courses::class.java)
+                i.putExtra("program",ds[position])
                 startActivity(i)
             }
         })

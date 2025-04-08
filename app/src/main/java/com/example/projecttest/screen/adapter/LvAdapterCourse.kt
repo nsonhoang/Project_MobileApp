@@ -7,9 +7,10 @@ import android.view.ViewGroup
 
 import androidx.recyclerview.widget.RecyclerView
 import com.example.projecttest.data.OutData
+import com.example.projecttest.data.TrainingProgram
 import com.example.projecttest.databinding.LayoutItemCourseBinding
 
-class LvAdapterCourse(var ds: List<OutData>,val onItemClickListener: OnItemClickListener):RecyclerView.Adapter<LvAdapterCourse.CourseViewHolder >() {
+class LvAdapterCourse(var ds: List<OutData>, val onItemClickListener: OnItemClickListener):RecyclerView.Adapter<LvAdapterCourse.CourseViewHolder >() {
 
     private lateinit var binding: LayoutItemCourseBinding
     inner class CourseViewHolder(view: View):RecyclerView.ViewHolder(view)
