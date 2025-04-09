@@ -11,6 +11,8 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.projecttest.R
 import com.example.projecttest.data.OutData
+
+
 import com.example.projecttest.databinding.ActivityCoursesBinding
 import com.example.projecttest.screen.adapter.LvAdapterCourse
 import com.example.projecttest.screen.adapter.OnItemClickListener
@@ -73,14 +75,6 @@ class Courses : AppCompatActivity() {
     private fun createListCourse():MutableList<OutData> {
         val ds  = mutableListOf<OutData>()
 
-        ds.add(OutData(R.drawable.fire,"Đốt cháy mỡ bụng với HIIT người mới bắt đầu","14 phút + Người bắt đầu"))
-        ds.add(OutData(R.drawable.fire,"Đốt cháy mỡ bụng với HIIT người mới bắt đầu","14 phút + Người bắt đầu"))
-        ds.add(OutData(R.drawable.fire,"Đốt cháy mỡ bụng với HIIT người mới bắt đầu","14 phút + Người bắt đầu"))
-        ds.add(OutData(R.drawable.fire,"Đốt cháy mỡ bụng với HIIT người mới bắt đầu","14 phút + Người bắt đầu"))
-        ds.add(OutData(R.drawable.fire,"Đốt cháy mỡ bụng với HIIT người mới bắt đầu","14 phút + Người bắt đầu"))
-        ds.add(OutData(R.drawable.fire,"Đốt cháy mỡ bụng với HIIT người mới bắt đầu","14 phút + Người bắt đầu"))
-        ds.add(OutData(R.drawable.fire,"Đốt cháy mỡ bụng với HIIT người mới bắt đầu","14 phút + Người bắt đầu"))
-        ds.add(OutData(R.drawable.fire,"Đốt cháy mỡ bụng với HIIT người mới bắt đầu","14 phút + Người bắt đầu"))
         ds.add(OutData(R.drawable.fire,"Đốt cháy mỡ bụng với HIIT người mới bắt đầu","14 phút + Người bắt đầu"))
 
 

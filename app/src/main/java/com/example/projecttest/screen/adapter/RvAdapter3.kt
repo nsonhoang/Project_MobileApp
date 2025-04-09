@@ -5,6 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.projecttest.data.OutData
+import com.example.projecttest.data.TrainingProgram
 import com.example.projecttest.databinding.LayoutItem3Binding
 
 class RvAdapter3(var ds: List<OutData>): RecyclerView.Adapter<RvAdapter3.CourseViewholder>() {

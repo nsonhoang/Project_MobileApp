@@ -69,17 +69,6 @@ class CourseDetail : AppCompatActivity() {
         val ds = mutableListOf<OutData>()
 
         ds.add(OutData(R.drawable.buttkicks,"Đá mông","00:30"))
-        ds.add(OutData(R.drawable.buttkicks,"Đá mông","00:30"))
-        ds.add(OutData(R.drawable.buttkicks,"Đá mông","00:30"))
-        ds.add(OutData(R.drawable.buttkicks,"Đá mông","00:30"))
-        ds.add(OutData(R.drawable.buttkicks,"Đá mông","00:30"))
-        ds.add(OutData(R.drawable.buttkicks,"Đá mông","00:30"))
-        ds.add(OutData(R.drawable.buttkicks,"Đá mông","00:30"))
-        ds.add(OutData(R.drawable.buttkicks,"Đá mông","00:30"))
-        ds.add(OutData(R.drawable.buttkicks,"Đá mông","00:30"))
-        ds.add(OutData(R.drawable.buttkicks,"Đá mông","00:30"))
-        ds.add(OutData(R.drawable.buttkicks,"Đá mông","00:30"))
-        ds.add(OutData(R.drawable.buttkicks,"Đá mông","00:30"))
 
 
         return ds
