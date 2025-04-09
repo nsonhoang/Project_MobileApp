@@ -4,14 +4,20 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import com.bumptech.glide.Glide
 import com.example.projecttest.R
 import com.example.projecttest.screen.Training
+import com.google.firebase.firestore.FirebaseFirestore
 
 class Rest : AppCompatActivity() {
     private lateinit var countDownTimer: CountDownTimer
+    private lateinit var imgExercise: ImageView
     private var timeLeft = 30
+    private lateinit var firestore: FirebaseFirestore
+    private var exerciseId = 1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -20,10 +26,13 @@ class Rest : AppCompatActivity() {
         val tvTimer: TextView = findViewById(R.id.tvTimer)
         val btnAddTime: Button = findViewById(R.id.btnAddTime)
         val btnSkip: Button = findViewById(R.id.btnSkip)
+        firestore = FirebaseFirestore.getInstance()
+        imgExercise = findViewById(R.id.imgExercise)
 
         // Bắt đầu đếm ngược ngay khi khởi tạo Activity
+        exerciseId = intent.getIntExtra("")
         startCountdown(tvTimer)
-
+        loadGifFromFirestore()
         btnAddTime.setOnClickListener {
             timeLeft += 20 // Thêm 20 giây vào thời gian
             startCountdown(tvTimer) // Khởi tạo lại bộ đếm thời gian
@@ -36,7 +45,21 @@ class Rest : AppCompatActivity() {
             finish() // Đóng Activity hiện tại
         }
     }
+// gán gif
+    private fun loadGifFromFirestore() {
+        val exerciseId = 1
+        firestore.collection("TrainingProgram").document(exerciseId.toString())
+            .get().addOnSuccessListener { document ->
+                if (document != null) {
+                    val gifUrl = document.getString("gifUrl")// thay bằng nơi lưu URL của gif
+                    if (gifUrl != null) {
+                        Glide.with(this).load(gifUrl).override(380, 300).into(imgExercise)
+                    }
+                }
 
+            }
+
+    }
     private fun startCountdown(tvTimer: TextView) {
         // Kiểm tra nếu bộ đếm đang chạy, hủy nó
         try {

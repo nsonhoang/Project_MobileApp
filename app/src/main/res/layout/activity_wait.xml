@@ -25,13 +25,14 @@
     </LinearLayout>
 
     <!-- Ảnh động minh họa bài tập -->
-    <ImageView
-        android:id="@+id/exerciseImage"
-        android:layout_width="match_parent"
-        android:layout_height="300dp"
-        android:scaleType="centerInside"/>
 
     <!-- Tên bài tập -->
+    <ImageView
+        android:id="@+id/exerciseImage"
+        android:layout_width="380dp"
+        android:layout_height="319dp"
+        android:scaleType="centerCrop" />
+
     <TextView
         android:id="@+id/tvExerciseName"
         android:layout_width="wrap_content"

@@ -40,7 +40,8 @@ android {
 }
 
 dependencies {
-
+    implementation ("com.github.bumptech.glide:glide:4.13.2")
+    annotationProcessor ("com.github.bumptech.glide:compiler:4.13.2")
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
@@ -56,5 +57,7 @@ dependencies {
     implementation ("com.google.firebase:firebase-auth:21.0.1")  // Firebase Authentication
     implementation ("com.google.firebase:firebase-database:20.0.3")  // Firebase Realtime Database
     implementation(platform("com.google.firebase:firebase-bom:32.7.0"))
+    implementation ("com.google.firebase:firebase-firestore-ktx")// Firebase FireStore
+
     implementation(libs.firebase.analytics)
 }

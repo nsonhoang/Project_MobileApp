@@ -9,14 +9,17 @@ import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import com.bumptech.glide.Glide
 import com.example.projecttest.R
+import com.google.firebase.firestore.FirebaseFirestore
 
 class Training : AppCompatActivity(){
     private lateinit var tvTimer: TextView
     private lateinit var btnPause: Button
+    private lateinit var exerciseImage: ImageView
     private  var countDownTimer: CountDownTimer? = null
     private var timeLeftInMillis: Long=30000
-
+    private lateinit var firestore: FirebaseFirestore
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_wait)
@@ -26,6 +29,8 @@ class Training : AppCompatActivity(){
         val btnSkip : ImageButton = findViewById(R.id.btnSkip)
         tvTimer = findViewById(R.id.tvTimer)
         btnPause = findViewById(R.id.btnPause)
+        exerciseImage = findViewById(R.id.exerciseImage)
+        firestore = FirebaseFirestore.getInstance()
 
         loadExerciseData()
 
@@ -51,8 +56,23 @@ class Training : AppCompatActivity(){
         }
 
     }
-    private fun loadExerciseData(){
-        timeLeftInMillis=30000
+    // gán gif
+
+    private fun loadExerciseData() {
+        val exerciseId = 1
+        firestore.collection("TrainingProgram").document(exerciseId.toString())
+            .get().addOnSuccessListener { document ->
+                if (document != null) {
+                    val gifUrl = document.getString("gifUrl")// thay bằng nơi lưu URL của gif
+                    if (gifUrl != null) {
+                        Glide.with(this).load(gifUrl).override(380, 300).into(exerciseImage)
+                    }
+                }
+
+            }
+
+
+        timeLeftInMillis = 30000
         startTimer(timeLeftInMillis)
     }
     private fun startTimer(time: Long){
