@@ -7,12 +7,13 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.GridLayoutManager
+import com.bumptech.glide.Glide
 import com.example.projecttest.R
-import com.example.projecttest.data.OutData
+import com.example.projecttest.data.CourseModule
 import com.example.projecttest.databinding.ActivityCourseDetailBinding
-import com.example.projecttest.screen.adapter.LvAdapterCourse
 import com.example.projecttest.screen.adapter.OnItemClickListener
 import com.example.projecttest.screen.ReadyActivity
+import com.example.projecttest.screen.adapter.RvAdapterDetailCourse
 
 class CourseDetail : AppCompatActivity() {
     private lateinit var binding: ActivityCourseDetailBinding
@@ -26,15 +27,32 @@ class CourseDetail : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+        val receivedModule = intent.getParcelableArrayListExtra<CourseModule>("Courses")
+        val nameCourse = intent.getStringExtra("nameCourseDetail") ?: ""
+        val level = intent.getStringExtra("level")  ?: ""
+        val img = intent.getStringExtra("img")  ?: ""
+        val totalTime = intent.getIntExtra("totalTime",0)
 
-        addEvends()
+
+
+        receivedModule?.let {
+            addEvends(receivedModule,nameCourse,level,img,totalTime)
+        }
+
+
     }
 
-    private fun addEvends() {
-        setNameCourse()  // cài tên bài tập mình click vào
-        setImgCourse() // cài hình ảnh ở mục mình click vào
-        setInforCourse() // cài đặt thông tin như cấp độ tập, thời gian, số bài tập
-        setListCourseDetail() // cài đặt hiện thị danh sách các bài tập
+    private fun addEvends(
+        list: List<CourseModule>,
+        name: String,
+        level: String,
+        img: String,
+        totalTime: Int
+    ) {
+        setNameCourse(name)  // cài tên bài tập mình click vào
+        setImgCourse(img) // cài hình ảnh ở mục mình click vào
+        setInforCourse(level,totalTime,list) // cài đặt thông tin như cấp độ tập, thời gian, số bài tập
+        setListCourseDetail(list) // cài đặt hiện thị danh sách các bài tập
         setEventOnClickStart() /// cài đặt sự kiện khi mình click vào bắt đầu
 
     }
@@ -48,13 +66,13 @@ class CourseDetail : AppCompatActivity() {
 
     }
 
-    private fun setListCourseDetail() {
-        val list = createListCourseDetail()
+    private fun setListCourseDetail(list: List<CourseModule>) {
+        val list = createListCourseDetail(list)
         setAdapter(list)
     }
 
-    private fun setAdapter( ds: List<OutData>) {
-        val adapter = LvAdapterCourse(ds,object : OnItemClickListener{
+    private fun setAdapter( ds: List<CourseModule>) {
+        val adapter = RvAdapterDetailCourse(ds,object : OnItemClickListener{
             override fun onItemClick(position: Int) {
 
             }
@@ -65,24 +83,33 @@ class CourseDetail : AppCompatActivity() {
 
     }
 
-    private fun createListCourseDetail(): MutableList<OutData> {
-        val ds = mutableListOf<OutData>()
+    private fun createListCourseDetail(list: List<CourseModule>): MutableList<CourseModule> {
+        val ds = mutableListOf<CourseModule>()
 
-        ds.add(OutData(R.drawable.buttkicks,"Đá mông","00:30"))
-
+        list.forEach {
+            it->
+            ds.add(CourseModule(it.name,it.trainingTime,it.img))
+        }
 
         return ds
     }
 
-    private fun setInforCourse() {
+    private fun setInforCourse(level: String, totalTime: Int, list: List<CourseModule>) {
+        binding.txtLevel.setText(level)
+        binding.txtTime.setText(totalTime.toString() + " Phút")
+        binding.txtTotal.setText(list.size.toString())
 
     }
 
-    private fun setImgCourse() {
+    private fun setImgCourse(img: String) {
+        Glide.with(this)
+            .load(img)
+            .into(binding.img)
 
     }
 
-    private fun setNameCourse() {
+    private fun setNameCourse(name: String) {
+        binding.txtNameCousse.setText(name)
 
     }
 }
