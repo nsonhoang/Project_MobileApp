@@ -62,6 +62,7 @@ class Discover : Fragment() {
 
     private fun createItemRecycler(list: List<TargetCourse>){
         val ds = createOutDataList(list)
+        ds.reversed()
         setAdapter(ds) // trả về layout ở mục đầu tiên
     }
 
@@ -82,7 +83,7 @@ class Discover : Fragment() {
 
         list.forEach {
             it->
-            ds.add(TargetCourse(it.img,it.name,it.detail))
+            ds.add(TargetCourse(it.img,it.name,it.detail,it.courses))
         }
 
 //        ds.add(OutData(R.drawable.saumuireal, "Sáu múi", "13 bài"))
@@ -97,8 +98,12 @@ class Discover : Fragment() {
         val adapter = RvAdapter(ds, object : OnItemClickListener{
             override fun onItemClick(position: Int) {
                 val selectedId = ds[position]
+
                 val i = Intent(requireActivity(), Courses::class.java)
-                i.putExtra("program",ds[position])
+                i.putExtra("nameCourse", ds[position].name)
+                i.putExtra("img",ds[position].img)
+
+                i.putParcelableArrayListExtra("program", ArrayList(ds[position].courses))
                 startActivity(i)
             }
         })
