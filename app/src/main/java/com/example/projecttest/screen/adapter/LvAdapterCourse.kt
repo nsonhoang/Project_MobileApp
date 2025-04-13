@@ -24,7 +24,7 @@ class LvAdapterCourse(var ds: List<Course>, val onItemClickListener: OnItemClick
         holder.itemView.apply {
             binding.txtDetailCourse.text=ds[position].detail
             binding.txtCourseName.text=ds[position].name
-            binding.cardBackgroundCourse.setCardBackgroundColor( getBackgroundColor(position))
+            binding.cardBackgroundCourse.setCardBackgroundColor( getBackgroundColor(ds[position].level))
 
             //lắng nghe sự kiên click
             val imageUrl = ds[position].img
@@ -38,14 +38,18 @@ class LvAdapterCourse(var ds: List<Course>, val onItemClickListener: OnItemClick
             }
         }
     }
-    private fun getBackgroundColor(position: Int): Int {
+    private fun getBackgroundColor(level: String): Int {
         val colors = arrayOf(
-            "#FF8343",
-            "#647FFC",
-            "#3F62A3"
-        ) // Store colors in an array
-        val colorIndex = position % colors.size // Use modulo for a repeating pattern
-        return Color.parseColor(colors[colorIndex])
+            "#FF8343", // Màu cho level 1
+            "#647FFC", // Màu cho level 2
+            "#3F62A3"  // Màu cho level 3
+        )
+
+        return when (level) {
+            "Người bắt đầu" -> Color.parseColor(colors[0]) // Màu cho level 1
+            "Trung bình" -> Color.parseColor(colors[1]) // Màu cho level 2
+            else -> Color.parseColor(colors[2]) // màu cho lecel 3
+        }
     }
 
     override fun onCreateViewHolder(
