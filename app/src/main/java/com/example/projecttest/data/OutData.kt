@@ -17,7 +17,7 @@ data class TargetCourse(
 
 data class Course(
     //
-    val name: String ="",//Đốt cháy mỡ bụng với HITT người mới bắt đầu
+    val name: String ="git",//Đốt cháy mỡ bụng với HITT người mới bắt đầu
     val detail: String= "",//14 phút + Người bắt đầu"
     val level: String="",// người bắt đầu
     val totalTime: Int=0,// 14 phút

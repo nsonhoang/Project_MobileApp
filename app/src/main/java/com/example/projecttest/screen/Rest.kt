@@ -30,7 +30,8 @@ class Rest : AppCompatActivity() {
         imgExercise = findViewById(R.id.imgExercise)
 
         // Bắt đầu đếm ngược ngay khi khởi tạo Activity
-        exerciseId = intent.getIntExtra("")
+        val exerciseId = intent.getIntExtra("EXERCISE_ID",-1)// nhận ID của training
+
         startCountdown(tvTimer)
         loadGifFromFirestore()
         btnAddTime.setOnClickListener {
@@ -39,15 +40,15 @@ class Rest : AppCompatActivity() {
         }
 
         btnSkip.setOnClickListener {
-            // Chuyển đến màn hình Training
+            // Chuyển đến màn hình Ready
             val intent = Intent(this, ReadyActivity::class.java)
+            intent.putExtra("EXERCISE_ID", exerciseId)
             startActivity(intent)
             finish() // Đóng Activity hiện tại
         }
     }
 // gán gif
     private fun loadGifFromFirestore() {
-        val exerciseId = 1
         firestore.collection("TrainingProgram").document(exerciseId.toString())
             .get().addOnSuccessListener { document ->
                 if (document != null) {

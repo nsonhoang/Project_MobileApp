@@ -20,6 +20,7 @@ class Training : AppCompatActivity(){
     private  var countDownTimer: CountDownTimer? = null
     private var timeLeftInMillis: Long=30000
     private lateinit var firestore: FirebaseFirestore
+    private val exerciseId = 1
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_wait)
@@ -51,15 +52,17 @@ class Training : AppCompatActivity(){
             finish()
         }
         btnSkip.setOnClickListener {
-            val intent = Intent(this, Rest::class.java)  // Chuyển đến RestActivity
+            val intent = Intent(this, Rest::class.java) // Chuyển đến RestActivity
+            intent.putExtra("EXERCISE_ID", exerciseId)
             startActivity(intent)
+            finish()
         }
 
     }
     // gán gif
 
     private fun loadExerciseData() {
-        val exerciseId = 1
+        val exerciseId = intent.getIntExtra("EXERCISE_ID",-1)
         firestore.collection("TrainingProgram").document(exerciseId.toString())
             .get().addOnSuccessListener { document ->
                 if (document != null) {
@@ -84,10 +87,17 @@ class Training : AppCompatActivity(){
 
             override fun onFinish() {
                 tvTimer.text="00:00"
+                navigateToExercise()
             }
         }.start()
     }
-
+    private fun navigateToExercise() {
+        countDownTimer?.cancel()
+        val intent = Intent(this, Rest::class.java)
+        intent.putExtra("EXERCISE_ID", exerciseId)
+        startActivity(intent)
+        finish()
+    }
     override fun onDestroy() {
         super.onDestroy()
         countDownTimer?.cancel()
