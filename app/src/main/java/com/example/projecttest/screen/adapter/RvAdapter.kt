@@ -28,7 +28,7 @@ class RvAdapter(var ds: List<TargetCourse>, val onItemClickListener: OnItemClick
     override fun onBindViewHolder(holder: KhoaTapViewholder, position: Int) {
 
         holder.itemView.apply {
-            binding.txtDetail.text=ds[position].detail
+            binding.txtDetail.text=ds[position].courses.size.toString() + " Bài tập"
             binding.txtCourse.text=ds[position].name
 
             val imageUrl = ds[position].img

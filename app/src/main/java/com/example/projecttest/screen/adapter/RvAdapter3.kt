@@ -4,11 +4,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.example.projecttest.data.Course
 import com.example.projecttest.data.OutData
 import com.example.projecttest.data.TrainingProgram
 import com.example.projecttest.databinding.LayoutItem3Binding
 
-class RvAdapter3(var ds: List<OutData>): RecyclerView.Adapter<RvAdapter3.CourseViewholder>() {
+class RvAdapter3(var ds: List<Course>, val onItemClickListener: OnItemClickListener): RecyclerView.Adapter<RvAdapter3.CourseViewholder>() {
     lateinit var  binding: LayoutItem3Binding
 
     inner class CourseViewholder(itemView: View): RecyclerView.ViewHolder(itemView)
@@ -21,8 +23,18 @@ class RvAdapter3(var ds: List<OutData>): RecyclerView.Adapter<RvAdapter3.CourseV
 
     override fun onBindViewHolder(holder: CourseViewholder, position: Int) {
         holder.itemView.apply {
-            binding.imgCourse.setImageResource(ds[position].img)
             binding.txtCourse.text=ds[position].name
+
+            val imageUrl = ds[position].img
+
+            Glide.with(this)
+                .load(imageUrl)
+                .into(binding.imgCourse)
+
+            holder.itemView.setOnClickListener{
+                onItemClickListener.onItemClick(position)
+            }
+
         }
     }
 
