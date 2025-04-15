@@ -1,33 +1,47 @@
 package com.example.projecttest.screen
 
+import android.content.Intent
 import android.os.Bundle
+import android.text.InputType
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.example.projecttest.databinding.LoginBinding
-import android.content.Intent
-import android.text.InputType
 import com.example.projecttest.R
+import com.example.projecttest.databinding.LoginBinding
+import com.facebook.AccessToken
+import com.facebook.CallbackManager
+import com.facebook.CallbackManager.Factory.create
+import com.facebook.FacebookCallback
+import com.facebook.FacebookException
+import com.facebook.FacebookSdk
+import com.facebook.login.LoginManager
+import com.facebook.login.LoginResult
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.firebase.auth.FacebookAuthProvider
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
+
 
 class Login : AppCompatActivity() {
     private lateinit var binding: LoginBinding
     private lateinit var auth: FirebaseAuth
     private lateinit var googleSignInClient: GoogleSignInClient
+    private lateinit var callbackManager: CallbackManager
+
 
     private val RC_SIGN_IN = 1001
     private var isPasswordVisible = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        FacebookSdk.sdkInitialize(applicationContext) // Khởi tạo Facebook SDK
         binding = LoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         auth = FirebaseAuth.getInstance()
+        callbackManager = CallbackManager.Factory.create()
 
         // Cấu hình Google Sign-In
         configureGoogleSignIn()
@@ -43,6 +57,41 @@ class Login : AppCompatActivity() {
 
         // Hiển thị/ẩn mật khẩu
         setupPasswordVisibilityToggle()
+
+        setupFacebookSignIn()
+    }
+
+    private fun setupFacebookSignIn() {
+        binding.imgfb.setOnClickListener {
+            LoginManager.getInstance().logInWithReadPermissions(this, listOf("public_profile", "email"))
+            LoginManager.getInstance().registerCallback(callbackManager,
+                object : FacebookCallback<LoginResult> {
+                    override fun onSuccess(loginResult: LoginResult) {
+                        handleFacebookAccessToken(loginResult.accessToken)
+                    }
+
+                    override fun onCancel() {
+                        showToast("Đăng nhập Facebook bị hủy.")
+                    }
+
+                    override fun onError(error: FacebookException) {
+                        showToast("Lỗi Facebook: ${error.message}")
+                    }
+                })
+        }
+    }
+
+    private fun handleFacebookAccessToken(token: AccessToken) {
+        val credential = FacebookAuthProvider.getCredential(token.token)
+        auth.signInWithCredential(credential)
+            .addOnCompleteListener(this) { task ->
+                if (task.isSuccessful) {
+                    showToast("Đăng nhập Facebook thành công!")
+                    navigateToMainActivity()
+                } else {
+                    showToast("Đăng nhập Facebook thất bại.")
+                }
+            }
     }
 
     private fun configureGoogleSignIn() {
@@ -140,4 +189,5 @@ class Login : AppCompatActivity() {
             showToast("Đăng nhập Google thất bại!")
         }
     }
+
 }

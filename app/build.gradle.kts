@@ -54,6 +54,7 @@ dependencies {
 
     // Facebook login
     implementation("com.facebook.android:facebook-login:latest.release")
+    implementation ("com.facebook.android:facebook-android-sdk:[4,5)")
 
     // AndroidX + UI
     implementation(libs.androidx.core.ktx)
