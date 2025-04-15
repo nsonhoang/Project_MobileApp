@@ -1,3 +1,4 @@
+
 package com.example.projecttest.screen
 
 import android.content.Intent
@@ -18,6 +19,7 @@ import com.example.projecttest.screen.adapter.WorkoutAdapter
 import com.example.projecttest.R
 import com.example.projecttest.screen.adapter.WorkoutProgramAdapter
 import com.example.projecttest.screen.courses.CourseDetail
+import com.example.projecttest.screen.courses.Courses
 import com.example.projecttest.screen.adapter.OnItemClickListener
 
 class Home : Fragment(), OnItemClickListener {
@@ -60,7 +62,7 @@ class Home : Fragment(), OnItemClickListener {
 
         wpAdapter = WorkoutProgramAdapter(workoutPrograms) { selectedProgram ->
             Log.d("HomeFragment", "Đã nhấn vào: ${selectedProgram.tenbaitap}")
-            val intent = Intent(requireContext(), CourseDetail::class.java).apply {
+            val intent = Intent(requireContext(), Courses::class.java).apply {
                 putExtra("PROGRAM_NAME", selectedProgram.tenbaitap)
             }
             startActivity(intent)
@@ -84,7 +86,7 @@ class Home : Fragment(), OnItemClickListener {
     }
 
     private fun switchCourseDetail() {
-        val intent = Intent(requireContext(), CourseDetail::class.java)
+        val intent = Intent(requireContext(), Courses::class.java)
         startActivity(intent)
     }
 
