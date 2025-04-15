@@ -6,4 +6,6 @@
     <string name="report_button_description">Report</string>
     <string name="couser">KHÓA HỌC</string>
     <string name="food">Thực Phẩm</string>
+    <string name="default_client_id">708098183157-df8c16c0lmo42793ejn3ob3fm2he247t.apps.googleusercontent.com</string>
+
 </resources>

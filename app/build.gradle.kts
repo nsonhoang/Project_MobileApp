@@ -41,6 +41,21 @@ android {
 
 dependencies {
 
+    // Firebase BoM nên ở trên để quản lý version
+    implementation(platform("com.google.firebase:firebase-bom:33.11.0"))
+
+    // Firebase dependencies KHÔNG cần chỉ định version khi dùng BoM
+    implementation("com.google.firebase:firebase-auth")
+    implementation("com.google.firebase:firebase-database")
+    implementation("com.google.firebase:firebase-analytics")
+
+    // Google Sign-In
+    implementation("com.google.android.gms:play-services-auth:20.7.0")
+
+    // Facebook login
+    implementation("com.facebook.android:facebook-login:latest.release")
+
+    // AndroidX + UI
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
@@ -48,13 +63,13 @@ dependencies {
     implementation(libs.androidx.constraintlayout)
     implementation(libs.androidx.credentials)
     implementation(libs.androidx.credentials.play.services.auth)
-    implementation(libs.googleid)
+
+    // Image loading
+    implementation("io.coil-kt:coil-compose:2.4.0")
+
+    // Test
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
-
-    implementation ("com.google.firebase:firebase-auth:21.0.1")  // Firebase Authentication
-    implementation ("com.google.firebase:firebase-database:20.0.3")  // Firebase Realtime Database
-    implementation(platform("com.google.firebase:firebase-bom:32.7.0"))
-    implementation(libs.firebase.analytics)
 }
+
