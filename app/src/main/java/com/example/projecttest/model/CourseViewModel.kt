@@ -22,9 +22,10 @@ class CourseViewModel : ViewModel() {
     val trainingProgram: StateFlow<List<TrainingProgram>> get() = _trainingProgram
 
     fun fetchData() {
+        val trainingProgramId = "KpN1HjWE31d0ALiQJGKF"
         viewModelScope.launch {
             try {
-                _trainingProgram.value = fetchTrainingPrograms()
+                _trainingProgram.value = fetchTrainingPrograms(trainingProgramId)// lấu dữ liệu ở mục đầu tiền như là bài tập 6 múi ....
             } catch (e: Exception) {
                 Log.e(TAG, "Error fetching data", e)
                 // Xử lý lỗi (ví dụ: hiển thị thông báo cho người dùng)
@@ -32,17 +33,18 @@ class CourseViewModel : ViewModel() {
         }
     }
 
-    private suspend fun fetchTrainingPrograms(): List<TrainingProgram> {
+    private suspend fun fetchTrainingPrograms(documentId : String): List<TrainingProgram> {
         val listProgram = mutableListOf<TrainingProgram>()
-        val querySnapshot = db.collection("TrainingProgram").get().await()
+        val querySnapshot = db.collection("TrainingProgram")
+            .document(documentId)
+            .get().await()
 
-        for (document in querySnapshot.documents) {
-            val trainingProgram = document.toObject(TrainingProgram::class.java) ?: continue
+            val trainingProgram = querySnapshot.toObject(TrainingProgram::class.java) ?: return  emptyList()
 
-            val targetCourses = fetchTargetCourses(document.id)
+            val targetCourses = fetchTargetCourses(querySnapshot.id)
             trainingProgram.targetCourses = targetCourses
             listProgram.add(trainingProgram)
-        }
+
         return listProgram
     }
 
