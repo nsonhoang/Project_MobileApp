@@ -4,7 +4,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.example.projecttest.databinding.SettingProfileBinding
 
-class Profile : AppCompatActivity() {
+class setprofile : AppCompatActivity() {
     private lateinit var binding: SettingProfileBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {

@@ -6,8 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.webkit.Profile
 import com.example.projecttest.databinding.FragmentSettingBinding
-import com.example.projecttest.screen.setting.Profile
 import com.example.projecttest.screen.setting.lang
 import com.example.projecttest.screen.setting.notification
 import com.example.projecttest.screen.setting.train

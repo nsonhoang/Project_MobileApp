@@ -28,7 +28,7 @@ class Login : AppCompatActivity() {
     private lateinit var binding: LoginBinding
     private lateinit var auth: FirebaseAuth
     private lateinit var googleSignInClient: GoogleSignInClient
-    private lateinit var callbackManager: CallbackManager
+//    private lateinit var callbackManager: CallbackManager
 
 
     private val RC_SIGN_IN = 1001
@@ -36,12 +36,12 @@ class Login : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        FacebookSdk.sdkInitialize(applicationContext) // Khởi tạo Facebook SDK
+//        FacebookSdk.sdkInitialize(applicationContext) // Khởi tạo Facebook SDK
         binding = LoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         auth = FirebaseAuth.getInstance()
-        callbackManager = CallbackManager.Factory.create()
+//        callbackManager = CallbackManager.Factory.create()
 
         // Cấu hình Google Sign-In
         configureGoogleSignIn()
@@ -58,28 +58,28 @@ class Login : AppCompatActivity() {
         // Hiển thị/ẩn mật khẩu
         setupPasswordVisibilityToggle()
 
-        setupFacebookSignIn()
+//        setupFacebookSignIn()
     }
 
-    private fun setupFacebookSignIn() {
-        binding.imgfb.setOnClickListener {
-            LoginManager.getInstance().logInWithReadPermissions(this, listOf("public_profile", "email"))
-            LoginManager.getInstance().registerCallback(callbackManager,
-                object : FacebookCallback<LoginResult> {
-                    override fun onSuccess(loginResult: LoginResult) {
-                        handleFacebookAccessToken(loginResult.accessToken)
-                    }
-
-                    override fun onCancel() {
-                        showToast("Đăng nhập Facebook bị hủy.")
-                    }
-
-                    override fun onError(error: FacebookException) {
-                        showToast("Lỗi Facebook: ${error.message}")
-                    }
-                })
-        }
-    }
+//    private fun setupFacebookSignIn() {
+//        binding.imgfb.setOnClickListener {
+//            LoginManager.getInstance().logInWithReadPermissions(this, listOf("public_profile", "email"))
+//            LoginManager.getInstance().registerCallback(callbackManager,
+//                object : FacebookCallback<LoginResult> {
+//                    override fun onSuccess(loginResult: LoginResult) {
+//                        handleFacebookAccessToken(loginResult.accessToken)
+//                    }
+//
+//                    override fun onCancel() {
+//                        showToast("Đăng nhập Facebook bị hủy.")
+//                    }
+//
+//                    override fun onError(error: FacebookException) {
+//                        showToast("Lỗi Facebook: ${error.message}")
+//                    }
+//                })
+//        }
+//    }
 
     private fun handleFacebookAccessToken(token: AccessToken) {
         val credential = FacebookAuthProvider.getCredential(token.token)
