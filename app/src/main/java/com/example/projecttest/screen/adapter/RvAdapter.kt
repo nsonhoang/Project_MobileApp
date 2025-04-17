@@ -4,12 +4,16 @@ package com.example.projecttest.screen.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+
 import androidx.recyclerview.widget.RecyclerView
-import com.example.projecttest.data.OutData
+import com.bumptech.glide.Glide
+
+import com.example.projecttest.data.TargetCourse
 import com.example.projecttest.databinding.LayoutItemBinding
 
 
-class RvAdapter( var ds: List<OutData>,val onItemClickListener: OnItemClickListener) : RecyclerView.Adapter<RvAdapter.KhoaTapViewholder>() {
+
+class RvAdapter(var ds: List<TargetCourse>, val onItemClickListener: OnItemClickListener) : RecyclerView.Adapter<RvAdapter.KhoaTapViewholder>() {
 
     lateinit var binding: LayoutItemBinding
 
@@ -22,10 +26,16 @@ class RvAdapter( var ds: List<OutData>,val onItemClickListener: OnItemClickListe
     }
 
     override fun onBindViewHolder(holder: KhoaTapViewholder, position: Int) {
+
         holder.itemView.apply {
-            binding.txtDetail.text=ds[position].detail
+            binding.txtDetail.text=ds[position].courses.size.toString() + " Bài tập"
             binding.txtCourse.text=ds[position].name
-            binding.imgCourse.setImageResource(ds[position].img)
+
+            val imageUrl = ds[position].img
+
+            Glide.with(this)
+                .load(imageUrl)
+                .into(binding.imgCourse)
 
             // lắng nghe item click chọn
             holder.itemView.setOnClickListener{

@@ -4,6 +4,7 @@ plugins {
     id("com.google.gms.google-services")
     id("kotlin-kapt") apply false
     id("com.google.devtools.ksp") // Thêm plugin KSP
+    id ("kotlin-parcelize")
 }
 
 android {
@@ -36,8 +37,8 @@ android {
     kotlinOptions {
         jvmTarget = "11"
     }
-    buildFeatures {
-        viewBinding = true
+    buildFeatures{
+        viewBinding=true
     }
 }
 
@@ -73,6 +74,8 @@ dependencies {
     implementation(libs.firebase.messaging)
 
     // Thư viện cho việc kiểm tra
+    implementation(libs.googleid)
+    implementation(libs.firebase.firestore)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -90,4 +93,12 @@ dependencies {
 
     // Room KTX giúp sử dụng Room dễ dàng hơn với Kotlin
     implementation("androidx.room:room-ktx:2.5.0")
+    implementation ("com.google.firebase:firebase-auth:21.0.1")  // Firebase Authentication
+    implementation ("com.google.firebase:firebase-database:20.0.3")  // Firebase Realtime Database
+    implementation(platform("com.google.firebase:firebase-bom:32.7.0"))
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.8.0-alpha01") // Hoặc phiên bản mới nhất
+    implementation(libs.firebase.analytics)
+
+    implementation ("com.github.bumptech.glide:glide:4.16.0")
+
 }
