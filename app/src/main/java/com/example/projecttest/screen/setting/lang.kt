@@ -12,7 +12,7 @@ class lang : AppCompatActivity() {
         binding = SettingLanguageBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.imgback.setOnClickListener {
+        binding.btnBack.setOnClickListener {
             finish()
         }
     }

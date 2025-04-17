@@ -4,37 +4,37 @@
     android:layout_width="match_parent"
     android:orientation="vertical"
     android:background="@color/white"
+    android:padding="16dp"
     android:layout_height="wrap_content">
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
-        android:padding="25dp"
+        android:paddingTop="20sp"
         android:orientation="horizontal">
 
         <ImageButton
-            android:id="@+id/imgbtnBack"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_weight="1"
-            android:background="@color/white"
-            app:srcCompat="?attr/actionModeCloseDrawable" />
+            android:id="@+id/btnBack"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@android:color/transparent"
+            android:src="@drawable/back" />
 
         <ImageView
             android:id="@+id/imageView"
             android:layout_width="50dp"
             android:layout_height="50dp"
+            android:layout_marginStart="20sp"
             app:srcCompat="@drawable/baseline_account_circle_24" />
 
         <TextView
             android:id="@+id/textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:textStyle="bold"
-            android:textSize="25dp"
-            android:layout_marginLeft="30dp"
+            android:textSize="20sp"
+            android:layout_marginStart="5dp"
             android:text="Hồ sơ của tôi" />
     </LinearLayout>
 

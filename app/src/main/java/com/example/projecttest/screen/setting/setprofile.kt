@@ -12,7 +12,7 @@ class setprofile : AppCompatActivity() {
         binding = SettingProfileBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.imgbtnBack.setOnClickListener {
+        binding.btnBack.setOnClickListener {
             finish()
         }
     }

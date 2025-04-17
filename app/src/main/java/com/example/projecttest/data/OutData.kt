@@ -6,3 +6,4 @@ class OutData(
     val detail: String
 ) {
 }
+

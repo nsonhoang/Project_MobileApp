@@ -2,6 +2,8 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     id("com.google.gms.google-services")
+    id("kotlin-kapt") apply false
+    id("com.google.devtools.ksp") // Thêm plugin KSP
 }
 
 android {
@@ -34,17 +36,17 @@ android {
     kotlinOptions {
         jvmTarget = "11"
     }
-    buildFeatures{
-        viewBinding=true
+    buildFeatures {
+        viewBinding = true
     }
 }
 
 dependencies {
 
-    // Firebase BoM nên ở trên để quản lý version
+    // Firebase BoM để quản lý các phiên bản
     implementation(platform("com.google.firebase:firebase-bom:33.11.0"))
 
-    // Firebase dependencies KHÔNG cần chỉ định version khi dùng BoM
+    // Các thư viện Firebase
     implementation("com.google.firebase:firebase-auth")
     implementation("com.google.firebase:firebase-database")
     implementation("com.google.firebase:firebase-analytics")
@@ -54,9 +56,9 @@ dependencies {
 
     // Facebook login
     implementation("com.facebook.android:facebook-login:latest.release")
-    implementation ("com.facebook.android:facebook-android-sdk:[4,5)")
+    implementation("com.facebook.android:facebook-android-sdk:[4,5)")
 
-    // AndroidX + UI
+    // Các thư viện AndroidX và UI
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
@@ -65,13 +67,27 @@ dependencies {
     implementation(libs.androidx.credentials)
     implementation(libs.androidx.credentials.play.services.auth)
 
-    // Image loading
+    // Thư viện tải ảnh
     implementation("io.coil-kt:coil-compose:2.4.0")
     implementation(libs.androidx.webkit)
+    implementation(libs.firebase.messaging)
 
-    // Test
+    // Thư viện cho việc kiểm tra
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
-}
 
+    // Room Database
+    implementation("androidx.room:room-runtime:2.5.0")
+    ksp("androidx.room:room-compiler:2.5.0")
+
+//    kapt("androidx.room:room-compiler:2.5.0")
+
+    // Thư viện Lifecycle cho ViewModel và LiveData
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.0")
+    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.6.0")
+
+
+    // Room KTX giúp sử dụng Room dễ dàng hơn với Kotlin
+    implementation("androidx.room:room-ktx:2.5.0")
+}

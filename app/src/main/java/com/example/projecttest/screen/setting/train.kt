@@ -12,7 +12,7 @@ class train : AppCompatActivity() {
         binding = SettingTrainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.imgback.setOnClickListener {
+        binding.btnBack.setOnClickListener {
             finish()
         }
     }

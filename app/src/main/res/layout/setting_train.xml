@@ -5,36 +5,37 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
+    android:padding="16dp"
     android:orientation="vertical">
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
-        android:padding="25dp"
+        android:paddingTop="20sp"
         android:orientation="horizontal">
 
         <ImageButton
-            android:id="@+id/imgback"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_weight="1"
-            android:background="@color/white"            app:srcCompat="?attr/actionModeCloseDrawable" />
+            android:id="@+id/btnBack"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@android:color/transparent"
+            android:src="@drawable/back" />
 
         <ImageView
             android:id="@+id/imageView5"
             android:layout_width="50dp"
             android:layout_height="50dp"
+            android:layout_marginStart="20sp"
             app:srcCompat="@drawable/ic_settings" />
 
         <TextView
             android:id="@+id/textView8"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:textStyle="bold"
-            android:textSize="25dp"
-            android:layout_marginLeft="30dp"
+            android:textSize="20sp"
+            android:layout_marginStart="5dp"
             android:text="Cài đặt luyện tập" />
     </LinearLayout>
 
@@ -43,7 +44,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="20sp"
-        android:textSize="25dp"
+        android:textSize="15sp"
         android:text="Hẹn giờ nghỉ ngơi" />
 
     <LinearLayout
@@ -85,7 +86,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="20sp"
-        android:textSize="25dp"
+        android:textSize="15sp"
         android:text="Đếm ngược trước khi tập luyện" />
 
     <LinearLayout

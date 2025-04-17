@@ -10,6 +10,7 @@ import androidx.webkit.Profile
 import com.example.projecttest.databinding.FragmentSettingBinding
 import com.example.projecttest.screen.setting.lang
 import com.example.projecttest.screen.setting.notification
+import com.example.projecttest.screen.setting.setprofile
 import com.example.projecttest.screen.setting.train
 
 class Setting : Fragment() {
@@ -23,22 +24,23 @@ class Setting : Fragment() {
     ): View {
         _binding = FragmentSettingBinding.inflate(inflater, container, false)
 
-        binding.imgbtnprofile.setOnClickListener {
-            val intent = Intent(requireContext(), Profile::class.java)
+        binding.btnProfile.setOnClickListener {
+            val intent = Intent(requireContext(), setprofile::class.java)
             startActivity(intent)
         }
 
-        binding.imgnoti.setOnClickListener {
+
+        binding.btnnoti.setOnClickListener {
             val intent = Intent(requireContext(), notification::class.java)
             startActivity(intent)
         }
 
-        binding.imgsettrain.setOnClickListener {
+        binding.btntrain.setOnClickListener {
             val intent = Intent(requireContext(), train::class.java)
             startActivity(intent)
         }
 
-        binding.imglang.setOnClickListener {
+        binding.btnlang.setOnClickListener {
             val intent = Intent(requireContext(), lang::class.java)
             startActivity(intent)
         }
@@ -49,10 +51,5 @@ class Setting : Fragment() {
         }
 
         return binding.root
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 }
