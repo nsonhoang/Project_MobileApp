@@ -40,9 +40,11 @@ class LvAdapterCourse(var ds: List<Course>, val onItemClickListener: OnItemClick
     }
     private fun getBackgroundColor(level: String): Int {
         val colors = arrayOf(
-            "#FF8343", // Màu cho level 1
+            "#3F62A3",
+             // Màu cho level 1
             "#647FFC", // Màu cho level 2
-            "#3F62A3"  // Màu cho level 3
+            "#FF8343",
+
         )
 
         return when (level) {

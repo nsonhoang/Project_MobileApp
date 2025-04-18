@@ -9,6 +9,8 @@ import com.example.projecttest.data.CourseModule
 import com.example.projecttest.data.TargetCourse
 import com.example.projecttest.data.TrainingProgram
 import com.google.firebase.Firebase
+import com.google.firebase.firestore.FieldPath
+import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.firestore
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -20,9 +22,11 @@ class CourseViewModel : ViewModel() {
     private val db = Firebase.firestore
     private val _trainingProgram = MutableStateFlow<List<TrainingProgram>>(emptyList())
     val trainingProgram: StateFlow<List<TrainingProgram>> get() = _trainingProgram
+    val trainingProgramId = "KpN1HjWE31d0ALiQJGKF"// id ở mục đầu tiên
 
-    fun fetchData() {
-        val trainingProgramId = "KpN1HjWE31d0ALiQJGKF"
+    val idListForYouAndStretching = "3RU8qGg9jVVjGfJFxYE8"
+
+    fun fetchDataTrainingProgram() {// lấy dữ liệu ở mục 6 múi ...
         viewModelScope.launch {
             try {
                 _trainingProgram.value = fetchTrainingPrograms(trainingProgramId)// lấu dữ liệu ở mục đầu tiền như là bài tập 6 múi ....
@@ -32,6 +36,43 @@ class CourseViewModel : ViewModel() {
             }
         }
     }
+
+    private val _trainingProgramListForYouAndStretching = MutableStateFlow<List<TrainingProgram>>(emptyList())
+    val trainingProgramListForYouAndStretching: StateFlow<List<TrainingProgram>> get() = _trainingProgramListForYouAndStretching
+
+    private val _trainingProgramListForYou = MutableStateFlow<List<Course>>(emptyList())
+    val trainingProgramListForYou: StateFlow<List<Course>> get() = _trainingProgramListForYou
+
+
+    private val _trainingProgramListStretching = MutableStateFlow<List<Course>>(emptyList())
+    val trainingProgramListStretching: StateFlow<List<Course>> get() = _trainingProgramListStretching
+
+
+    fun fetchDataListForYouAndStretching(){
+        val idListForyou= "1nB2jydlQmfPzDfWZDvs"//id ở mục dành cho bạn
+        val idListStretching = "J6ZEiiSwCeBDMJ5IjqIp"//id ở mục dãn cơ
+        viewModelScope.launch {
+            launch {
+                try {
+                    _trainingProgramListStretching.value=fetchCourses(idListForYouAndStretching,idListStretching)
+
+                }catch (e: Exception){
+                    Log.e(TAG, "Error fetching data listStreching", e)
+                    throw e
+                }
+            }
+            launch {
+                try {
+                    _trainingProgramListForYou.value=fetchCourses(idListForYouAndStretching,idListForyou)
+
+                }catch (e: Exception){
+                    Log.e(TAG, "Error fetching data List for you", e)
+                    throw e
+                }
+            }
+        }
+    }
+
 
     private suspend fun fetchTrainingPrograms(documentId : String): List<TrainingProgram> {
         val listProgram = mutableListOf<TrainingProgram>()
@@ -98,7 +139,6 @@ class CourseViewModel : ViewModel() {
 
         for(moduleDoc in moduleSnapshot.documents){
             val module = moduleDoc.toObject(CourseModule::class.java) ?: continue
-
             listModule.add(module)
         }
         return listModule

@@ -8,6 +8,7 @@
     style="@style/LayoutPadding"
     tools:context=".screen.discoverfragment.Discover">
     <!-- TODO: Update blank fragment layout -->
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -35,12 +36,19 @@
             android:src="@drawable/baseline_access_time_24" />
     </LinearLayout>
 
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:visibility="gone" />
     <ScrollView
         android:id="@+id/scrollDiscover"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:scrollbars="none"
         android:fillViewport="true"
+        android:visibility="visible"
         >
 
         <LinearLayout
@@ -55,6 +63,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
                 android:layout_marginTop="15dp"
+                android:overScrollMode="never"
+                android:contentDescription="null"
                 />
 
             <TextView
@@ -130,6 +140,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
                 android:layout_marginTop="10dp"
+                android:contentDescription="null"
                 />
 
             <TextView
@@ -169,6 +180,7 @@
 
         </LinearLayout>
     </ScrollView>
+
 
 
 </LinearLayout>

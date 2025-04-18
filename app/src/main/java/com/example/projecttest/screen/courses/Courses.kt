@@ -82,7 +82,7 @@ class Courses : AppCompatActivity() {
         val adapter = LvAdapterCourse(ds, object : OnItemClickListener {
             override fun onItemClick(position: Int) {
 
-                Toast.makeText(this@Courses, "Item $position", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@Courses, ds[position].name, Toast.LENGTH_SHORT).show()
 
 
                 val intent =Intent(this@Courses,CourseDetail::class.java)

@@ -1,5 +1,6 @@
 package com.example.projecttest.screen.discoverfragment
 
+import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
 import com.example.projecttest.screen.adapter.RvAdapter
@@ -7,10 +8,13 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.projecttest.R
+import com.example.projecttest.data.Course
 import com.example.projecttest.data.OutData
 import com.example.projecttest.data.TargetCourse
 import com.example.projecttest.databinding.FragmentDiscoverBinding
@@ -19,8 +23,10 @@ import com.example.projecttest.screen.adapter.LvAdapter
 import com.example.projecttest.screen.adapter.OnItemClickListener
 import com.example.projecttest.screen.adapter.RvAdapter2
 import com.example.projecttest.screen.adapter.RvAdapter3
+import com.example.projecttest.screen.courses.CourseDetail
 import com.example.projecttest.screen.courses.Courses
 import com.example.projecttest.screen.food.Food
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
@@ -37,27 +43,91 @@ class Discover : Fragment() {
     ): View {
 
 
+
+        binding = FragmentDiscoverBinding.inflate(inflater, container, false)
+
+        binding.progressBar.visibility= View.VISIBLE
+        if (binding.progressBar.isVisible){
+            binding.scrollDiscover.visibility = View.GONE
+
+        }
+
         courseViewModel = ViewModelProvider(this).get(CourseViewModel::class.java)
 
-        courseViewModel.fetchData()
+
 
         lifecycleScope.launch {
-            courseViewModel.trainingProgram.collectLatest {
+            try {
 
-                course ->
-                println(course)
-                course.forEach {
-                    createItemRecycler(it.targetCourses)
+                courseViewModel.fetchDataTrainingProgram()
+
+                courseViewModel.fetchDataListForYouAndStretching()
+                // Thu thập dữ liệu từ trainingProgramListForYou
+                delay(2000)
+                launch {
+                    courseViewModel.trainingProgramListForYou.collectLatest {
+                        createItemRecycler2(it)
+                        setOnClickBtnCourseToday(it)
+                    }
                 }
+
+                // Thu thập dữ liệu từ trainingProgramListStretching
+                launch {
+                    courseViewModel.trainingProgramListStretching.collectLatest {
+                        createItemRecyclerStretching(it) //mục giãn cơ
+
+                    }
+                }
+
+                // Thu thập dữ liệu từ trainingProgram
+                launch {
+                    courseViewModel.trainingProgram.collectLatest { courseList ->
+                        courseList.forEach { course ->
+                            createItemRecycler(course.targetCourses)
+                        }
+                    }
+                }
+            } catch (e: Exception) {
+                // Xử lý lỗi ở đây
+                println("Error: ${e.message}")
+                showErrorDialog("Lỗi:  ${e.message}")
+            }
+            finally {
+                binding.progressBar.visibility = View.GONE
+                binding.scrollDiscover.visibility = View.VISIBLE
             }
         }
 
-        binding = FragmentDiscoverBinding.inflate(inflater, container, false)
+
 //        createItemRecycler() // mục đầu tiên
-        createItemRecycler2() // mục dành cho bạn
-        createItemRecyclerStretching() //mục giãn cơ
+//        createItemRecycler2() // mục dành cho bạn
+
+
         createListView()//dem kalo
         return binding.root
+    }
+    private fun showErrorDialog(message: String) {
+        val builder = AlertDialog.Builder(requireContext())
+        builder.setTitle("Lỗi")
+            .setMessage(message)
+            .setPositiveButton("OK") { dialog, _ -> dialog.dismiss() }
+            .setCancelable(false) // Không cho phép đóng bằng cách nhấn ra ngoài
+        val dialog = builder.create()
+        dialog.show()
+    }
+
+    private fun setOnClickBtnCourseToday(list: List<Course>) {
+        binding.btnCourseToday.setOnClickListener {
+            val intent =Intent(requireContext(),CourseDetail::class.java)
+            intent.putParcelableArrayListExtra("Courses", ArrayList(list.first().modules))//truyền mảng này qua để hiển thị danh sách các bài tập
+            intent.putExtra("nameCourseDetail", binding.txtCourseToday.text.toString())
+            intent.putExtra("level",list.first().level)
+            intent.putExtra("totalTime",list.first().totalTime)
+//                intent.putExtra("img",)
+            startActivity(intent)
+
+
+        }
     }
 
     private fun createItemRecycler(list: List<TargetCourse>){
@@ -67,13 +137,14 @@ class Discover : Fragment() {
     }
 
 
-    private fun createItemRecycler2(){
-        val listForYou = createOutDataListForYou()
+    private fun createItemRecycler2(list: List<Course>){
+        val listForYou = createOutDataListForYou(list)
         setAdapterForYou(listForYou )//trả về layout ở mục dành cho bạn
     }
 
-    private  fun createItemRecyclerStretching(){
-        val list = createOutDataListStretching()
+    private  fun createItemRecyclerStretching(list: List<Course>){
+        val list = createOutDataListStretching(list)
+
         setAdapterStretching(list) // tạo layout ở mục khởi đông
     }
 
@@ -97,7 +168,6 @@ class Discover : Fragment() {
     private fun setAdapter(ds: List<TargetCourse>){
         val adapter = RvAdapter(ds, object : OnItemClickListener{
             override fun onItemClick(position: Int) {
-                val selectedId = ds[position]
 
                 val i = Intent(requireActivity(), Courses::class.java)
                 i.putExtra("nameCourse", ds[position].name)
@@ -112,40 +182,71 @@ class Discover : Fragment() {
 
     }
 
-    private fun setAdapterForYou(ds: List<OutData>){
-        val adapter = RvAdapter2(ds)
+    private fun setAdapterForYou(ds: List<Course>){
+        val adapter = RvAdapter2(ds,object : OnItemClickListener{
+            override fun onItemClick(position: Int) {
+                Toast.makeText(requireContext(), ds[position].name, Toast.LENGTH_SHORT).show()
+
+
+                val intent =Intent(requireContext(),CourseDetail::class.java)
+                intent.putParcelableArrayListExtra("Courses", ArrayList(ds[position].modules))//truyền mảng này qua để hiển thị danh sách các bài tập
+                intent.putExtra("nameCourseDetail", ds[position].name)
+                intent.putExtra("level",ds[position].level)
+                intent.putExtra("totalTime",ds[position].totalTime)
+//                intent.putExtra("img",)
+                startActivity(intent)
+            }
+
+        })
         binding.recyclerForYou.adapter = adapter // Set adapter cho RecyclerView
         binding.recyclerForYou.layoutManager = GridLayoutManager(requireContext(),2,GridLayoutManager.HORIZONTAL,false) // Sử dụng LinearLayoutManager với hướng ngang
     }
 
-    private fun createOutDataListForYou() :MutableList<OutData>{
-        val ds = mutableListOf<OutData>()
-
-        ds.add(OutData(R.drawable.gapbung, "Đốt cháy mỡ bụng với HIIT", "14 phút + Người bắt đầu"))
-        ds.add(OutData(R.drawable.chongday, "Giảm mỡ (KHÔNG NHẢY)", "15 phút + Người trung bình"))
-        ds.add(OutData(R.drawable.hittloaibongucxe, "HIIT loại bỏ ngực xệ", "13 phút + Người bắt đầu"))
-        ds.add(OutData(R.drawable.hiit2, "Bài tập cốt lõi HIIT", "14 phút + Người bắt đầu"))
-        ds.add(OutData(R.drawable.diamodpushup, "Làm rộng vai", "13 phút + Trung bình"))
+    private fun createOutDataListForYou(list: List<Course>) :MutableList<Course>{
+        val ds = mutableListOf<Course>()
+        list.forEach { course ->
+            ds.add(Course(course.name, course.detail, course.level, course.totalTime, course.img, course.modules))
+        }
 
         return ds
     }
 
-    private fun setAdapterStretching(ds: List<OutData>){
-        val adapter = RvAdapter3(ds)
+    private fun setAdapterStretching(ds: List<Course>){
+        val adapter = RvAdapter3(ds,object : OnItemClickListener{
+            override fun onItemClick(position: Int) {
+                Toast.makeText(requireContext(), ds[position].name, Toast.LENGTH_SHORT).show()
+
+
+                val intent =Intent(requireContext(),CourseDetail::class.java)
+                intent.putParcelableArrayListExtra("Courses", ArrayList(ds[position].modules))//truyền mảng này qua để hiển thị danh sách các bài tập
+                intent.putExtra("nameCourseDetail", ds[position].name)
+                intent.putExtra("level",ds[position].level)
+                intent.putExtra("totalTime",ds[position].totalTime)
+//                intent.putExtra("img",)
+                startActivity(intent)
+            }
+
+        })
         binding.recyclerStretching.adapter =adapter
         binding.recyclerStretching.layoutManager = GridLayoutManager(requireContext(),2,GridLayoutManager.HORIZONTAL,false)
     }
 
-    private fun createOutDataListStretching():MutableList<OutData>{
-        val ds = mutableListOf<OutData>()
+    private fun createOutDataListStretching(list: List<Course>):MutableList<Course>{
+        val ds = mutableListOf<Course>()
 
-        ds.add(OutData(R.drawable.keodantoanthan,"Kéo dãn toàn thân",""))
-        ds.add(OutData(R.drawable.giamcangvai,"Giảm căng vai",""))
-        ds.add(OutData(R.drawable.khoidongbuoisang,"Khởi động buổi sáng",""))
-        ds.add(OutData(R.drawable.ngungon,"Kéo dài thời gian ngủ",""))
-        ds.add(OutData(R.drawable.covagiamcangvai,"Kéo dãn toàn thân",""))
-        ds.add(OutData(R.drawable.giamdaulung,"Giảm đâu lưng",""))
-        ds.add(OutData(R.drawable.giamdaudaugoi,"Giảm đau đầu gối",""))
+        list.forEach { course ->
+            ds.add(Course(course.name, course.detail, course.level, course.totalTime, course.img, course.modules))
+        }
+
+
+
+//        ds.add(OutData(R.drawable.keodantoanthan,"Kéo dãn toàn thân",""))
+//        ds.add(OutData(R.drawable.giamcangvai,"Giảm căng vai",""))
+//        ds.add(OutData(R.drawable.khoidongbuoisang,"Khởi động buổi sáng",""))
+//        ds.add(OutData(R.drawable.ngungon,"Kéo dài thời gian ngủ",""))
+//        ds.add(OutData(R.drawable.covagiamcangvai,"Kéo dãn toàn thân",""))
+//        ds.add(OutData(R.drawable.giamdaulung,"Giảm đâu lưng",""))
+//        ds.add(OutData(R.drawable.giamdaudaugoi,"Giảm đau đầu gối",""))
 
         return ds
     }
