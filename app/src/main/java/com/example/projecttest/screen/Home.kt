@@ -7,26 +7,30 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
-import android.widget.ImageView
-import android.widget.LinearLayout
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.projecttest.databinding.FragmentHomeBinding
+import com.example.projecttest.R
 import com.example.projecttest.data.KieuBaiTap
 import com.example.projecttest.data.WorkoutProgram
-import com.example.projecttest.screen.adapter.WorkoutAdapter
-import com.example.projecttest.R
-import com.example.projecttest.screen.adapter.WorkoutProgramAdapter
-import com.example.projecttest.screen.courses.CourseDetail
-import com.example.projecttest.screen.courses.Courses
+import com.example.projecttest.databinding.FragmentHomeBinding
 import com.example.projecttest.screen.adapter.OnItemClickListener
+import com.example.projecttest.screen.adapter.WorkoutAdapter
+import com.example.projecttest.screen.adapter.WorkoutProgramAdapter
+import com.example.projecttest.screen.courses.Courses
+import com.example.projecttest.model.UserSummaryViewModel
+import androidx.fragment.app.viewModels
 
 class Home : Fragment(), OnItemClickListener {
 
     private lateinit var binding: FragmentHomeBinding
     private lateinit var twAdapter: WorkoutAdapter
     private lateinit var wpAdapter: WorkoutProgramAdapter
+    private lateinit var txtCountTraining : TextView
+    private lateinit var txtKcal : TextView
+    private lateinit var txtTimeTraining : TextView
+    private val userSummaryViewModel: UserSummaryViewModel by viewModels()
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -52,7 +56,7 @@ class Home : Fragment(), OnItemClickListener {
             KieuBaiTap("Cánh tay nâng cao", "21 PHÚT", "23 Bài Tập", R.drawable.tayhight, "Nâng cao"),
             KieuBaiTap("Chân nâng cao", "30 PHÚT", "27 Bài Tập", R.drawable.chanhight, "Nâng cao")
         )
-
+        userSummaryViewModel.fetchUserSummary("lRKX1O9ZDAHh2lrVwSHi")
         // Truyền sự kiện click vào Adapter
         twAdapter = WorkoutAdapter(workoutList, this)
         binding.rvWorkLevel.apply {
@@ -79,6 +83,16 @@ class Home : Fragment(), OnItemClickListener {
         }
 
         return binding.root
+    }
+    private fun observeUserSummary() {
+        userSummaryViewModel.userSummary.observe(viewLifecycleOwner) { summary ->
+            summary?.let {
+                // 🔥 Khi có dữ liệu sẽ tự động cập nhật giao diện
+                binding.txtCountTraining.text = it.trainingCount.toString()
+                binding.txtKcal.text = it.kcalCount.toString()
+                binding.txtTimeTraining.text = it.timeTraining
+            }
+        }
     }
 
     override fun onItemClick(position: Int) {

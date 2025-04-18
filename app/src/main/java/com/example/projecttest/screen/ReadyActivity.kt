@@ -8,82 +8,74 @@ import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
-import androidx.lifecycle.ViewModelProvider
+import com.example.projecttest.data.CourseModule
 import com.example.projecttest.R
 import com.bumptech.glide.Glide
-import com.google.firebase.firestore.FirebaseFirestore
-import com.example.projecttest.model.CourseViewModel
 
-class ReadyActivity : AppCompatActivity(){
+class ReadyActivity : AppCompatActivity() {
+
     private lateinit var tvCountdownReady: TextView
     private lateinit var progressCountdownReady: ProgressBar
-    private var countDownTimer : CountDownTimer? =null
-    private var exerciseId: Int = 1
+    private lateinit var tvExerciseName: TextView
     private lateinit var imgExerciseReady: ImageView
-    private lateinit var firestore: FirebaseFirestore
-    private lateinit var viewModel: CourseViewModel
-    private lateinit var programId: String
-    private lateinit var targetCourseId: String
-    private lateinit var courseId: String
+    private var countDownTimer: CountDownTimer? = null
+    private var currentTrainingTime: Long = 30 // Mặc định 30 giây
+    private var modules: ArrayList<CourseModule>? = null
+    private var currentIndex: Int = 0 // Khởi tạo currentIndex
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_ready)
 
-        val btnNextReady : Button = findViewById(R.id.btnNextReady)
-        btnNextReady.setBackgroundColor(ContextCompat.getColor(this, R.color.white))
+        // Khởi tạo view
         tvCountdownReady = findViewById(R.id.tvCountdownReady)
         progressCountdownReady = findViewById(R.id.progressCountdownReady)
+        tvExerciseName = findViewById(R.id.tvExerciseName)
         imgExerciseReady = findViewById(R.id.imgExerciseReady)
+        val btnNextReady: Button = findViewById(R.id.btnNextReady)
 
-        viewModel = ViewModelProvider(this)[CourseViewModel::class.java]
-        startCountdown()
-        firestore= FirebaseFirestore.getInstance()
-        loadGifFromFirestore()
+        // Nhận dữ liệu từ Intent
+        modules = intent.getParcelableArrayListExtra("Courses")
+        currentIndex = intent.getIntExtra("CURRENT_INDEX", 0)
+
+        modules?.takeIf { it.isNotEmpty() }?.let { moduleList ->
+            val currentModule = moduleList[currentIndex]
+            tvExerciseName.text = currentModule.name
+            Glide.with(this).load(currentModule.img).override(380, 300).into(imgExerciseReady)
+
+            currentTrainingTime = currentModule.trainingTime.toLong()
+            startCountdown(currentTrainingTime)
+        } ?: run {
+            tvExerciseName.text = "Tên bài tập không có"
+            startCountdown(currentTrainingTime)
+        }
 
         btnNextReady.setOnClickListener {
-            navigateToExercise()
+            navigateToTraining()
         }
     }
-    private fun loadGifFromFirestore() {
-        firestore.collection("TrainingProgram").document(programId)
-            .collection("TargetCourses").document(targetCourseId)
-            .collection("Courses").document(courseId)
-            .collection("modules")
-            .limit(1) // Lấy module đầu tiên
-            .get()
-            .addOnSuccessListener { result ->
-                if (!result.isEmpty) {
-                    val document = result.documents[0]
-                    val gifUrl = document.getString("img") // hoặc "gifUrl" tùy bạn lưu
-                    if (!gifUrl.isNullOrEmpty()) {
-                        Glide.with(this).load(gifUrl).override(380, 300).into(imgExerciseReady)
-                    }
-                }
-            }
-            .addOnFailureListener { e ->
-                e.printStackTrace()
-            }
-    }
-    private fun startCountdown() {
-        countDownTimer = object : CountDownTimer(30000, 1000) {
+
+    private fun startCountdown(seconds: Long) {
+        countDownTimer = object : CountDownTimer(seconds * 1000, 1000) {
             override fun onTick(millisUntilFinished: Long) {
                 val secondsRemaining = millisUntilFinished / 1000
                 tvCountdownReady.text = secondsRemaining.toString()
-                progressCountdownReady.progress = (30 - secondsRemaining).toInt()
+                progressCountdownReady.progress = (currentTrainingTime - secondsRemaining).toInt()
             }
 
             override fun onFinish() {
-                navigateToExercise()
+                tvCountdownReady.text = "0"
+                navigateToTraining()
             }
         }.start()
     }
-    private fun navigateToExercise() {
+
+    private fun navigateToTraining() {
         countDownTimer?.cancel()
-        val intent = Intent(this, Training::class.java)
-        intent.putExtra("EXERCISE_ID", exerciseId)
-        startActivity(intent)
+        Intent(this, Training::class.java).apply {
+            putParcelableArrayListExtra("Courses", modules)
+            putExtra("CURRENT_INDEX", currentIndex)
+        }.also { startActivity(it) }
         finish()
     }
 

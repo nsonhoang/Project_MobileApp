@@ -21,7 +21,6 @@
         android:id="@+id/title_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@android:color/white"
         android:orientation="horizontal"
         android:padding="10dp">
 
@@ -81,29 +80,6 @@
             </LinearLayout>
 
             <!-- Mục tiêu hàng tuần -->
-            <RelativeLayout
-                android:id="@+id/goal_section"
-                android:layout_width="match_parent"
-                android:layout_height="90dp"
-                android:background="#FFFFFF"
-                android:padding="16dp">
-
-                <TextView
-                    android:id="@+id/goal_text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Mục tiêu hàng tuần"
-                    android:textSize="18sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:text="1/4"
-                    android:textSize="16sp"
-                    android:textStyle="bold" />
-            </RelativeLayout>
 
             <!-- Danh sách bài tập -->
 

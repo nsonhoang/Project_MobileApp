@@ -31,7 +31,7 @@
         android:id="@+id/exerciseImage"
         android:layout_width="380dp"
         android:layout_height="319dp"
-        android:scaleType="centerCrop" />
+        android:scaleType="fitCenter" />
 
     <TextView
         android:id="@+id/tvExerciseName"
