@@ -1,62 +1,92 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/tongKet"
+    android:id="@+id/fragment_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".screen.TongKet">
 
-    <ImageView
-        android:id="@+id/imgtongKet"
-        android:layout_width="406dp"
-        android:layout_height="303dp"
-        android:layout_marginTop="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.4"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/bunghight" />
+    <!-- Fragment Container bọc tất cả -->
+    <FrameLayout
+        android:id="@+id/ltongKet"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/white">
 
-    <androidx.cardview.widget.CardView
-        android:layout_width="409dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.517" >
+        <!-- Nội dung giao diện ban đầu -->
 
-        <TextView
-            android:id="@+id/tvTimeTraining"
+        <!-- ImageView -->
+
+        <!-- CardView -->
+        <ImageView
+            android:id="@+id/imgtongKet"
+            android:layout_width="match_parent"
+            android:layout_height="263dp"
+            android:layout_marginTop="16dp"
+            android:scaleType="centerCrop"
+            app:srcCompat="@drawable/bunghight" />
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="106dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="300dp"
+            android:layout_marginEnd="16dp"
+            app:cardBackgroundColor="#FBFBFB"
+            app:cardCornerRadius="20dp">
+
+            <!-- 1 layout để chứa 3 TextView -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:padding="16dp"
+                android:weightSum="3">
+
+                <TextView
+                    android:id="@+id/tvTimeTraining"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/roboto_bold"
+                    android:gravity="center"
+                    android:text="Time"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/tvKcalCount"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/roboto_bold"
+                    android:gravity="center"
+                    android:text="Kcal"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/tvCountTraining"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/roboto_bold"
+                    android:gravity="center"
+                    android:text="Training"
+                    android:textSize="20sp" />
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <!-- Button -->
+        <Button
+            android:id="@+id/btnTongKet"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:text="TextView" />
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="450dp"
+            android:backgroundTint="#1022AB"
+            android:text="HOÀN THÀNH" />
 
-        <TextView
-            android:id="@+id/tvKcalCount"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="165dp"
-            android:text="TextView" />
+    </FrameLayout>
 
-        <TextView
-            android:id="@+id/tvCountTraining"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="330dp"
-            android:text="TextView" />
-    </androidx.cardview.widget.CardView>
-
-    <Button
-        android:id="@+id/btnTongKet"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="156dp"
-        android:text="HOÀN THÀNH"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        android:backgroundTint="@color/hight_blue"/>
-</androidx.constraintlayout.widget.ConstraintLayout>
+</FrameLayout>

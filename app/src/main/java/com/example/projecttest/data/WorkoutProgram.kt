@@ -5,4 +5,4 @@ data class WorkoutProgram (
     val tiendo: Int,
     val imageResId: Int
 
-    )
+)

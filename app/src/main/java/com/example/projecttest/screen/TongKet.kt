@@ -1,5 +1,6 @@
 package com.example.projecttest.screen
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
@@ -7,6 +8,7 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.example.projecttest.R
 import com.example.projecttest.model.UserSummaryViewModel
+import kotlin.random.Random
 
 class TongKet : AppCompatActivity() {
 
@@ -27,24 +29,45 @@ class TongKet : AppCompatActivity() {
         tvCountTraining = findViewById(R.id.tvCountTraining)
         btnTongKet = findViewById(R.id.btnTongKet)
 
-        // Giả sử bạn có userId (truyền từ màn trước hoặc lấy từ FirebaseAuth)
-        val userId = "IRKX1O9ZDAhH2lrVwSHi" // <-- sửa lại theo user của bạn
+        val userId = "CmdNGAdOkVaFqdVHD9ISsbPCZHa2"
+
+        // Lấy startTime từ ReadyActivity
+        val startTime = intent.getLongExtra("startTime", 0L)
+        val endTime = System.currentTimeMillis()
+        val trainingDurationSeconds = (endTime - startTime) / 1000
+
+        val kcalBurned = Random.nextInt(50, 121)
 
         // Gọi ViewModel để fetch dữ liệu
         viewModel.fetchUserSummary(userId)
 
-        // Quan sát dữ liệu từ ViewModel
         viewModel.userSummary.observe(this) { summary ->
-            if (summary != null) {
-                tvTimeTraining.text = "Thời gian tập: ${summary.timeTraining}"
-                tvKcalCount.text = "Kcal: ${summary.kcalCount}"
-                tvCountTraining.text = "Số buổi: ${summary.trainingCount}"
-            }
+            val currentTrainingCount = summary?.trainingCount ?: 0
+            val newTrainingCount = currentTrainingCount + 1
+            val currentKcalCount = summary?.kcalCount ?: 0
+            val newKcalCount = currentKcalCount + kcalBurned
+
+            // Hiển thị lên UI
+            tvTimeTraining.text = "Thời gian tập \n${trainingDurationSeconds / 60} phút" // Chuyển đổi sang phút
+            tvKcalCount.text = "Kcal \n$kcalBurned"
+            tvCountTraining.text = "Số Lần Tập \n$newTrainingCount"
+
+            // Cập nhật dữ liệu mới lên Firestore thông qua ViewModel
+            viewModel.updateUserSummary(
+                userId,
+                trainingDurationSeconds,
+                newKcalCount,
+                newTrainingCount
+            )
         }
 
-        // Xử lý nút hoàn thành
+        // Nút hoàn thành
         btnTongKet.setOnClickListener {
-            finish() // Quay về màn hình trước hoặc chuyển tiếp
+            val transaction = supportFragmentManager.beginTransaction()
+            transaction.replace(R.id.fragment_container, Home())
+            transaction.addToBackStack(null)
+            transaction.commit()
         }
+
     }
 }

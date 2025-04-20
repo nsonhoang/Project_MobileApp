@@ -22,6 +22,7 @@ class Training : AppCompatActivity() {
     private var isPaused = false
     private var currentIndex = 0
     private var modules: ArrayList<CourseModule>? = null
+    private var startTime: Int = 0 // sửa về Int để đúng kiểu nhận từ Intent
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,6 +38,7 @@ class Training : AppCompatActivity() {
 
         modules = intent.getParcelableArrayListExtra("Courses")
         currentIndex = intent.getIntExtra("CURRENT_INDEX", 0)
+        startTime = intent.getIntExtra("startTime", 0) // sửa: dùng đúng biến class
 
         modules?.getOrNull(currentIndex)?.let {
             timeLeftInMillis = it.trainingTime * 1000L
@@ -60,7 +62,9 @@ class Training : AppCompatActivity() {
                 tvTimer.text = String.format("%02d:%02d", minutes, seconds)
             }
 
-            override fun onFinish() = navigateToRest()
+            override fun onFinish() {
+                navigateToRest()
+            }
         }.start()
     }
 
@@ -78,16 +82,20 @@ class Training : AppCompatActivity() {
     private fun navigateToRest() {
         countDownTimer?.cancel()
         val nextIndex = currentIndex + 1
-        val intent = if (modules != null && nextIndex < modules!!.size) {
-            Intent(this, Rest::class.java).apply {
+        if (modules != null && nextIndex < modules!!.size) {
+            val intent = Intent(this, Rest::class.java).apply {
                 putParcelableArrayListExtra("Courses", modules)
                 putExtra("CURRENT_INDEX", nextIndex)
+                putExtra("startTime", startTime)
             }
-        } else {
-            Intent(this, TongKet::class.java)
             startActivity(intent)
-            finish()
+        } else {
+            val intent = Intent(this, TongKet::class.java).apply {
+                putExtra("startTime", startTime)
+            }
+            startActivity(intent)
         }
+        finish()
     }
 
     override fun onDestroy() {

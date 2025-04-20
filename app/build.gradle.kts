@@ -56,8 +56,8 @@ dependencies {
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
     implementation ("androidx.lifecycle:lifecycle-viewmodel-ktx:2.7.0")
-
-
+    implementation ("androidx.lifecycle:lifecycle-livedata-ktx:2.7.0")
+    implementation ("androidx.fragment:fragment-ktx:1.6.2")
     implementation ("com.google.firebase:firebase-auth:21.0.1")  // Firebase Authentication
     implementation ("com.google.firebase:firebase-database:20.0.3")  // Firebase Realtime Database
     implementation(platform("com.google.firebase:firebase-bom:32.7.0"))

@@ -12,8 +12,6 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.bumptech.glide.Glide
 import com.example.projecttest.R
 import com.example.projecttest.data.Course
-
-
 import com.example.projecttest.databinding.ActivityCoursesBinding
 import com.example.projecttest.screen.adapter.LvAdapterCourse
 import com.example.projecttest.screen.adapter.OnItemClickListener

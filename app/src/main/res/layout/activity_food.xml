@@ -53,11 +53,11 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
         android:contentDescription="@string/food"
-        app:layout_constraintTop_toBottomOf="@+id/frameTile"
-        app:layout_constraintLeft_toLeftOf="parent"
         android:fontFamily="@font/roboto_bold"
         android:paddingLeft="10dp"
-        android:text="Thực phẩm" />
+        android:text="Thực phẩm"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/frameTile" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/LvFood"

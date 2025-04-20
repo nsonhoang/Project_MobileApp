@@ -7,7 +7,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.projecttest.R
@@ -26,9 +25,6 @@ class Home : Fragment(), OnItemClickListener {
     private lateinit var binding: FragmentHomeBinding
     private lateinit var twAdapter: WorkoutAdapter
     private lateinit var wpAdapter: WorkoutProgramAdapter
-    private lateinit var txtCountTraining : TextView
-    private lateinit var txtKcal : TextView
-    private lateinit var txtTimeTraining : TextView
     private val userSummaryViewModel: UserSummaryViewModel by viewModels()
 
 
@@ -56,7 +52,7 @@ class Home : Fragment(), OnItemClickListener {
             KieuBaiTap("Cánh tay nâng cao", "21 PHÚT", "23 Bài Tập", R.drawable.tayhight, "Nâng cao"),
             KieuBaiTap("Chân nâng cao", "30 PHÚT", "27 Bài Tập", R.drawable.chanhight, "Nâng cao")
         )
-        userSummaryViewModel.fetchUserSummary("lRKX1O9ZDAHh2lrVwSHi")
+        userSummaryViewModel.fetchUserSummary("CmdNGAdOkVaFqdVHD9ISsbPCZHa2")
         // Truyền sự kiện click vào Adapter
         twAdapter = WorkoutAdapter(workoutList, this)
         binding.rvWorkLevel.apply {
@@ -81,6 +77,7 @@ class Home : Fragment(), OnItemClickListener {
         binding.trainingInfo.setOnClickListener {
             switchLich()
         }
+        observeUserSummary()
 
         return binding.root
     }
@@ -88,9 +85,9 @@ class Home : Fragment(), OnItemClickListener {
         userSummaryViewModel.userSummary.observe(viewLifecycleOwner) { summary ->
             summary?.let {
                 // 🔥 Khi có dữ liệu sẽ tự động cập nhật giao diện
-                binding.txtCountTraining.text = it.trainingCount.toString()
-                binding.txtKcal.text = it.kcalCount.toString()
-                binding.txtTimeTraining.text = it.timeTraining
+                binding.txtCountTraining.text = "${it.trainingCount}\n LẦN TẬP"
+                binding.txtKcal.text = "${it.kcalCount}\n KCAL"
+                binding.txtTimeTraining.text = "${it.timeTraining}\n PHÚT"
             }
         }
     }
@@ -106,7 +103,7 @@ class Home : Fragment(), OnItemClickListener {
 
     private fun switchLich() {
         val transaction = parentFragmentManager.beginTransaction()
-        transaction.replace(R.id.fragment_container, Report()) // Đảm bảo R.id.fragment_container đúng
+        transaction.replace(R.id.ltongKet, Report()) // Đảm bảo R.id.fragment_container đúng
         transaction.addToBackStack(null) // Cho phép quay lại fragment trước đó
         transaction.commit()
     }

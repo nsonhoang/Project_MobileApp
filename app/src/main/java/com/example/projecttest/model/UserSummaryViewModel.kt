@@ -1,5 +1,6 @@
 package com.example.projecttest.model
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -12,22 +13,62 @@ class UserSummaryViewModel : ViewModel() {
     private val _userSummary = MutableLiveData<UserSummary?>()
     val userSummary: LiveData<UserSummary?> = _userSummary
 
+    // Phương thức lấy dữ liệu từ Firestore
     fun fetchUserSummary(userId: String) {
         db.collection("User")
-            .document(userId)
+            .document("CmdNGAdOkVaFqdVHD9ISsbPCZHa2")
+            .collection("infoTraining")
+            .document("1")
             .get()
             .addOnSuccessListener { document ->
                 if (document != null && document.exists()) {
                     val summary = UserSummary(
                         kcalCount = document.getLong("kcalCount")?.toInt() ?: 0,
-                        timeTraining = document.getString("timeTraining") ?: "",
+                        timeTraining = document.getLong("timeTraining")?.toInt() ?: 0,
                         trainingCount = document.getLong("trainingCount")?.toInt() ?: 0
                     )
                     _userSummary.value = summary
+                } else {
+                    // Trường hợp không có document
+                    _userSummary.value = null
                 }
             }
-            .addOnFailureListener {
-                // Xử lý lỗi nếu cần
+            .addOnFailureListener { exception ->
+                // Xử lý lỗi nếu có
+                _userSummary.value = null
+                Log.e("UserSummaryViewModel", "Error getting user summary", exception)
+            }
+    }
+
+    // Phương thức cập nhật thông tin người dùng
+    fun updateUserSummary(userId: String, timeTraining: Long, kcalCount: Int, trainingCount: Int) {
+        val userRef = db.collection("User")
+            .document("CmdNGAdOkVaFqdVHD9ISsbPCZHa2")
+            .collection("infoTraining")
+            .document("1")
+
+        // Chuyển thời gian từ giây sang phút
+        val timeInMinutes = (timeTraining / 60).toInt()
+
+        val updatedData = mapOf(
+            "timeTraining" to timeInMinutes,
+            "kcalCount" to kcalCount,
+            "trainingCount" to trainingCount
+        )
+
+        userRef.update(updatedData)
+            .addOnSuccessListener {
+                // Cập nhật thành công
+            }
+            .addOnFailureListener { exception ->
+                // Nếu lỗi (ví dụ user chưa có document), tạo mới
+                userRef.set(updatedData)
+                    .addOnSuccessListener {
+                        // Tạo mới thành công
+                    }
+                    .addOnFailureListener { exception ->
+                        Log.e("UserSummaryViewModel", "Error updating user summary", exception)
+                    }
             }
     }
 }
