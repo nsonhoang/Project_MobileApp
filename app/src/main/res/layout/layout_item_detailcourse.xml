@@ -17,13 +17,13 @@
             android:id="@+id/cardBackgroundCourse"
             android:layout_width="70dp"
             android:layout_height="60dp"
-            app:cardBackgroundColor="#3F62A3"
-            app:cardCornerRadius="20sp">
+            app:cardBackgroundColor="@color/white"
+            >
 
             <ImageView
                 android:id="@+id/imgCourse"
-                android:layout_width="40dp"
-                android:layout_height="50dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_gravity="center"/>
             <!--                app:srcCompat="@drawable/fire" -->
 

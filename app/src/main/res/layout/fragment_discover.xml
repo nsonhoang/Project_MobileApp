@@ -63,11 +63,17 @@
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
                 android:layout_marginTop="15dp"
-                android:overScrollMode="never"
+
+                android:overScrollMode="ifContentScrolls"
                 android:contentDescription="null"
                 />
 
+<!--            test-->
+
+
+<!--            test-->
             <TextView
+                android:id="@+id/quickStart"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
@@ -158,6 +164,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="300dp"
                 android:layout_marginTop="10dp"
+                android:contentDescription="null"
                 />
 
             <TextView

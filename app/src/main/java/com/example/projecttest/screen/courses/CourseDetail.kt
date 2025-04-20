@@ -54,7 +54,13 @@ class CourseDetail : AppCompatActivity() {
         setInforCourse(level,totalTime,list) // cài đặt thông tin như cấp độ tập, thời gian, số bài tập
         setListCourseDetail(list) // cài đặt hiện thị danh sách các bài tập
         setEventOnClickStart() /// cài đặt sự kiện khi mình click vào bắt đầu
+        setEventOnclickBackArrow()
+    }
 
+    private fun setEventOnclickBackArrow() {
+        binding.btnExit.setOnClickListener {
+            finish()
+        }
     }
 
     private fun setEventOnClickStart() {

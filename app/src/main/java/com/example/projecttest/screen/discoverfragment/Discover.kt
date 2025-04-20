@@ -18,7 +18,7 @@ import com.example.projecttest.data.Course
 import com.example.projecttest.data.OutData
 import com.example.projecttest.data.TargetCourse
 import com.example.projecttest.databinding.FragmentDiscoverBinding
-import com.example.projecttest.model.CourseViewModel
+import com.example.projecttest.viewmodel.CourseViewModel
 import com.example.projecttest.screen.adapter.LvAdapter
 import com.example.projecttest.screen.adapter.OnItemClickListener
 import com.example.projecttest.screen.adapter.RvAdapter2
@@ -123,6 +123,7 @@ class Discover : Fragment() {
             intent.putExtra("nameCourseDetail", binding.txtCourseToday.text.toString())
             intent.putExtra("level",list.first().level)
             intent.putExtra("totalTime",list.first().totalTime)
+
 //                intent.putExtra("img",)
             startActivity(intent)
 
@@ -172,6 +173,7 @@ class Discover : Fragment() {
                 val i = Intent(requireActivity(), Courses::class.java)
                 i.putExtra("nameCourse", ds[position].name)
                 i.putExtra("img",ds[position].img)
+                i.putExtra("detailCourse",ds[position].detail)
 
                 i.putParcelableArrayListExtra("program", ArrayList(ds[position].courses))
                 startActivity(i)
