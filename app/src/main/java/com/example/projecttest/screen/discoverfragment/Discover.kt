@@ -180,7 +180,7 @@ class Discover : Fragment() {
             }
         })
         binding.recyclerContainor.adapter = adapter // Set adapter cho RecyclerView
-        binding.recyclerContainor.layoutManager = GridLayoutManager(requireContext(),2,GridLayoutManager.HORIZONTAL,false) // Sử dụng LinearLayoutManager với hướng ngang
+        binding.recyclerContainor.layoutManager = GridLayoutManager(requireContext(),2,GridLayoutManager.VERTICAL,false) // Sử dụng LinearLayoutManager với hướng ngang
 
     }
 
