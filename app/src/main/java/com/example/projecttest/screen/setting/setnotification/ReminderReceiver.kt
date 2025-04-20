@@ -25,7 +25,7 @@ class ReminderReceiver : BroadcastReceiver() {
         val notification = NotificationCompat.Builder(context, channelId)
             .setContentTitle("Đến giờ luyện tập!")
             .setContentText("Hãy đứng dậy và bắt đầu bài tập của bạn ngay nào 💪")
-            .setSmallIcon(R.drawable.smile)
+            .setSmallIcon(R.drawable.logo)
             .build()
 
         notificationManager.notify(Random().nextInt(), notification)
