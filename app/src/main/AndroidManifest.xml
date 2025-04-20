@@ -23,6 +23,8 @@
         <activity
             android:name=".screen.courses.CourseDetail"
             android:exported="true" />
+        <activity android:name=".screen.TongKet" android:exported="true"/>
+        <activity android:name=".screen.Rest" android:exported="false"/>
         <activity android:name=".screen.ReadyActivity"/>
         <activity android:name=".screen.Training"/>.
         <activity

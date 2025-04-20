@@ -1,3 +1,4 @@
+
 package com.example.projecttest.screen
 
 import android.content.Intent
@@ -6,25 +7,26 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
-import android.widget.ImageView
-import android.widget.LinearLayout
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.projecttest.databinding.FragmentHomeBinding
+import com.example.projecttest.R
 import com.example.projecttest.data.KieuBaiTap
 import com.example.projecttest.data.WorkoutProgram
-import com.example.projecttest.screen.adapter.WorkoutAdapter
-import com.example.projecttest.R
-import com.example.projecttest.screen.adapter.WorkoutProgramAdapter
-import com.example.projecttest.screen.courses.CourseDetail
+import com.example.projecttest.databinding.FragmentHomeBinding
 import com.example.projecttest.screen.adapter.OnItemClickListener
+import com.example.projecttest.screen.adapter.WorkoutAdapter
+import com.example.projecttest.screen.adapter.WorkoutProgramAdapter
+import com.example.projecttest.screen.courses.Courses
+import com.example.projecttest.model.UserSummaryViewModel
+import androidx.fragment.app.viewModels
 
 class Home : Fragment(), OnItemClickListener {
 
     private lateinit var binding: FragmentHomeBinding
     private lateinit var twAdapter: WorkoutAdapter
     private lateinit var wpAdapter: WorkoutProgramAdapter
+    private val userSummaryViewModel: UserSummaryViewModel by viewModels()
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -50,7 +52,7 @@ class Home : Fragment(), OnItemClickListener {
             KieuBaiTap("Cánh tay nâng cao", "21 PHÚT", "23 Bài Tập", R.drawable.tayhight, "Nâng cao"),
             KieuBaiTap("Chân nâng cao", "30 PHÚT", "27 Bài Tập", R.drawable.chanhight, "Nâng cao")
         )
-
+        userSummaryViewModel.fetchUserSummary("CmdNGAdOkVaFqdVHD9ISsbPCZHa2")
         // Truyền sự kiện click vào Adapter
         twAdapter = WorkoutAdapter(workoutList, this)
         binding.rvWorkLevel.apply {
@@ -60,7 +62,7 @@ class Home : Fragment(), OnItemClickListener {
 
         wpAdapter = WorkoutProgramAdapter(workoutPrograms) { selectedProgram ->
             Log.d("HomeFragment", "Đã nhấn vào: ${selectedProgram.tenbaitap}")
-            val intent = Intent(requireContext(), CourseDetail::class.java).apply {
+            val intent = Intent(requireContext(), Courses::class.java).apply {
                 putExtra("PROGRAM_NAME", selectedProgram.tenbaitap)
             }
             startActivity(intent)
@@ -75,8 +77,19 @@ class Home : Fragment(), OnItemClickListener {
         binding.trainingInfo.setOnClickListener {
             switchLich()
         }
+        observeUserSummary()
 
         return binding.root
+    }
+    private fun observeUserSummary() {
+        userSummaryViewModel.userSummary.observe(viewLifecycleOwner) { summary ->
+            summary?.let {
+                // 🔥 Khi có dữ liệu sẽ tự động cập nhật giao diện
+                binding.txtCountTraining.text = "${it.trainingCount}\n LẦN TẬP"
+                binding.txtKcal.text = "${it.kcalCount}\n KCAL"
+                binding.txtTimeTraining.text = "${it.timeTraining}\n PHÚT"
+            }
+        }
     }
 
     override fun onItemClick(position: Int) {
@@ -84,13 +97,13 @@ class Home : Fragment(), OnItemClickListener {
     }
 
     private fun switchCourseDetail() {
-        val intent = Intent(requireContext(), CourseDetail::class.java)
+        val intent = Intent(requireContext(), Courses::class.java)
         startActivity(intent)
     }
 
     private fun switchLich() {
         val transaction = parentFragmentManager.beginTransaction()
-        transaction.replace(R.id.fragment_container, Report()) // Đảm bảo R.id.fragment_container đúng
+        transaction.replace(R.id.ltongKet, Report()) // Đảm bảo R.id.fragment_container đúng
         transaction.addToBackStack(null) // Cho phép quay lại fragment trước đó
         transaction.commit()
     }

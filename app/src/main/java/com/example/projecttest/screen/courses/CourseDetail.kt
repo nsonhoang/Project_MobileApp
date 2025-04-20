@@ -17,26 +17,31 @@ import com.example.projecttest.screen.adapter.RvAdapterDetailCourse
 
 class CourseDetail : AppCompatActivity() {
     private lateinit var binding: ActivityCourseDetailBinding
+    private var receivedModule: ArrayList<CourseModule>? = null // Khai báo biến global
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         binding = ActivityCourseDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        // Lắng nghe và xử lý WindowInsets (nếu cần thiết)
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-        val receivedModule = intent.getParcelableArrayListExtra<CourseModule>("Courses")
+
+        // Nhận dữ liệu từ Intent
+        receivedModule = intent.getParcelableArrayListExtra("Courses")
         val nameCourse = intent.getStringExtra("nameCourseDetail") ?: ""
-        val level = intent.getStringExtra("level")  ?: ""
-        val img = intent.getStringExtra("img")  ?: ""
-        val totalTime = intent.getIntExtra("totalTime",0)
+        val level = intent.getStringExtra("level") ?: ""
+        val img = intent.getStringExtra("img") ?: ""
+        val totalTime = intent.getIntExtra("totalTime", 0)
 
-
-
+        // Nếu có dữ liệu receivedModule, thực hiện các thao tác
         receivedModule?.let {
-            addEvends(receivedModule,nameCourse,level,img,totalTime)
+            addEvends(it, nameCourse, level, img, totalTime)
         }
 
 
@@ -66,56 +71,50 @@ class CourseDetail : AppCompatActivity() {
     private fun setEventOnClickStart() {
         binding.button.setOnClickListener {
             // Chuyển đến màn hình Ready
-            val intent = Intent(this, ReadyActivity::class.java)
-            startActivity(intent)
+            val receivedModule = intent.getParcelableArrayListExtra<CourseModule>("Courses")
+            receivedModule?.let {
+                val intent = Intent(this, ReadyActivity::class.java)
+                intent.putParcelableArrayListExtra("Courses", ArrayList(it))  // Truyền toàn bộ danh sách
+                startActivity(intent)
+            }
         }
-
     }
 
+    // Các phương thức khác không thay đổi
     private fun setListCourseDetail(list: List<CourseModule>) {
         val list = createListCourseDetail(list)
         setAdapter(list)
     }
 
-    private fun setAdapter( ds: List<CourseModule>) {
-        val adapter = RvAdapterDetailCourse(ds,object : OnItemClickListener{
+    private fun setAdapter(ds: List<CourseModule>) {
+        val adapter = RvAdapterDetailCourse(ds, object : OnItemClickListener {
             override fun onItemClick(position: Int) {
-
+                // Xử lý sự kiện khi item được click
             }
         })
-        binding.LvCourseDetail.adapter=adapter
-        binding.LvCourseDetail.layoutManager= GridLayoutManager(this,1,GridLayoutManager.VERTICAL,false)
-
-
+        binding.LvCourseDetail.adapter = adapter
+        binding.LvCourseDetail.layoutManager = GridLayoutManager(this, 1, GridLayoutManager.VERTICAL, false)
     }
 
     private fun createListCourseDetail(list: List<CourseModule>): MutableList<CourseModule> {
         val ds = mutableListOf<CourseModule>()
-
         list.forEach {
-            it->
-            ds.add(CourseModule(it.name,it.trainingTime,it.img))
+            ds.add(CourseModule(it.name, it.trainingTime, it.img))
         }
-
         return ds
     }
 
     private fun setInforCourse(level: String, totalTime: Int, list: List<CourseModule>) {
-        binding.txtLevel.setText(level)
-        binding.txtTime.setText(totalTime.toString() + " Phút")
-        binding.txtTotal.setText(list.size.toString())
-
+        binding.txtLevel.text = level
+        binding.txtTime.text = "$totalTime Phút"
+        binding.txtTotal.text = list.size.toString()
     }
 
     private fun setImgCourse(img: String) {
-        Glide.with(this)
-            .load(img)
-            .into(binding.img)
-
+        Glide.with(this).load(img).into(binding.img)
     }
 
     private fun setNameCourse(name: String) {
-        binding.txtNameCousse.setText(name)
-
+        binding.txtNameCousse.text = name
     }
 }

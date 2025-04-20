@@ -13,7 +13,7 @@
         android:id="@+id/imgExerciseReady"
         android:layout_width="300dp"
         android:layout_height="347dp"
-        android:scaleType="centerInside" />
+        android:scaleType="fitCenter" />
 
     <!-- Tiêu đề "ĐÃ SẴN SÀNG TẬP!" -->
     <LinearLayout
