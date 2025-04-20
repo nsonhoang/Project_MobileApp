@@ -182,6 +182,7 @@ class Discover : Fragment() {
         binding.recyclerContainor.adapter = adapter // Set adapter cho RecyclerView
         binding.recyclerContainor.layoutManager = GridLayoutManager(requireContext(),2,GridLayoutManager.VERTICAL,false) // Sử dụng LinearLayoutManager với hướng ngang
 
+
     }
 
     private fun setAdapterForYou(ds: List<Course>){
