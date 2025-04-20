@@ -1,27 +1,55 @@
 package com.example.projecttest.screen
 
+import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.projecttest.R
+import androidx.fragment.app.Fragment
 
+import com.example.projecttest.databinding.FragmentSettingBinding
+import com.example.projecttest.screen.setting.lang
+import com.example.projecttest.screen.setting.notification
+import com.example.projecttest.screen.setting.setprofile
+import com.example.projecttest.screen.setting.train
 
 class Setting : Fragment() {
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-    }
+    private var _binding: FragmentSettingBinding? = null
+    private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_setting, container, false)
+    ): View {
+        _binding = FragmentSettingBinding.inflate(inflater, container, false)
+
+        binding.btnProfile.setOnClickListener {
+            val intent = Intent(requireContext(), setprofile::class.java)
+            startActivity(intent)
+        }
+
+
+        binding.btnnoti.setOnClickListener {
+            val intent = Intent(requireContext(), notification::class.java)
+            startActivity(intent)
+        }
+
+        binding.btntrain.setOnClickListener {
+            val intent = Intent(requireContext(), train::class.java)
+            startActivity(intent)
+        }
+
+        binding.btnlang.setOnClickListener {
+            val intent = Intent(requireContext(), lang::class.java)
+            startActivity(intent)
+        }
+
+        binding.btnLogout.setOnClickListener {
+            val intent = Intent(requireContext(), Login::class.java)
+            startActivity(intent)
+        }
+
+        return binding.root
     }
-
-
 }

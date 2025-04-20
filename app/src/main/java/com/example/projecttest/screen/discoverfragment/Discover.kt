@@ -90,7 +90,7 @@ class Discover : Fragment() {
             } catch (e: Exception) {
                 // Xử lý lỗi ở đây
                 println("Error: ${e.message}")
-                showErrorDialog("Lỗi:  ${e.message}")
+
             }
             finally {
                 binding.progressBar.visibility = View.GONE

@@ -6,4 +6,14 @@
     <color name="hight_blue">#107BAB</color>
     <color name="purple_500">#673AB7</color> <!-- Màu tím -->
     <color name="light_purple">#D1C4E9</color> <!-- Màu tím nhạt -->
+    <!-- Các màu sắc mà Facebook SDK yêu cầu -->
+    <color name="com_facebook_button_border_color_focused">#3b5998</color> <!-- Màu của nút Facebook khi được chọn -->
+    <color name="com_facebook_button_border_color_normal">#8b9dc3</color> <!-- Màu của nút Facebook khi chưa được chọn -->
+    <color name="com_facebook_button_border_color_pressed">#3b5998</color> <!-- Màu của nút Facebook khi nhấn -->
+    <color name="com_facebook_button_background_color_normal">#3b5998</color> <!-- Màu nền của nút Facebook -->
+    <color name="com_facebook_button_background_color_pressed">#8b9dc3</color> <!-- Màu nền của nút khi nhấn -->
+    <color name="com_facebook_button_background_color_disabled">#b0bec5</color> <!-- Màu nền khi nút bị vô hiệu -->
+    <color name="com_facebook_button_background_color_focused_disabled">#D3D3D3</color> <!-- Màu xám nhạt, hoặc bất kỳ màu nào bạn muốn -->
+    <color name="com_facebook_button_background_color_focused">#1877F2</color> <!-- Màu xanh của Facebook, bạn có thể thay đổi -->
+
 </resources>
