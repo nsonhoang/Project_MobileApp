@@ -6,11 +6,13 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.projecttest.data.KieuBaiTap
 import com.example.projecttest.R
+import com.example.projecttest.data.Course
 import com.example.projecttest.screen.adapter.OnItemClickListener
 
-class WorkoutAdapter(private val workouts: List<KieuBaiTap>, private val listener: OnItemClickListener):
+class WorkoutAdapter(private val workouts: List<Course>, private val listener: OnItemClickListener):
     RecyclerView.Adapter<WorkoutAdapter.ViewHolder>(){
     inner class ViewHolder(view: View): RecyclerView.ViewHolder(view){
         val imgbaitap : ImageView= view.findViewById(R.id.imgWorkout)
@@ -31,10 +33,17 @@ class WorkoutAdapter(private val workouts: List<KieuBaiTap>, private val listene
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val workout= workouts[position]
-        holder.txtTitle.text= workout.tenkhoatap
-        holder.imgbaitap.setImageResource(workout.imgbaitap)
-        holder.txtTime.text=workout.thoigian
-        holder.txtCount.text= workout.baitap
+        holder.txtTitle.text= workout.name
+//        holder.imgbaitap.setImageResource(workout.imgbaitap)
+        holder.txtTime.text=workout.totalTime.toString() + " Phút"
+        holder.txtCount.text= workout.modules.size.toString() + " Bài tâp"
+
+        val imageUrl = workout.img
+
+        Glide.with(holder.itemView.context)
+            .load(imageUrl)
+            .into(holder.imgbaitap)
+
     }
 
     override fun getItemCount(): Int = workouts.size

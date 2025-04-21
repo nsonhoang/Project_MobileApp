@@ -19,6 +19,11 @@ import com.example.projecttest.screen.adapter.WorkoutProgramAdapter
 import com.example.projecttest.screen.courses.Courses
 import com.example.projecttest.model.UserSummaryViewModel
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
+import com.example.projecttest.data.Course
+import com.example.projecttest.viewmodel.CourseViewModel
+import kotlinx.coroutines.launch
 
 class Home : Fragment(), OnItemClickListener {
 
@@ -26,6 +31,7 @@ class Home : Fragment(), OnItemClickListener {
     private lateinit var twAdapter: WorkoutAdapter
     private lateinit var wpAdapter: WorkoutProgramAdapter
     private val userSummaryViewModel: UserSummaryViewModel by viewModels()
+    private lateinit var courseViewModel: CourseViewModel
 
 
     override fun onCreateView(
@@ -34,31 +40,46 @@ class Home : Fragment(), OnItemClickListener {
     ): View {
         binding = FragmentHomeBinding.inflate(inflater, container, false)
 
+
+        courseViewModel = ViewModelProvider(this).get(CourseViewModel::class.java) // gọi viewModel
+
+        lifecycleScope.launch {
+            try {
+                courseViewModel.fetchDataListHome() // lấy dữ liệu
+
+                courseViewModel.trainingProgramListHome.collect {
+
+                        createItemListHome(it) /// hàm sửa lí việc in danh sách ra
+                }
+
+
+            }catch (e: Exception) {
+                // Xử lý lỗi ở đây
+                println("Error: ${e.message}")
+            }
+        }
+
         val workoutPrograms = listOf(
             WorkoutProgram("Toàn thân thử thách 7x4", 50, R.drawable.workout1),
             WorkoutProgram("Thử thách cơ bụng", 30, R.drawable.workout2),
         )
-        val workoutList = listOf(
-            KieuBaiTap("Bụng người bắt đầu", "20 PHÚT", "16 Bài Tập", R.drawable.bungnewbie, "Người bắt đầu"),
-            KieuBaiTap("Ngực người bắt đầu", "9 PHÚT", "11 Bài Tập", R.drawable.ngucnewbie, "Người bắt đầu"),
-            KieuBaiTap("Cánh tay người bắt đầu", "17 PHÚT", "19 Bài Tập", R.drawable.taynewbie, "Người bắt đầu"),
-            KieuBaiTap("Chân người bắt đầu", "26 PHÚT", "23 Bài Tập", R.drawable.channewbie, "Người bắt đầu"),
-            KieuBaiTap("Bụng trung bình", "22 PHÚT", "12 Bài Tập", R.drawable.bungavg, "Trung bình"),
-            KieuBaiTap("Ngực trung bình", "11 PHÚT", "14 Bài Tập", R.drawable.ngucavg, "Trung bình"),
-            KieuBaiTap("Cánh tay trung bình", "19 PHÚT", "12 Bài Tập", R.drawable.tayavg, "Trung bình"),
-            KieuBaiTap("Chân trung bình", "28 PHÚT", "14 Bài Tập", R.drawable.chanavg, "Trung bình"),
-            KieuBaiTap("Bụng nâng cao", "25 PHÚT", "18 Bài Tập", R.drawable.bunghight, "Nâng cao"),
-            KieuBaiTap("Ngực nâng cao", "13 PHÚT", "15 Bài Tập", R.drawable.nguchight, "Nâng cao"),
-            KieuBaiTap("Cánh tay nâng cao", "21 PHÚT", "23 Bài Tập", R.drawable.tayhight, "Nâng cao"),
-            KieuBaiTap("Chân nâng cao", "30 PHÚT", "27 Bài Tập", R.drawable.chanhight, "Nâng cao")
-        )
+
+//        val workoutList = listOf(
+//            KieuBaiTap("Bụng người bắt đầu", "20 PHÚT", "16 Bài Tập", R.drawable.bungnewbie, "Người bắt đầu"),
+//            KieuBaiTap("Ngực người bắt đầu", "9 PHÚT", "11 Bài Tập", R.drawable.ngucnewbie, "Người bắt đầu"),
+//            KieuBaiTap("Cánh tay người bắt đầu", "17 PHÚT", "19 Bài Tập", R.drawable.taynewbie, "Người bắt đầu"),
+//            KieuBaiTap("Chân người bắt đầu", "26 PHÚT", "23 Bài Tập", R.drawable.channewbie, "Người bắt đầu"),
+//            KieuBaiTap("Bụng trung bình", "22 PHÚT", "12 Bài Tập", R.drawable.bungavg, "Trung bình"),
+//            KieuBaiTap("Ngực trung bình", "11 PHÚT", "14 Bài Tập", R.drawable.ngucavg, "Trung bình"),
+//            KieuBaiTap("Cánh tay trung bình", "19 PHÚT", "12 Bài Tập", R.drawable.tayavg, "Trung bình"),
+//            KieuBaiTap("Chân trung bình", "28 PHÚT", "14 Bài Tập", R.drawable.chanavg, "Trung bình"),
+//            KieuBaiTap("Bụng nâng cao", "25 PHÚT", "18 Bài Tập", R.drawable.bunghight, "Nâng cao"),
+//            KieuBaiTap("Ngực nâng cao", "13 PHÚT", "15 Bài Tập", R.drawable.nguchight, "Nâng cao"),
+//            KieuBaiTap("Cánh tay nâng cao", "21 PHÚT", "23 Bài Tập", R.drawable.tayhight, "Nâng cao"),
+//            KieuBaiTap("Chân nâng cao", "30 PHÚT", "27 Bài Tập", R.drawable.chanhight, "Nâng cao")
+//        )
         userSummaryViewModel.fetchUserSummary("CmdNGAdOkVaFqdVHD9ISsbPCZHa2")
         // Truyền sự kiện click vào Adapter
-        twAdapter = WorkoutAdapter(workoutList, this)
-        binding.rvWorkLevel.apply {
-            layoutManager = LinearLayoutManager(requireContext())
-            adapter = twAdapter
-        }
 
         wpAdapter = WorkoutProgramAdapter(workoutPrograms) { selectedProgram ->
             Log.d("HomeFragment", "Đã nhấn vào: ${selectedProgram.tenbaitap}")
@@ -79,8 +100,20 @@ class Home : Fragment(), OnItemClickListener {
         }
         observeUserSummary()
 
+
+
+
+
         return binding.root
     }
+
+    private fun createItemListHome(ds: List<Course>) {
+        val list = createListWorkOut(ds)// tạo ds cho list bài tập
+        setAdapter(list)
+
+    }
+
+
     private fun observeUserSummary() {
         userSummaryViewModel.userSummary.observe(viewLifecycleOwner) { summary ->
             summary?.let {
@@ -90,6 +123,32 @@ class Home : Fragment(), OnItemClickListener {
                 binding.txtTimeTraining.text = "${it.timeTraining}\n PHÚT"
             }
         }
+    }
+    private fun createListWorkOut(list: List<Course>) :MutableList<Course> {
+        val ds = mutableListOf<Course>()
+        list.forEach { course ->
+            ds.add(
+                Course(
+                    course.name,
+                    course.detail,
+                    course.level,
+                    course.totalTime,
+                    course.img,
+                    course.modules
+                )
+            )
+        }
+
+        return ds
+    }
+
+    private fun setAdapter(ds: List<Course>){
+        twAdapter = WorkoutAdapter(ds, this@Home)
+        binding.rvWorkLevel.apply {
+            layoutManager = LinearLayoutManager(requireContext())
+            adapter = twAdapter
+        }
+
     }
 
     override fun onItemClick(position: Int) {

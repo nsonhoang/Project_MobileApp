@@ -53,7 +53,7 @@ class Discover : Fragment() {
 
         }
 
-        courseViewModel = ViewModelProvider(this).get(CourseViewModel::class.java)
+            courseViewModel = ViewModelProvider(this).get(CourseViewModel::class.java)
 
 
 
