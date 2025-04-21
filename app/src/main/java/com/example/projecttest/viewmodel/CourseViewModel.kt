@@ -14,6 +14,7 @@ import com.google.firebase.firestore.firestore
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.plus
 import kotlinx.coroutines.tasks.await
 import java.lang.Exception
 
@@ -21,9 +22,28 @@ class CourseViewModel : ViewModel() {
     private val db = Firebase.firestore
     private val _trainingProgram = MutableStateFlow<List<TrainingProgram>>(emptyList())
     val trainingProgram: StateFlow<List<TrainingProgram>> get() = _trainingProgram
-    val trainingProgramId = "KpN1HjWE31d0ALiQJGKF"// id ở mục đầu tiên
 
+
+    val trainingProgramId = "KpN1HjWE31d0ALiQJGKF"// id ở mục đầu tiên
     val idListForYouAndStretching = "3RU8qGg9jVVjGfJFxYE8"
+    val idListHome = "O4nc8JAu0mXxdDuXHMyz"
+
+
+    private val _trainingProgramListHome = MutableStateFlow<List<Course>>(emptyList())
+    val trainingProgramListHome : StateFlow<List<Course>> get() = _trainingProgramListHome
+
+    fun fetchDataListHome(){
+        val idlist = "4hgm6pmMFVylsDEfMaKs"
+        viewModelScope.launch {
+            try {
+                _trainingProgramListHome.value = fetchCourses(idListHome,idlist)
+            }catch (e: Exception) {
+                Log.e(TAG, "Error fetching data", e)
+                // Xử lý lỗi (ví dụ: hiển thị thông báo cho người dùng)
+            }
+        }
+    }
+
 
     fun fetchDataTrainingProgram() {// lấy dữ liệu ở mục 6 múi ...
         viewModelScope.launch {
