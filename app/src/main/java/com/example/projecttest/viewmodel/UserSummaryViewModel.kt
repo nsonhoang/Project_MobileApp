@@ -1,3 +1,4 @@
+
 package com.example.projecttest.model
 
 import android.util.Log
@@ -6,6 +7,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.firebase.firestore.FirebaseFirestore
 import com.example.projecttest.data.UserSummary
+import com.google.firebase.auth.FirebaseAuth
 
 class UserSummaryViewModel : ViewModel() {
     private val db = FirebaseFirestore.getInstance()
@@ -13,10 +15,9 @@ class UserSummaryViewModel : ViewModel() {
     private val _userSummary = MutableLiveData<UserSummary?>()
     val userSummary: LiveData<UserSummary?> = _userSummary
 
-    // Phương thức lấy dữ liệu từ Firestore
     fun fetchUserSummary(userId: String) {
         db.collection("User")
-            .document("CmdNGAdOkVaFqdVHD9ISsbPCZHa2")
+            .document(userId)
             .collection("infoTraining")
             .document("1")
             .get()
@@ -29,26 +30,23 @@ class UserSummaryViewModel : ViewModel() {
                     )
                     _userSummary.value = summary
                 } else {
-                    // Trường hợp không có document
                     _userSummary.value = null
                 }
             }
             .addOnFailureListener { exception ->
-                // Xử lý lỗi nếu có
                 _userSummary.value = null
                 Log.e("UserSummaryViewModel", "Error getting user summary", exception)
             }
     }
 
-    // Phương thức cập nhật thông tin người dùng
     fun updateUserSummary(userId: String, timeTraining: Long, kcalCount: Int, trainingCount: Int) {
         val userRef = db.collection("User")
-            .document("CmdNGAdOkVaFqdVHD9ISsbPCZHa2")
+            .document(userId)
             .collection("infoTraining")
             .document("1")
 
-        // Chuyển thời gian từ giây sang phút
-        val timeInMinutes = (timeTraining / 60).toInt()
+        val timeInSeconds = (timeTraining / 1000).toInt()
+        val timeInMinutes = (timeInSeconds/ 60).toInt()
 
         val updatedData = mapOf(
             "timeTraining" to timeInMinutes,
@@ -60,7 +58,7 @@ class UserSummaryViewModel : ViewModel() {
             .addOnSuccessListener {
                 // Cập nhật thành công
             }
-            .addOnFailureListener { exception ->
+            .addOnFailureListener {
                 // Nếu lỗi (ví dụ user chưa có document), tạo mới
                 userRef.set(updatedData)
                     .addOnSuccessListener {

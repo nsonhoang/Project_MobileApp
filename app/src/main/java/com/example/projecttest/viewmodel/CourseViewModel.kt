@@ -1,3 +1,4 @@
+
 package com.example.projecttest.viewmodel
 
 import android.content.ContentValues.TAG
@@ -98,11 +99,11 @@ class CourseViewModel : ViewModel() {
             .document(documentId)
             .get().await()
 
-            val trainingProgram = querySnapshot.toObject(TrainingProgram::class.java) ?: return  emptyList()
+        val trainingProgram = querySnapshot.toObject(TrainingProgram::class.java) ?: return  emptyList()
 
-            val targetCourses = fetchTargetCourses(querySnapshot.id)
-            trainingProgram.targetCourses = targetCourses
-            listProgram.add(trainingProgram)
+        val targetCourses = fetchTargetCourses(querySnapshot.id)
+        trainingProgram.targetCourses = targetCourses
+        listProgram.add(trainingProgram)
 
         return listProgram
     }

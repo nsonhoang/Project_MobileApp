@@ -1,4 +1,3 @@
-
 package com.example.projecttest.screen
 
 import android.content.Intent
@@ -10,35 +9,41 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.projecttest.R
-import com.example.projecttest.data.KieuBaiTap
-import com.example.projecttest.data.WorkoutProgram
 import com.example.projecttest.databinding.FragmentHomeBinding
 import com.example.projecttest.screen.adapter.OnItemClickListener
-import com.example.projecttest.screen.adapter.WorkoutAdapter
-import com.example.projecttest.screen.adapter.WorkoutProgramAdapter
+import com.example.projecttest.screen.adapter.RvAdapterMucDo
+import com.example.projecttest.screen.adapter.RvAdapterThuThach
 import com.example.projecttest.screen.courses.Courses
 import com.example.projecttest.model.UserSummaryViewModel
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import com.example.projecttest.data.Course
+import com.example.projecttest.screen.adapter.WorkoutAdapter
 import com.example.projecttest.viewmodel.CourseViewModel
+import kotlinx.coroutines.launch
+import com.example.projecttest.viewmodel.HomeViewModel
+import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.launch
 
 class Home : Fragment(), OnItemClickListener {
 
-    private lateinit var binding: FragmentHomeBinding
-    private lateinit var twAdapter: WorkoutAdapter
-    private lateinit var wpAdapter: WorkoutProgramAdapter
+    private var _binding: FragmentHomeBinding? = null
+    private val binding get() = _binding!!
+
+    private lateinit var mucDoAdapter: RvAdapterMucDo
+    private lateinit var thuThachAdapter: RvAdapterThuThach
+
     private val userSummaryViewModel: UserSummaryViewModel by viewModels()
     private lateinit var courseViewModel: CourseViewModel
 
+    private val homeViewModel: HomeViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentHomeBinding.inflate(inflater, container, false)
+        _binding = FragmentHomeBinding.inflate(inflater, container, false)
 
 
         courseViewModel = ViewModelProvider(this).get(CourseViewModel::class.java) // gọi viewModel
@@ -59,10 +64,10 @@ class Home : Fragment(), OnItemClickListener {
             }
         }
 
-        val workoutPrograms = listOf(
-            WorkoutProgram("Toàn thân thử thách 7x4", 50, R.drawable.workout1),
-            WorkoutProgram("Thử thách cơ bụng", 30, R.drawable.workout2),
-        )
+//        val workoutPrograms = listOf(
+//            WorkoutProgram("Toàn thân thử thách 7x4", 50, R.drawable.workout1),
+//            WorkoutProgram("Thử thách cơ bụng", 30, R.drawable.workout2),
+//        )
 
 //        val workoutList = listOf(
 //            KieuBaiTap("Bụng người bắt đầu", "20 PHÚT", "16 Bài Tập", R.drawable.bungnewbie, "Người bắt đầu"),
@@ -80,31 +85,40 @@ class Home : Fragment(), OnItemClickListener {
 //        )
         userSummaryViewModel.fetchUserSummary("CmdNGAdOkVaFqdVHD9ISsbPCZHa2")
         // Truyền sự kiện click vào Adapter
+        // Lấy userId từ Firebase Authentication
+        val userId = FirebaseAuth.getInstance().currentUser?.uid
 
-        wpAdapter = WorkoutProgramAdapter(workoutPrograms) { selectedProgram ->
-            Log.d("HomeFragment", "Đã nhấn vào: ${selectedProgram.tenbaitap}")
-            val intent = Intent(requireContext(), Courses::class.java).apply {
-                putExtra("PROGRAM_NAME", selectedProgram.tenbaitap)
-            }
-            startActivity(intent)
+        // Kiểm tra nếu userId không null
+        if (userId != null) {
+            // Khi vào màn hình, tự động fetch dữ liệu
+            userSummaryViewModel.fetchUserSummary(userId)
+            homeViewModel.fetchHomeList()
+        } else {
+            // Nếu không có userId, thông báo lỗi hoặc yêu cầu người dùng đăng nhập lại
+            Log.e("HomeFragment", "User is not logged in")
         }
+
+        setupRecyclerViews()
+        observeUserSummary()
+        observeHomeList()
+
+        return binding.root
+    }
+
+    private fun setupRecyclerViews() {
+        thuThachAdapter = RvAdapterThuThach(emptyList(), this)
+        mucDoAdapter = RvAdapterMucDo(emptyList(), this)
 
         binding.rvWorkPrograms.apply {
             layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-            adapter = wpAdapter
+            adapter = thuThachAdapter
         }
 
-        wpAdapter.notifyDataSetChanged()
-        binding.trainingInfo.setOnClickListener {
-            switchLich()
+        binding.rvWorkLevel.apply {
+            layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+            adapter = mucDoAdapter
         }
-        observeUserSummary()
 
-
-
-
-
-        return binding.root
     }
 
     private fun createItemListHome(ds: List<Course>) {
@@ -114,14 +128,24 @@ class Home : Fragment(), OnItemClickListener {
     }
 
 
+
     private fun observeUserSummary() {
-        userSummaryViewModel.userSummary.observe(viewLifecycleOwner) { summary ->
-            summary?.let {
-                // 🔥 Khi có dữ liệu sẽ tự động cập nhật giao diện
-                binding.txtCountTraining.text = "${it.trainingCount}\n LẦN TẬP"
-                binding.txtKcal.text = "${it.kcalCount}\n KCAL"
-                binding.txtTimeTraining.text = "${it.timeTraining}\n PHÚT"
+        // Lấy userId từ Firebase Authentication
+        val userId = FirebaseAuth.getInstance().currentUser?.uid
+
+        if (userId != null) {
+            // Quan sát thay đổi dữ liệu của UserSummary
+            userSummaryViewModel.userSummary.observe(viewLifecycleOwner) { summary ->
+                summary?.let {
+                    // Cập nhật giao diện khi có dữ liệu
+                    binding.txtCountTraining.text = "${it.trainingCount}\n LẦN TẬP"
+                    binding.txtKcal.text = "${it.kcalCount}\n KCAL"
+                    binding.txtTimeTraining.text = "${it.timeTraining}\n PHÚT"
+                }
             }
+        } else {
+            // Nếu không có userId, có thể thông báo lỗi hoặc yêu cầu người dùng đăng nhập lại
+            Log.e("HomeFragment", "User is not logged in")
         }
     }
     private fun createListWorkOut(list: List<Course>) :MutableList<Course> {
@@ -143,12 +167,23 @@ class Home : Fragment(), OnItemClickListener {
     }
 
     private fun setAdapter(ds: List<Course>){
-        twAdapter = WorkoutAdapter(ds, this@Home)
+         val twAdapter = WorkoutAdapter(ds, this@Home)
         binding.rvWorkLevel.apply {
             layoutManager = LinearLayoutManager(requireContext())
             adapter = twAdapter
         }
 
+    }
+
+    private fun observeHomeList() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            homeViewModel.homeList.collect { homeList ->
+                homeList?.let {
+                    thuThachAdapter.updateList(it.flatMap { home -> home.thuThach })
+                    mucDoAdapter.updateList(it.flatMap { home -> home.thuThach.flatMap { challenge -> challenge.mucDo } })
+                }
+            }
+        }
     }
 
     override fun onItemClick(position: Int) {
@@ -162,9 +197,13 @@ class Home : Fragment(), OnItemClickListener {
 
     private fun switchLich() {
         val transaction = parentFragmentManager.beginTransaction()
-        transaction.replace(R.id.ltongKet, Report()) // Đảm bảo R.id.fragment_container đúng
-        transaction.addToBackStack(null) // Cho phép quay lại fragment trước đó
+        transaction.replace(R.id.ltongKet, Report())
+        transaction.addToBackStack(null)
         transaction.commit()
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
 }

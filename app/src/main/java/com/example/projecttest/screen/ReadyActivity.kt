@@ -35,11 +35,10 @@ class ReadyActivity : AppCompatActivity() {
         imgExerciseReady = findViewById(R.id.imgExerciseReady)
         val btnNextReady: Button = findViewById(R.id.btnNextReady)
 
-        startTime = System.currentTimeMillis() // Ghi nhận thời điểm bắt đầu luyện tập
-
         // Nhận dữ liệu từ Intent
         modules = intent.getParcelableArrayListExtra("Courses")
         currentIndex = intent.getIntExtra("CURRENT_INDEX", 0)
+        startTime = intent.getLongExtra("startTime", 0L) // Dùng Long cho startTime
 
         modules?.takeIf { it.isNotEmpty() }?.let { moduleList ->
             val currentModule = moduleList[currentIndex]

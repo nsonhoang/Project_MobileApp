@@ -22,7 +22,7 @@ class Training : AppCompatActivity() {
     private var isPaused = false
     private var currentIndex = 0
     private var modules: ArrayList<CourseModule>? = null
-    private var startTime: Int = 0 // sửa về Int để đúng kiểu nhận từ Intent
+    private var startTime: Long = 0 // Thay kiểu về Long để phù hợp với dữ liệu Intent
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,7 +38,7 @@ class Training : AppCompatActivity() {
 
         modules = intent.getParcelableArrayListExtra("Courses")
         currentIndex = intent.getIntExtra("CURRENT_INDEX", 0)
-        startTime = intent.getIntExtra("startTime", 0) // sửa: dùng đúng biến class
+        startTime = intent.getLongExtra("startTime", 0L) // Dùng Long cho startTime
 
         modules?.getOrNull(currentIndex)?.let {
             timeLeftInMillis = it.trainingTime * 1000L

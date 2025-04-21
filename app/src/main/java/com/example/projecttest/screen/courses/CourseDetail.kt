@@ -18,6 +18,7 @@ import com.example.projecttest.screen.adapter.RvAdapterDetailCourse
 class CourseDetail : AppCompatActivity() {
     private lateinit var binding: ActivityCourseDetailBinding
     private var receivedModule: ArrayList<CourseModule>? = null // Khai báo biến global
+    private var startTime: Long = 0L //tính thời gian luyện tập
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,6 +39,9 @@ class CourseDetail : AppCompatActivity() {
         val level = intent.getStringExtra("level") ?: ""
         val img = intent.getStringExtra("img") ?: ""
         val totalTime = intent.getIntExtra("totalTime", 0)
+            startTime = System.currentTimeMillis()
+        // Ghi nhận thời điểm bắt đầu luyện tập
+
 
         // Nếu có dữ liệu receivedModule, thực hiện các thao tác
         receivedModule?.let {
@@ -73,8 +77,10 @@ class CourseDetail : AppCompatActivity() {
             // Chuyển đến màn hình Ready
             val receivedModule = intent.getParcelableArrayListExtra<CourseModule>("Courses")
             receivedModule?.let {
+                val startTime = System.currentTimeMillis()
                 val intent = Intent(this, ReadyActivity::class.java)
                 intent.putParcelableArrayListExtra("Courses", ArrayList(it))  // Truyền toàn bộ danh sách
+                intent.putExtra("startTime", startTime)
                 startActivity(intent)
             }
         }
