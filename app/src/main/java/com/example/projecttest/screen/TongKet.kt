@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.example.projecttest.R
@@ -36,6 +37,11 @@ class TongKet : AppCompatActivity() {
 
         // Lấy startTime từ ReadyActivity
         val startTime = intent.getLongExtra("startTime", 0L)
+        if (startTime == 0L) {
+            Toast.makeText(this, "Không lấy được thời gian bắt đầu", Toast.LENGTH_SHORT).show()
+            finish()
+            return
+        }
         val endTime = System.currentTimeMillis()
         val trainingDurationSeconds = (endTime - startTime) / 1000
         val kcalBurned = Random.nextInt(50, 121)
