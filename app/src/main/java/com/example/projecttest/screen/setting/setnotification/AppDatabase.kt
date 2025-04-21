@@ -4,21 +4,28 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import com.example.projecttest.data.UserEntity
+import com.example.projecttest.data.OutData
 
-@Database(entities = [WorkoutReminder::class], version = 1)
+@Database(entities = [UserEntity::class, WorkoutReminder::class], version = 1)
 abstract class AppDatabase : RoomDatabase() {
+    abstract fun userDao(): UserDao
     abstract fun reminderDao(): ReminderDao
 
     companion object {
-        @Volatile private var instance: AppDatabase? = null
+        @Volatile private var INSTANCE: AppDatabase? = null
 
-        fun getDatabase(context: Context): AppDatabase =
-            instance ?: synchronized(this) {
-                instance ?: Room.databaseBuilder(
+        fun getInstance(context: Context): AppDatabase {
+            return INSTANCE ?: synchronized(this) {
+                val instance = Room.databaseBuilder(
                     context.applicationContext,
                     AppDatabase::class.java,
-                    "reminder_db"
-                ).build().also { instance = it }
+                    "app_database"
+                ).build()
+                INSTANCE = instance
+                instance
             }
+        }
     }
 }
+
