@@ -47,6 +47,7 @@ class Login : AppCompatActivity() {
         setContentView(binding.root)
 
         auth = FirebaseAuth.getInstance()
+
 //        callbackManager = CallbackManager.Factory.create()
 
         val db = AppDatabase.getInstance(this)
