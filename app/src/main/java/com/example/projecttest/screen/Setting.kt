@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
-import androidx.webkit.Profile
 import com.example.projecttest.databinding.FragmentSettingBinding
 import com.example.projecttest.screen.setting.lang
 import com.example.projecttest.screen.setting.notification
