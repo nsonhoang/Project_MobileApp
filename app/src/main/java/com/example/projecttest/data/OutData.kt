@@ -2,6 +2,8 @@ package com.example.projecttest.data
 
 import android.os.Parcel
 import android.os.Parcelable
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import kotlinx.android.parcel.Parcelize
 
 
@@ -41,3 +43,10 @@ data class OutData(
     val name: String,
     val  detail: String
     )
+
+@Entity(tableName = "user")
+data class UserEntity(
+    @PrimaryKey val email: String,
+    val password: String,
+    val isLoggedIn: Boolean = false
+)

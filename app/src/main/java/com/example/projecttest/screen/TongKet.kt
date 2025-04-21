@@ -8,6 +8,7 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.example.projecttest.R
 import com.example.projecttest.model.UserSummaryViewModel
+import com.google.firebase.auth.FirebaseAuth
 import kotlin.random.Random
 
 class TongKet : AppCompatActivity() {
@@ -29,7 +30,8 @@ class TongKet : AppCompatActivity() {
         tvCountTraining = findViewById(R.id.tvCountTraining)
         btnTongKet = findViewById(R.id.btnTongKet)
 
-        val userId = "CmdNGAdOkVaFqdVHD9ISsbPCZHa2"
+        //lay id nguoi dung tu authencatition
+        val userId = FirebaseAuth.getInstance().currentUser!!.uid
 
         // Lấy startTime từ ReadyActivity
         val startTime = intent.getLongExtra("startTime", 0L)
