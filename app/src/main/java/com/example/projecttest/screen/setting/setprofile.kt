@@ -27,7 +27,7 @@ class setprofile : AppCompatActivity() {
 
         val userid = FirebaseAuth.getInstance().currentUser!!.uid
         val ref = db.collection("User").document(userid)
-        ref.get().addOnSuccessListener {
+        ref.get().addOnSuccessListener {//lấy thông tin tu firestore
             if (it != null) {
                 val name = it.getString("hoTen") ?: "Chưa cập nhật"
                 val birthday = it.getString("namSinh") ?: "Chưa cập nhật"

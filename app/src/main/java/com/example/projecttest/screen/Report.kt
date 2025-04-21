@@ -7,10 +7,15 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.projecttest.databinding.FragmentReportBinding
+import com.google.firebase.Firebase
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.firestore
 
 class Report : Fragment() {
     private var _binding: FragmentReportBinding? = null
     private val binding get() = _binding!!
+    private var db= Firebase.firestore
+
 
     private var age = 30
     private var weight = 78
@@ -26,6 +31,19 @@ class Report : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val userid = FirebaseAuth.getInstance().currentUser!!.uid
+        val ref = db.collection("User").document(userid).collection("infoTraining").document("1")
+        ref.get().addOnSuccessListener {//lấy thông tin tu firestore
+            if (it != null) {
+                val timeTrain = (it["timeTraining"] as? Number)?.toInt() ?: 0
+
+                binding.txtTimeTraining.text = timeTrain.toString() + " phút"
+            }
+        }
+            .addOnFailureListener {
+                Toast.makeText(context, "Lỗi", Toast.LENGTH_SHORT).show()
+            }
 
         // Set initial values
         binding.txttuoi.text = age.toString()
