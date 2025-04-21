@@ -30,7 +30,7 @@ class RvAdapterDetailCourse(var ds: List<CourseModule>, val onItemClickListener:
             Glide.with(this)
                 .load(imageUrl)
                 .into(binding.imgCourse)
-            binding.cardBackgroundCourse.setCardBackgroundColor( getBackgroundColor(position))
+            binding.cardBackgroundCourse.setCardBackgroundColor(Color.WHITE)
 
             //lắng nghe sự kiên click
             holder.itemView.setOnClickListener{

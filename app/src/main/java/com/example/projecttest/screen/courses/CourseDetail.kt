@@ -2,7 +2,6 @@ package com.example.projecttest.screen.courses
 
 import android.content.Intent
 import android.os.Bundle
-
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -44,6 +43,8 @@ class CourseDetail : AppCompatActivity() {
         receivedModule?.let {
             addEvends(it, nameCourse, level, img, totalTime)
         }
+
+
     }
 
     private fun addEvends(
@@ -53,11 +54,18 @@ class CourseDetail : AppCompatActivity() {
         img: String,
         totalTime: Int
     ) {
-        setNameCourse(name)
-        setImgCourse(img)
-        setInforCourse(level, totalTime, list)
-        setListCourseDetail(list)
-        setEventOnClickStart() // Cài đặt sự kiện click
+        setNameCourse(name)  // cài tên bài tập mình click vào
+        setImgCourse(img) // cài hình ảnh ở mục mình click vào
+        setInforCourse(level,totalTime,list) // cài đặt thông tin như cấp độ tập, thời gian, số bài tập
+        setListCourseDetail(list) // cài đặt hiện thị danh sách các bài tập
+        setEventOnClickStart() /// cài đặt sự kiện khi mình click vào bắt đầu
+        setEventOnclickBackArrow()
+    }
+
+    private fun setEventOnclickBackArrow() {
+        binding.btnExit.setOnClickListener {
+            finish()
+        }
     }
 
     private fun setEventOnClickStart() {

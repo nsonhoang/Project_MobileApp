@@ -72,9 +72,9 @@ class SignUp :  AppCompatActivity() {
         } else {
             binding.edtPassword.inputType =
                 InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
-            binding.btnseepass.setImageResource(R.drawable.eyeoff)  // Đổi lại icon mắt đóng
+            binding.btnseepass.setImageResource(R.drawable.eyeoff)
         }
-        binding.edtPassword.setSelection(binding.edtPassword.text.length) // Giữ con trỏ ở cuối chữ
+        binding.edtPassword.setSelection(binding.edtPassword.text.length) //
     }
 
     private fun toggleConfirmPasswordVisibility() {

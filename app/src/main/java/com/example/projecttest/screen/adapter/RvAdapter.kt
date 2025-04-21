@@ -41,6 +41,8 @@ class RvAdapter(var ds: List<TargetCourse>, val onItemClickListener: OnItemClick
             holder.itemView.setOnClickListener{
                 onItemClickListener.onItemClick(position)
             }
+//            val isSmallScreen = resources.configuration.screenWidthDp < 360
+//            binding.imgCourse.visibility = if (isSmallScreen) View.GONE else View.VISIBLE
         }
     }
 

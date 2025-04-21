@@ -1,266 +1,322 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    style="@style/LayoutPadding"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="@color/white">
-
-    <TextView
-        android:id="@+id/textView5"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:textSize="25sp"
-        android:textStyle="bold"
-        android:text="TỔNG QUAN" />
-
-    <TextView
-        android:id="@+id/textView17"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:layout_margin="10sp"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        android:text="BMI" />
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_margin="20dp"
-        android:orientation="horizontal">
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="10dp"
-            android:padding="10dp"
-            android:background="@drawable/rounded_background_out"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/textView18"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:textSize="20sp"
-                android:text="Tuổi" />
-
-            <TextView
-                android:id="@+id/textView19"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:textSize="50sp"
-                android:text="30" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal">
-
-                <ImageButton
-                    android:id="@+id/imageButton12"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:padding="20dp"
-                    android:background="@color/blue"
-                    app:srcCompat="@drawable/minus1" />
-
-                <ImageButton
-                    android:id="@+id/imageButton13"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:padding="20dp"
-                    android:background="@color/blue"
-                    app:srcCompat="@drawable/add1" />
-            </LinearLayout>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:padding="10dp"
-            android:background="@drawable/rounded_background_out"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/textView20"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:textSize="20sp"
-                android:text="Cân nặng (KG)" />
-
-            <TextView
-                android:id="@+id/textView21"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:textSize="50sp"
-                android:text="78" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal">
-
-                <ImageButton
-                    android:id="@+id/imageButton14"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:padding="20dp"
-                    android:background="@color/blue"
-                    app:srcCompat="@drawable/minus1" />
-
-                <ImageButton
-                    android:id="@+id/imageButton15"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:padding="20dp"
-                    android:background="@color/blue"                    app:srcCompat="@drawable/add1" />
-            </LinearLayout>
-        </LinearLayout>
-    </LinearLayout>
+    android:background="@color/white"
+    tools:context=".screen.Report">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginRight="40dp"
-        android:layout_marginLeft="40dp"
-        android:padding="5dp"
-        android:background="@drawable/rounded_background"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:padding="16dp">
 
-        <!-- Tiêu đề -->
+        <!-- TỔNG QUAN -->
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Chiều cao (CM)"
-            android:textSize="18sp"
-            android:textColor="#000"
-            android:layout_gravity="center"
-            android:textStyle="bold"
-            android:layout_marginBottom="10dp"/>
-
-        <!-- Giá trị chiều cao -->
-        <TextView
-            android:id="@+id/tvHeight"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="175"
-            android:layout_gravity="center"
-            android:textSize="40sp"
-            android:textColor="#664AFF"
-            android:textStyle="bold"
-            android:layout_marginBottom="10dp"/>
-
-        <!-- Thanh SeekBar -->
-        <SeekBar
-            android:id="@+id/seekBar"
+            android:id="@+id/textView5"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:min="50"
-            android:max="300"
-            android:progress="175"
-            android:thumbTint="#664AFF"
-            android:progressTint="#D3D3D3"
-            android:layout_marginBottom="10dp"/>
+            android:layout_marginTop="30dp"
+            android:textSize="30sp"
+            android:textStyle="bold"
+            android:text="Tổng quan" />
 
-        <!-- Giá trị min/max -->
+        <!-- Thời gian luyện tập -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@drawable/rounded_background_out"
+            android:gravity="center_vertical"
+            android:padding="30dp"
+            android:layout_margin="15dp"
             android:orientation="horizontal">
 
             <TextView
+                android:id="@+id/textView2"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="50 cm"
-                android:paddingLeft="20sp"
-                android:textSize="14sp"
-                android:textColor="#000"
-                android:layout_weight="1"/>
+                android:layout_weight="1"
+                android:textStyle="bold"
+                android:textSize="20sp"
+                android:text="Thời gian đã luyện tập" />
+
+            <ImageView
+                android:id="@+id/imageView2"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@android:drawable/ic_menu_recent_history" />
 
             <TextView
-                android:layout_width="0dp"
+                android:id="@+id/textView3"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="300 cm"
-                android:textSize="14sp"
-                android:textColor="#000"
-                android:gravity="end"
-                android:paddingEnd="20sp"
-                android:layout_weight="1"/>
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:text="     0 \n Phút" />
         </LinearLayout>
-    </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginRight="40dp"
-        android:layout_marginLeft="40dp"
-        android:layout_marginTop="20sp"
-        android:background="@drawable/rounded_background_out"
-        android:orientation="vertical">
-
+        <!-- Calendar -->
         <TextView
+            android:id="@+id/textView4"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Giới tính"
+            android:layout_margin="20dp"
+            android:textStyle="bold"
+            android:textSize="25sp"
+            android:text="Lịch sử" />
+
+        <CalendarView
+            android:id="@+id/calendarView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <!-- BMI -->
+        <TextView
+            android:id="@+id/textView17"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_margin="10dp"
             android:textSize="20sp"
             android:textStyle="bold"
-            android:layout_marginBottom="8dp"
-            android:gravity="center"/>
+            android:text="BMI" />
 
+        <!-- Tuổi và Cân nặng -->
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:scaleY="1.5"
-            android:scaleX="1.5"
-            android:layout_gravity="center">
+            android:layout_gravity="center"
+            android:layout_margin="20dp"
+            android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/tvNam"
+            <!-- Tuổi -->
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Nam"
-                android:textSize="16sp"
-                android:layout_marginEnd="16dp"/>
+                android:layout_marginEnd="10dp"
+                android:padding="10dp"
+                android:background="@drawable/rounded_background_out"
+                android:orientation="vertical">
 
-            <androidx.appcompat.widget.SwitchCompat
-                android:id="@+id/switchGender"
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:textSize="20sp"
+                    android:text="Tuổi" />
+
+                <TextView
+                    android:id="@+id/textView19"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:textSize="50sp"
+                    android:text="30" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <ImageButton
+                        android:id="@+id/imageButton12"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:padding="20dp"
+                        android:background="@color/blue"
+                        app:srcCompat="@drawable/minus1" />
+
+                    <ImageButton
+                        android:id="@+id/imageButton13"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:padding="20dp"
+                        android:background="@color/blue"
+                        app:srcCompat="@drawable/add1" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- Cân nặng -->
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:thumbTint="@color/purple_500"
-                android:trackTint="@color/white"/>
+                android:layout_marginStart="10dp"
+                android:padding="10dp"
+                android:background="@drawable/rounded_background_out"
+                android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/tvNu"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Nữ"
-                android:textSize="16sp"
-                android:textColor="#1E1E1E"
-                android:layout_marginStart="16dp"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:textSize="20sp"
+                    android:text="Cân nặng (KG)" />
+
+                <TextView
+                    android:id="@+id/textView21"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:textSize="50sp"
+                    android:text="78" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <ImageButton
+                        android:id="@+id/imageButton14"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:padding="20dp"
+                        android:background="@color/blue"
+                        app:srcCompat="@drawable/minus1" />
+
+                    <ImageButton
+                        android:id="@+id/imageButton15"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:padding="20dp"
+                        android:background="@color/blue"
+                        app:srcCompat="@drawable/add1" />
+                </LinearLayout>
+            </LinearLayout>
         </LinearLayout>
+
+        <!-- Chiều cao -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="40dp"
+            android:padding="5dp"
+            android:background="@drawable/rounded_background"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Chiều cao (CM)"
+                android:textSize="18sp"
+                android:textColor="#000"
+                android:layout_gravity="center"
+                android:textStyle="bold"
+                android:layout_marginBottom="10dp"/>
+
+            <TextView
+                android:id="@+id/tvHeight"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="175"
+                android:layout_gravity="center"
+                android:textSize="40sp"
+                android:textColor="#664AFF"
+                android:textStyle="bold"
+                android:layout_marginBottom="10dp"/>
+
+            <SeekBar
+                android:id="@+id/seekBar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:min="50"
+                android:max="300"
+                android:progress="175"
+                android:thumbTint="#664AFF"
+                android:progressTint="#D3D3D3"
+                android:layout_marginBottom="10dp"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="50 cm"
+                    android:paddingLeft="20dp"
+                    android:textSize="14sp"
+                    android:textColor="#000"
+                    android:layout_weight="1"/>
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="300 cm"
+                    android:textSize="14sp"
+                    android:textColor="#000"
+                    android:gravity="end"
+                    android:paddingEnd="20dp"
+                    android:layout_weight="1"/>
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- Giới tính -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="40dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/rounded_background_out"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Giới tính"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="8dp"
+                android:gravity="center"/>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:scaleY="1.5"
+                android:scaleX="1.5"
+                android:layout_gravity="center">
+
+                <TextView
+                    android:id="@+id/tvNam"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Nam"
+                    android:textSize="16sp"
+                    android:layout_marginEnd="16dp"/>
+
+                <androidx.appcompat.widget.SwitchCompat
+                    android:id="@+id/switchGender"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:thumbTint="@color/purple_500"
+                    android:trackTint="@color/white"/>
+
+                <TextView
+                    android:id="@+id/tvNu"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Nữ"
+                    android:textSize="16sp"
+                    android:textColor="#1E1E1E"
+                    android:layout_marginStart="16dp"/>
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- Button -->
+        <Button
+            android:id="@+id/button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="10dp"
+            android:text="TÍNH BIM" />
     </LinearLayout>
-
-    <Button
-        android:id="@+id/button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_margin="10dp"
-        android:text="TÍNH BIM" />
-
-</LinearLayout>
+</ScrollView>

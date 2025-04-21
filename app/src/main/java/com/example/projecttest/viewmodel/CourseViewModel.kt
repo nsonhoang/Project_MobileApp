@@ -1,4 +1,4 @@
-package com.example.projecttest.model
+package com.example.projecttest.viewmodel
 
 import android.content.ContentValues.TAG
 import android.util.Log
@@ -9,8 +9,6 @@ import com.example.projecttest.data.CourseModule
 import com.example.projecttest.data.TargetCourse
 import com.example.projecttest.data.TrainingProgram
 import com.google.firebase.Firebase
-import com.google.firebase.firestore.FieldPath
-import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.firestore
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow

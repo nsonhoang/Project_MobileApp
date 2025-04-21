@@ -32,19 +32,20 @@ class Courses : AppCompatActivity() {
 
         val nameCourse = intent.getStringExtra("nameCourse") ?: ""
         val img= intent.getStringExtra("img")  ?: ""
+        val detail = intent.getStringExtra("detailCourse") ?: ""
         println(receivedCourses)
 
 
         receivedCourses?.let{
-            addEvents(it,nameCourse,img)
+            addEvents(it,nameCourse,img,detail)
         }
 
     }
 
-    private fun addEvents(ds: List<Course>,nameCourse: String,img: String) {
+    private fun addEvents(ds: List<Course>,nameCourse: String,img: String,detailCourse : String) {
         setListCourse(ds,img)
         setTextForNameCourse(nameCourse) // đặt text cho mục mình nhấn vào mặc định là "SÁU MÚI"
-        setTextForTitleCourse() // đặt text title cho mục mình nhấn vào mặc định là "..."
+        setTextForTitleCourse(detailCourse) // đặt text title cho mục mình nhấn vào mặc định là "..."
         setEventClickBack()
         setImage(img)
     }
@@ -67,8 +68,8 @@ class Courses : AppCompatActivity() {
         })
     }
 
-    private fun setTextForTitleCourse() {
-
+    private fun setTextForTitleCourse(detail : String) {
+        binding.txtTitleCourse.text=detail
     }
 
     private fun setTextForNameCourse(name: String) {

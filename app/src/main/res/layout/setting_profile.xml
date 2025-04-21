@@ -4,44 +4,51 @@
     android:layout_width="match_parent"
     android:orientation="vertical"
     android:background="@color/white"
+    android:padding="16dp"
     android:layout_height="wrap_content">
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
-        android:padding="25dp"
+        android:paddingTop="20sp"
         android:orientation="horizontal">
 
         <ImageButton
-            android:id="@+id/imgbtnBack"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_weight="1"
-            android:background="@color/white"
-            app:srcCompat="?attr/actionModeCloseDrawable" />
+            android:id="@+id/btnBack"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@android:color/transparent"
+            android:src="@drawable/back" />
 
         <ImageView
             android:id="@+id/imageView"
             android:layout_width="50dp"
             android:layout_height="50dp"
+            android:layout_marginStart="20sp"
             app:srcCompat="@drawable/baseline_account_circle_24" />
 
         <TextView
             android:id="@+id/textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:textStyle="bold"
-            android:textSize="25dp"
-            android:layout_marginLeft="30dp"
+            android:textSize="20sp"
+            android:layout_marginStart="5dp"
             android:text="Hồ sơ của tôi" />
+
+        <Button
+            android:id="@+id/btnedit"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:background="@drawable/editcontained"
+            android:layout_marginStart="10dp"/>
+
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="631dp"
-        android:layout_gravity="left"
+        android:layout_height="wrap_content"
         android:orientation="vertical">
 
         <LinearLayout
@@ -51,20 +58,22 @@
             android:orientation="horizontal">
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:textSize="20sp"
                 android:text="Họ và tên" />
 
-            <TextView
-                android:id="@+id/txtHoTen"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
+            <EditText
+                android:id="@+id/edtHoTen"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_weight="2"
                 android:textSize="20sp"
-
-                android:text="Nguyễn Văn A" />
+                android:text=""
+                android:gravity="center"
+                android:background="@drawable/rounded_edittext"
+                android:enabled="false" />
         </LinearLayout>
 
         <LinearLayout
@@ -74,20 +83,22 @@
             android:orientation="horizontal">
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:textSize="20sp"
                 android:text="Năm sinh" />
 
-            <TextView
-                android:id="@+id/txtNamSinh"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
+            <EditText
+                android:id="@+id/edtNamSinh"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_weight="2"
                 android:textSize="20sp"
-
-                android:text="1999" />
+                android:gravity="center"
+                android:background="@drawable/rounded_edittext"
+                android:text=""
+                android:enabled="false"/>
         </LinearLayout>
 
         <LinearLayout
@@ -97,20 +108,22 @@
             android:orientation="horizontal">
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:textSize="20sp"
                 android:text="Giới tính" />
 
-            <TextView
-                android:id="@+id/txtGioiTinh"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
+            <EditText
+                android:id="@+id/edtGioiTinh"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_weight="2"
                 android:textSize="20sp"
-
-                android:text="Nữ" />
+                android:gravity="center"
+                android:background="@drawable/rounded_edittext"
+                android:text=""
+                android:enabled="false"/>
         </LinearLayout>
 
         <LinearLayout
@@ -120,20 +133,22 @@
             android:orientation="horizontal">
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:textSize="20sp"
                 android:text="Chiều cao" />
 
-            <TextView
-                android:id="@+id/txtChieuCao"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
+            <EditText
+                android:id="@+id/edtChieuCao"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_weight="2"
                 android:textSize="20sp"
-
-                android:text="175 cm" />
+                android:gravity="center"
+                android:background="@drawable/rounded_edittext"
+                android:text=""
+                android:enabled="false"/>
         </LinearLayout>
 
         <LinearLayout
@@ -143,20 +158,22 @@
             android:orientation="horizontal">
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:textSize="20sp"
                 android:text="Cân nặng" />
 
-            <TextView
-                android:id="@+id/txtCanNang"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
+            <EditText
+                android:id="@+id/edtCanNang"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_weight="2"
                 android:textSize="20sp"
-
-                android:text="70 kg" />
+                android:gravity="center"
+                android:background="@drawable/rounded_edittext"
+                android:text=""
+                android:enabled="false"/>
         </LinearLayout>
 
         <LinearLayout
@@ -166,20 +183,32 @@
             android:orientation="horizontal">
 
             <TextView
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:textSize="20sp"
                 android:text="Email" />
 
-            <TextView
-                android:id="@+id/txtEmail"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
+            <EditText
+                android:id="@+id/edtEmail"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_weight="2"
                 android:textSize="20sp"
-                android:text="mathai@gmail.com" />
+                android:gravity="center"
+                android:background="@drawable/rounded_edittext"
+                android:text=""
+                android:enabled="false"/>
         </LinearLayout>
+
+        <Button
+            android:id="@+id/btnSave"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Save"
+            android:background="@drawable/rounded_button"
+            android:textSize="30dp"
+            android:enabled="false"/>
 
     </LinearLayout>
 </LinearLayout>
