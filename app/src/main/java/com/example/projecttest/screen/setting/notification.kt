@@ -26,7 +26,7 @@ class notification : AppCompatActivity() {
         binding = SettingNotificationBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        db = AppDatabase.getDatabase(this)
+        db = AppDatabase.getInstance(this)
         reminderDao = db.reminderDao()
 
         reminderDao.getAllReminders().observe(this) { list ->

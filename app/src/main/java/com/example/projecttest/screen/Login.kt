@@ -5,8 +5,12 @@ import android.os.Bundle
 import android.text.InputType
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import com.example.projecttest.R
+import com.example.projecttest.data.UserEntity
 import com.example.projecttest.databinding.LoginBinding
+import com.example.projecttest.screen.setting.setnotification.AppDatabase
+import com.example.projecttest.screen.setting.setnotification.UserDao
 import com.facebook.AccessToken
 import com.facebook.CallbackManager
 import com.facebook.CallbackManager.Factory.create
@@ -22,12 +26,14 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.firebase.auth.FacebookAuthProvider
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
+import kotlinx.coroutines.launch
 
 
 class Login : AppCompatActivity() {
     private lateinit var binding: LoginBinding
     private lateinit var auth: FirebaseAuth
     private lateinit var googleSignInClient: GoogleSignInClient
+    private lateinit var userDao: UserDao
 //    private lateinit var callbackManager: CallbackManager
 
 
@@ -42,6 +48,10 @@ class Login : AppCompatActivity() {
 
         auth = FirebaseAuth.getInstance()
 //        callbackManager = CallbackManager.Factory.create()
+
+        val db = AppDatabase.getInstance(this)
+        userDao = db.userDao()
+
 
         // Cấu hình Google Sign-In
         configureGoogleSignIn()
@@ -59,6 +69,15 @@ class Login : AppCompatActivity() {
         setupPasswordVisibilityToggle()
 
 //        setupFacebookSignIn()
+
+        lifecycleScope.launch {
+            val existingUser = userDao.getLoggedInUser()
+            if (existingUser != null) {
+                // Người dùng đã đăng nhập trước đó
+                navigateToMainActivity()
+            }
+        }
+
     }
 
 //    private fun setupFacebookSignIn() {
@@ -117,10 +136,15 @@ class Login : AppCompatActivity() {
             if (email.isNotEmpty() && password.isNotEmpty()) {
                 auth.signInWithEmailAndPassword(email, password).addOnCompleteListener { task ->
                     if (task.isSuccessful) {
-                        navigateToMainActivity()
+                        lifecycleScope.launch {
+                            userDao.logoutAllUsers()
+                            userDao.insertUser(UserEntity(email, password, isLoggedIn = true))
+                            navigateToMainActivity()
+                        }
                     } else {
                         showToast("Đăng nhập thất bại")
                     }
+
                 }
             } else {
                 showToast("Vui lòng nhập đầy đủ thông tin")
@@ -179,11 +203,16 @@ class Login : AppCompatActivity() {
             auth.signInWithCredential(credential)
                 .addOnCompleteListener(this) { authTask ->
                     if (authTask.isSuccessful) {
-                        showToast("Đăng nhập Google thành công!")
-                        navigateToMainActivity()
+                        val email = account?.email ?: "unknown@gmail.com"
+                        lifecycleScope.launch {
+                            userDao.logoutAllUsers()
+                            userDao.insertUser(UserEntity(email, "", isLoggedIn = true))
+                            navigateToMainActivity()
+                        }
                     } else {
                         showToast("Đăng nhập Google thất bại!")
                     }
+
                 }
         } else {
             showToast("Đăng nhập Google thất bại!")
