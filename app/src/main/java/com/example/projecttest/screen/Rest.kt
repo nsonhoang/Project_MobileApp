@@ -3,6 +3,7 @@
     import android.content.Intent
     import android.os.Bundle
     import android.os.CountDownTimer
+    import android.util.Log
     import android.widget.Button
     import android.widget.ImageView
     import android.widget.TextView
@@ -10,6 +11,7 @@
     import com.bumptech.glide.Glide
     import com.example.projecttest.R
     import com.example.projecttest.data.CourseModule
+    import com.google.firebase.auth.FirebaseAuth
     import com.google.firebase.firestore.FirebaseFirestore
     
     class Rest : AppCompatActivity() {
@@ -23,11 +25,13 @@
         private var modules: ArrayList<CourseModule>? = null
         private var currentIndex = 0
         private var startTime: Long = 0
-    
+
         override fun onCreate(savedInstanceState: Bundle?) {
             super.onCreate(savedInstanceState)
             setContentView(R.layout.rest_activity)
-    
+            val userid = FirebaseAuth.getInstance().currentUser!!.uid
+
+
             val tvTimer: TextView = findViewById(R.id.tvTimer)
             val btnAddTime: Button = findViewById(R.id.btnAddTime)
             val btnSkip: Button = findViewById(R.id.btnSkip)
@@ -37,28 +41,35 @@
 
 
             startTime = intent.getLongExtra("startTime", 0L)
-    
+
+            // lay thoi gian nghi tu firebase
             firestore = FirebaseFirestore.getInstance()
-    
-            // Nhận dữ liệu từ TrainingActivity
-            modules = intent.getParcelableArrayListExtra("Courses")
-            currentIndex = intent.getIntExtra("CURRENT_INDEX", 0)
-    
-            // Tải bài tập tiếp theo nếu có (next module)
-            if (modules != null && currentIndex < modules!!.size) {
-                val nextModule = modules!![currentIndex]
-                tvExerciseName.text = nextModule.name
-                // Hiển thị hình ảnh và thời gian của bài tập tiếp theo
-                Glide.with(this).load(nextModule.img).override(380, 300).into(imgExercise)
-                timeLeft = nextModule.trainingTime // Gán thời gian từ bài tiếp theo
-            }
-    
-            // hiển thị tiến độ bài tập
-            updateProgress()
-    
-            // Bắt đầu đếm ngược
-            startCountdown(tvTimer)
-    
+            firestore.collection("User").document(userid).collection("training_setting").document("train")
+                .get()
+                .addOnSuccessListener { document ->
+                    val firestoreRestTime = (document.getLong("restTime") ?: 30L).toInt()
+                    timeLeft = firestoreRestTime
+
+                    // Nhận dữ liệu từ TrainingActivity
+                    modules = intent.getParcelableArrayListExtra("Courses")
+                    currentIndex = intent.getIntExtra("CURRENT_INDEX", 0)
+                    if (modules != null && currentIndex < modules!!.size) {
+                        val nextModule = modules!![currentIndex]
+                        tvExerciseName.text = nextModule.name
+                        Glide.with(this).load(nextModule.img).override(380, 300).into(imgExercise)
+
+                    }
+                    updateProgress()
+                    startCountdown(tvTimer)
+                }
+                .addOnFailureListener {
+                    // Nếu lỗi khi lấy từ Firebase thì fallback dùng 30s
+                    timeLeft = 30
+                    updateProgress()
+                    startCountdown(tvTimer)
+                }
+
+
             btnAddTime.setOnClickListener {
                 timeLeft += 20
                 startCountdown(tvTimer)
