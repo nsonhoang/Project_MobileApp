@@ -60,10 +60,8 @@ class Home : Fragment(), OnItemClickListener {
             adapter = twAdapter
         }
 
-        wpAdapter = WorkoutProgramAdapter(workoutPrograms) { selectedProgram ->
-            Log.d("HomeFragment", "Đã nhấn vào: ${selectedProgram.tenbaitap}")
+        wpAdapter = WorkoutProgramAdapter(workoutPrograms) {
             val intent = Intent(requireContext(), Courses::class.java).apply {
-                putExtra("PROGRAM_NAME", selectedProgram.tenbaitap)
             }
             startActivity(intent)
         }

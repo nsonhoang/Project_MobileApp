@@ -15,11 +15,12 @@ class UserSummaryViewModel : ViewModel() {
 
     // Phương thức lấy dữ liệu từ Firestore
     fun fetchUserSummary(userId: String) {
-        db.collection("User")
-            .document("CmdNGAdOkVaFqdVHD9ISsbPCZHa2")
+        val userRef = db.collection("User")
+            .document(userId)
             .collection("infoTraining")
             .document("1")
-            .get()
+
+        userRef.get()
             .addOnSuccessListener { document ->
                 if (document != null && document.exists()) {
                     val summary = UserSummary(
@@ -29,16 +30,28 @@ class UserSummaryViewModel : ViewModel() {
                     )
                     _userSummary.value = summary
                 } else {
-                    // Trường hợp không có document
-                    _userSummary.value = null
+                    // Nếu document chưa tồn tại, tạo document mới mặc định
+                    val defaultSummary = UserSummary(kcalCount = 0, timeTraining = 0, trainingCount = 0)
+                    userRef.set(
+                        mapOf(
+                            "kcalCount" to defaultSummary.kcalCount,
+                            "timeTraining" to defaultSummary.timeTraining,
+                            "trainingCount" to defaultSummary.trainingCount
+                        )
+                    ).addOnSuccessListener {
+                        _userSummary.value = defaultSummary
+                    }.addOnFailureListener { exception ->
+                        Log.e("UserSummaryViewModel", "Error creating new user summary", exception)
+                        _userSummary.value = null
+                    }
                 }
             }
             .addOnFailureListener { exception ->
-                // Xử lý lỗi nếu có
                 _userSummary.value = null
-                Log.e("UserSummaryViewModel", "Error getting user summary", exception)
+                Log.e("UserSummaryViewModel", "Error fetching user summary", exception)
             }
     }
+
 
     // Phương thức cập nhật thông tin người dùng
     fun updateUserSummary(userId: String, timeTraining: Long, kcalCount: Int, trainingCount: Int) {
