@@ -26,6 +26,7 @@ import com.example.projecttest.screen.adapter.RvAdapter3
 import com.example.projecttest.screen.courses.CourseDetail
 import com.example.projecttest.screen.courses.Courses
 import com.example.projecttest.screen.food.Food
+import com.example.projecttest.screen.setting.notification
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -102,10 +103,18 @@ class Discover : Fragment() {
 //        createItemRecycler() // mục đầu tiên
 //        createItemRecycler2() // mục dành cho bạn
 
-
+        onClickBtnReport()
         createListView()//dem kalo
         return binding.root
     }
+
+    private fun onClickBtnReport() {
+        binding.btnReport.setOnClickListener {
+            val intent = Intent(requireContext(), notification()::class.java)
+            startActivity(intent)
+        }
+    }
+
     private fun showErrorDialog(message: String) {
         val builder = AlertDialog.Builder(requireContext())
         builder.setTitle("Lỗi")
@@ -170,7 +179,7 @@ class Discover : Fragment() {
         val adapter = RvAdapter(ds, object : OnItemClickListener{
             override fun onItemClick(position: Int) {
 
-                val i = Intent(requireActivity(), Courses::class.java)
+                val i = Intent(requireContext(), Courses::class.java)
                 i.putExtra("nameCourse", ds[position].name)
                 i.putExtra("img",ds[position].img)
                 i.putExtra("detailCourse",ds[position].detail)
