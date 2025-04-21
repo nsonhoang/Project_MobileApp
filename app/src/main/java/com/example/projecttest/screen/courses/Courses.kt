@@ -1,3 +1,4 @@
+
 package com.example.projecttest.screen.courses
 
 import android.content.Intent
@@ -103,7 +104,7 @@ class Courses : AppCompatActivity() {
         val ds  = mutableListOf<Course>()
 
         list.forEach {
-            it->
+                it->
             ds.add(Course(it.name,it.detail,it.level,it.totalTime,it.img,it.modules))
         }
 //        ds.add(OutData(R.drawable.fire,"Đốt cháy mỡ bụng với HIIT người mới bắt đầu","14 phút + Người bắt đầu"))

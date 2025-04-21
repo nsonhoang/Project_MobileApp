@@ -33,26 +33,6 @@
             android:layout_margin="8dp"
             android:layout_alignParentBottom="true" />
 
-        <TextView
-            android:id="@+id/tvProgress"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="50% Đã hoàn thành"
-            android:textColor="@android:color/white"
-            android:textSize="12sp"
-            android:layout_margin="8dp"
-            android:layout_above="@id/tvTitle" />
-
-        <ProgressBar
-            android:id="@+id/progressBar"
-            style="@android:style/Widget.ProgressBar.Horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="4dp"
-            android:layout_alignParentBottom="true"
-            android:layout_marginBottom="4dp"
-            android:progress="50"
-            android:progressDrawable="@android:drawable/progress_horizontal" />
-
     </RelativeLayout>
 
 </androidx.cardview.widget.CardView>
