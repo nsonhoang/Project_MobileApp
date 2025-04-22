@@ -1,4 +1,4 @@
-package com.example.projecttest.screen
+package com.example.projecttest.screen.home
 
 import android.content.Intent
 import android.os.Bundle
@@ -8,24 +8,18 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.projecttest.R
-import com.example.projecttest.databinding.FragmentHomeBinding
-import com.example.projecttest.screen.adapter.OnItemClickListener
-import com.example.projecttest.screen.adapter.RvAdapterMucDo
-import com.example.projecttest.screen.adapter.RvAdapterThuThach
-import com.example.projecttest.screen.courses.CourseDetail
-import com.example.projecttest.model.UserSummaryViewModel
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
-import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.projecttest.data.Course
-import com.example.projecttest.screen.adapter.LvAdapterCourse
+import com.example.projecttest.databinding.FragmentHomeBinding
+import com.example.projecttest.model.UserSummaryViewModel
+import com.example.projecttest.screen.adapter.OnItemClickListener
+import com.example.projecttest.screen.adapter.RvAdapterThuThach
 import com.example.projecttest.screen.adapter.WorkoutAdapter
-import com.example.projecttest.screen.courses.Courses
+import com.example.projecttest.screen.courses.CourseDetail
 import com.example.projecttest.viewmodel.CourseViewModel
-import kotlinx.coroutines.launch
 import com.example.projecttest.viewmodel.HomeViewModel
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.launch
@@ -94,12 +88,13 @@ class Home : Fragment() {
             Toast.makeText(requireContext(), "${thuThachItem.name}", Toast.LENGTH_SHORT).show()
 
 
-             val intent = Intent(requireContext(), CourseDetail::class.java)
-             startActivity(intent)
+            val intent = Intent(requireContext(), CourseDetail::class.java)
+            startActivity(intent)
         }
 
         binding.rvWorkPrograms.apply {
-            layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+            layoutManager =
+                LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
             adapter = thuThachAdapter
         }
     }

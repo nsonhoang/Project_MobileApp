@@ -9,6 +9,9 @@ import androidx.fragment.app.Fragment
 import com.example.projecttest.screen.discoverfragment.Discover
 import com.example.projecttest.R
 import com.example.projecttest.databinding.ActivityMainBinding
+import com.example.projecttest.screen.home.Home
+import com.example.projecttest.screen.setting.Report
+import com.example.projecttest.screen.setting.Setting
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding

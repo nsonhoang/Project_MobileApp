@@ -1,4 +1,4 @@
-package com.example.projecttest.screen
+package com.example.projecttest.screen.training
 
 import android.content.Intent
 import android.os.Bundle
@@ -8,9 +8,10 @@ import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import com.example.projecttest.data.CourseModule
-import com.example.projecttest.R
 import com.bumptech.glide.Glide
+import com.example.projecttest.R
+import com.example.projecttest.data.CourseModule
+import com.example.projecttest.screen.training.Training
 
 class ReadyActivity : AppCompatActivity() {
 

@@ -12,7 +12,7 @@ import com.example.projecttest.R
 import com.example.projecttest.data.CourseModule
 import com.example.projecttest.databinding.ActivityCourseDetailBinding
 import com.example.projecttest.screen.adapter.OnItemClickListener
-import com.example.projecttest.screen.ReadyActivity
+import com.example.projecttest.screen.training.ReadyActivity
 import com.example.projecttest.screen.adapter.RvAdapterDetailCourse
 
 class CourseDetail : AppCompatActivity() {
