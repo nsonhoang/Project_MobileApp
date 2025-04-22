@@ -3,12 +3,15 @@ package com.example.projecttest.screen.training
 import android.content.Intent
 import android.os.Bundle
 import android.os.CountDownTimer
+import android.util.Log
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 import com.example.projecttest.R
 import com.example.projecttest.data.CourseModule
 import com.example.projecttest.screen.training.Training
@@ -24,10 +27,16 @@ class ReadyActivity : AppCompatActivity() {
     private var modules: ArrayList<CourseModule>? = null
     private var currentIndex: Int = 0 // Khởi tạo currentIndex
     private var startTime: Long = 0L //tính thời gian luyện tập
+    private lateinit var firestore: FirebaseFirestore
+    val userid = FirebaseAuth.getInstance().currentUser!!.uid
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_ready)
+        firestore = FirebaseFirestore.getInstance()
+
 
         // Khởi tạo view
         tvCountdownReady = findViewById(R.id.tvCountdownReady)
@@ -46,11 +55,38 @@ class ReadyActivity : AppCompatActivity() {
             tvExerciseName.text = currentModule.name
             Glide.with(this).load(currentModule.img).override(380, 300).into(imgExerciseReady)
 
-            currentTrainingTime = currentModule.trainingTime.toLong() // Thời gian luyện tập từ module
-            startCountdown(currentTrainingTime) // Bắt đầu đếm ngược
-        } ?: run {
-            tvExerciseName.text = "Tên bài tập không có"
-            startCountdown(currentTrainingTime)
+            firestore.collection("User").document(userid).collection("training_setting").document("train")
+                .get()
+                .addOnSuccessListener { document ->
+                    val firestoreReadyTime = document.getLong("workoutTime")?.toLong() ?: 30L
+//                    currentTrainingTime = if (currentModule.trainingTime > 0) {
+//                        currentModule.trainingTime.toLong()
+//                    } else {
+//                        firestoreReadyTime
+//                    }
+                    startCountdown(firestoreReadyTime)
+                }
+//                .addOnSuccessListener { document ->
+//                    if (document.exists()) {
+//                        val firestoreReadyTime = document.getLong("workoutTime") ?: 30L
+//                        Log.d("FIRESTORE", "Đã lấy được workoutTime: $firestoreReadyTime")
+//                    } else {
+//                        Log.d("FIRESTORE", "Document 'train' không tồn tại")
+//                    }
+//                }
+//                .addOnFailureListener { e ->
+//                    Log.e("FIRESTORE", "Lỗi khi lấy dữ liệu Firestore", e)
+//                }
+
+                .addOnFailureListener {
+                    // Nếu không lấy được thì dùng thời gian mặc định
+                    currentTrainingTime = if (currentModule.trainingTime > 0) {
+                        currentModule.trainingTime.toLong()
+                    } else {
+                        30L
+                    }
+                    startCountdown(currentTrainingTime)
+                }
         }
 
         // Bắt đầu nút Next

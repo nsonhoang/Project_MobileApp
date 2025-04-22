@@ -50,6 +50,7 @@ class setprofile : AppCompatActivity() {
         val currentUser = FirebaseAuth.getInstance().currentUser
         currentUser?.let {
             edtEmail.setText(it.email)
+            db.collection("User").document(userid).update("email", it.email)
         }
 
         binding.btnBack.setOnClickListener {

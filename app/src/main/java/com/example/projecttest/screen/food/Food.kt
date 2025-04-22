@@ -1,19 +1,7 @@
 package com.example.projecttest.screen.food
 
 
-import android.os.Bundle
-import android.widget.Toast
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
-import androidx.recyclerview.widget.GridLayoutManager
-import com.example.projecttest.R
-import com.example.projecttest.data.OutData
-import com.example.projecttest.databinding.ActivityFoodBinding
-import com.example.projecttest.screen.adapter.LvAdapterCourse
-import com.example.projecttest.screen.adapter.OnItemClickListener
-import com.example.projecttest.screen.adapter.RvAdapterDetailCourse
 
 
 class Food : AppCompatActivity() {
