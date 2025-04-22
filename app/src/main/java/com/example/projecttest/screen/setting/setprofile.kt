@@ -43,7 +43,7 @@ class setprofile : AppCompatActivity() {
             }
         }
             .addOnFailureListener {
-                Toast.makeText(this, "Lỗi", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Chưa cập nhật", Toast.LENGTH_SHORT).show()
             }
 
         // Lấy thông tin email từ Firebase Authentication và hiển thị vào edtEmail
