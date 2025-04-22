@@ -31,15 +31,11 @@ class Login : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
     private lateinit var googleSignInClient: GoogleSignInClient
     private lateinit var userDao: UserDao
-//    private lateinit var callbackManager: CallbackManager
 
-
-    private val RC_SIGN_IN = 1001
     private var isPasswordVisible = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-//        FacebookSdk.sdkInitialize(applicationContext) // Khởi tạo Facebook SDK
         binding = LoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
@@ -54,7 +50,11 @@ class Login : AppCompatActivity() {
         val db = AppDatabase.Companion.getInstance(this)
         userDao = db.userDao()
 
-        binding.btnGG.setOnClickListener{ signWithGoogle() }
+        binding.btnGG.setOnClickListener{
+            signOutGoogle {
+                signWithGoogle()  // Sau khi sign-out, mới gọi đăng nhập lại
+            }
+        }
 
 
         // Sự kiện đăng nhập với email và mật khẩu
@@ -83,6 +83,14 @@ class Login : AppCompatActivity() {
         launcher.launch(signInIntent)
     }
 
+    private fun signOutGoogle(onComplete: () -> Unit) {
+        auth.signOut()  // Đăng xuất Firebase
+        googleSignInClient.signOut().addOnCompleteListener {
+            onComplete()  // Sau khi sign-out hoàn tất, tiến hành đăng nhập lại
+        }
+    }
+
+
     private val launcher = registerForActivityResult(ActivityResultContracts.StartActivityForResult())
     {result->
         if (result.resultCode == Activity.RESULT_OK){
@@ -100,7 +108,7 @@ class Login : AppCompatActivity() {
                 updateUI(account)
             }
         }else{
-            showToast("SignIN Failed")
+            Toast.makeText(this,"Đăng nhập Google thất bại", Toast.LENGTH_SHORT).show()
         }
 
     }
@@ -117,7 +125,7 @@ class Login : AppCompatActivity() {
                     navigateToMainActivity()
                 }
             }else{
-                showToast("SignIN Failed")
+                Toast.makeText(this,"Đăng nhập thất bại", Toast.LENGTH_SHORT).show()
             }
             }
         }
@@ -136,12 +144,12 @@ class Login : AppCompatActivity() {
                             navigateToMainActivity()
                         }
                     } else {
-                        showToast("Đăng nhập thất bại")
+                        Toast.makeText(this,"Đăng nhập thất bại", Toast.LENGTH_SHORT).show()
                     }
 
                 }
             } else {
-                showToast("Vui lòng nhập đầy đủ thông tin")
+                Toast.makeText(this,"Thiếu thông tin", Toast.LENGTH_SHORT).show()
             }
         }
     }
@@ -172,9 +180,6 @@ class Login : AppCompatActivity() {
         binding.edtPassword.setSelection(binding.edtPassword.text.length) // Giữ con trỏ ở cuối chữ
     }
 
-    private fun showToast(message: String) {
-        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
-    }
 
     private fun navigateToMainActivity() {
         val intent = Intent(this, MainActivity::class.java)
