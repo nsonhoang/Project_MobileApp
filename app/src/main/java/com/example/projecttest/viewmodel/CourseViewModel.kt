@@ -45,7 +45,6 @@ class CourseViewModel : ViewModel() {
         }
     }
 
-
     fun fetchDataTrainingProgram() {// lấy dữ liệu ở mục 6 múi ...
         viewModelScope.launch {
             try {
