@@ -102,6 +102,7 @@ class Rest : AppCompatActivity() {
         val intent = Intent(this, ReadyActivity::class.java).apply {
             putParcelableArrayListExtra("Courses", modules)
             putExtra("CURRENT_INDEX", currentIndex) // Truyền lại chính xác vị trí
+            putExtra("startTime", startTime)
         }
         startActivity(intent)
         finish()

@@ -39,7 +39,7 @@ class ReadyActivity : AppCompatActivity() {
         // Nhận dữ liệu từ Intent
         modules = intent.getParcelableArrayListExtra("Courses")
         currentIndex = intent.getIntExtra("CURRENT_INDEX", 0)
-        startTime = System.currentTimeMillis()
+        startTime = intent.getLongExtra("startTime", 0L)
 
         modules?.takeIf { it.isNotEmpty() }?.let { moduleList ->
             val currentModule = moduleList[currentIndex]

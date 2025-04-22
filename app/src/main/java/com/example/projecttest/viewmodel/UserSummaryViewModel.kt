@@ -1,4 +1,3 @@
-
 package com.example.projecttest.model
 
 import android.util.Log
@@ -11,11 +10,18 @@ import com.google.firebase.auth.FirebaseAuth
 
 class UserSummaryViewModel : ViewModel() {
     private val db = FirebaseFirestore.getInstance()
+    private val auth = FirebaseAuth.getInstance()
 
     private val _userSummary = MutableLiveData<UserSummary?>()
     val userSummary: LiveData<UserSummary?> = _userSummary
 
-    fun fetchUserSummary(userId: String) {
+    fun fetchUserSummary() {
+        val userId = auth.currentUser?.uid
+        if (userId == null) {
+            Log.e("UserSummaryViewModel", "User not logged in")
+            return
+        }
+
         db.collection("User")
             .document(userId)
             .collection("infoTraining")
@@ -39,15 +45,27 @@ class UserSummaryViewModel : ViewModel() {
             }
     }
 
-    fun updateUserSummary(userId: String, timeTraining: Long, kcalCount: Int, trainingCount: Int) {
+    fun updateUserSummary(timeTraining: Long, kcalCount: Int, trainingCount: Int) {
+        val userId = auth.currentUser?.uid
+        if (userId == null) {
+            Log.e("UserSummaryViewModel", "User not logged in")
+            return
+        }
+
         val userRef = db.collection("User")
             .document(userId)
             .collection("infoTraining")
             .document("1")
 
+        // Kiểm tra timeTraining đã là phút chưa. Nếu là giây, thì cần chia lại.
+        val timeMinutes = if (timeTraining > 60000) { // Nếu timeTraining tính bằng giây
+            timeTraining / 60 // Chuyển sang phút
+        } else {
+            timeTraining // Nếu timeTraining đã là phút, không cần chia
+        }
 
         val updatedData = mapOf(
-            "timeTraining" to timeTraining,
+            "timeTraining" to timeMinutes,
             "kcalCount" to kcalCount,
             "trainingCount" to trainingCount
         )
@@ -67,4 +85,5 @@ class UserSummaryViewModel : ViewModel() {
                     }
             }
     }
+
 }

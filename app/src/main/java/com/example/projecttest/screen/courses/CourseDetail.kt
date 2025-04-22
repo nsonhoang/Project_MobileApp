@@ -74,9 +74,11 @@ class CourseDetail : AppCompatActivity() {
         binding.button.setOnClickListener {
             // Chuyển đến màn hình Ready
             val receivedModule = intent.getParcelableArrayListExtra<CourseModule>("Courses")
+            val startTime = System.currentTimeMillis()
             receivedModule?.let {
                 val intent = Intent(this, ReadyActivity::class.java)
                 intent.putParcelableArrayListExtra("Courses", ArrayList(it))  // Truyền toàn bộ danh sách
+                intent.putExtra("startTime",startTime)
                 startActivity(intent)
             }
         }
