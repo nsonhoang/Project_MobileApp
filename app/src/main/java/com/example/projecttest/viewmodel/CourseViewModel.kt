@@ -40,6 +40,7 @@ class CourseViewModel : ViewModel() {
             }catch (e: Exception) {
                 Log.e(TAG, "Error fetching data", e)
                 // Xử lý lỗi (ví dụ: hiển thị thông báo cho người dùng)
+                throw e
             }
         }
     }

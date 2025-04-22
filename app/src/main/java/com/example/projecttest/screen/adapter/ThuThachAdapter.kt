@@ -1,5 +1,3 @@
-// file: com.example.projecttest.screen.adapter/RvAdapterThuThachFirestore.kt
-
 package com.example.projecttest.screen.adapter
 
 import android.graphics.Color
@@ -16,7 +14,7 @@ import com.example.projecttest.R
 
 class RvAdapterThuThach(
     private var listThuThach: List<thuThach>,
-    private val onItemClickListener: OnItemClickListener
+    private val listener: (thuThach) -> Unit
 ) : RecyclerView.Adapter<RvAdapterThuThach.ThuThachViewHolder>() {
 
     // ViewHolder sử dụng findViewById để ánh xạ các view
@@ -45,13 +43,9 @@ class RvAdapterThuThach(
         Glide.with(holder.itemView.context)
             .load(item.img)
             .into(holder.ivThumbnail)
-
-
-        
-
         // Xử lý sự kiện click vào item
         holder.itemView.setOnClickListener {
-            onItemClickListener.onItemClick(position)
+            listener(item)
         }
     }
 
