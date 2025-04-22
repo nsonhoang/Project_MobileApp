@@ -57,8 +57,7 @@ class CourseViewModel : ViewModel() {
         }
     }
 
-    private val _trainingProgramListForYouAndStretching = MutableStateFlow<List<TrainingProgram>>(emptyList())
-    val trainingProgramListForYouAndStretching: StateFlow<List<TrainingProgram>> get() = _trainingProgramListForYouAndStretching
+
 
     private val _trainingProgramListForYou = MutableStateFlow<List<Course>>(emptyList())
     val trainingProgramListForYou: StateFlow<List<Course>> get() = _trainingProgramListForYou
