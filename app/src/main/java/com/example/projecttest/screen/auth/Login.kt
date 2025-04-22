@@ -52,7 +52,7 @@ class Login : AppCompatActivity() {
 
         binding.btnGG.setOnClickListener{
             signOutGoogle {
-                signWithGoogle()  // Sau khi sign-out, mới gọi đăng nhập lại
+                signWithGoogle()
             }
         }
 
@@ -66,12 +66,9 @@ class Login : AppCompatActivity() {
         // Hiển thị/ẩn mật khẩu
         setupPasswordVisibilityToggle()
 
-//        setupFacebookSignIn()
-
         lifecycleScope.launch {
             val existingUser = userDao.getLoggedInUser()
             if (existingUser != null) {
-                // Người dùng đã đăng nhập trước đó
                 navigateToMainActivity()
             }
         }

@@ -70,8 +70,10 @@ dependencies {
     implementation(libs.androidx.credentials)
     implementation(libs.androidx.credentials.play.services.auth)
 
-    // Thư viện tải ảnh
-
+    // Thư viện Credential Manager
+    implementation("androidx.credentials:credentials:1.3.0")
+    implementation("androidx.credentials:credentials-play-services-auth:1.3.0")
+    implementation("com.google.android.libraries.identity.googleid:googleid:1.1.1")
 
     // Thư viện cho việc kiểm tra
     implementation(libs.googleid)
@@ -98,7 +100,7 @@ dependencies {
     implementation("androidx.room:room-ktx:2.5.0")
     implementation ("com.google.firebase:firebase-auth:21.0.1")  // Firebase Authentication
     implementation ("com.google.firebase:firebase-database:20.0.3")  // Firebase Realtime Database
-    implementation(platform("com.google.firebase:firebase-bom:32.7.0"))
+    implementation(platform("com.google.firebase:firebase-bom:33.12.0"))
     implementation ("com.google.firebase:firebase-firestore-ktx")// Firebase FireStore
 
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.8.0-alpha01") // Hoặc phiên bản mới nhất

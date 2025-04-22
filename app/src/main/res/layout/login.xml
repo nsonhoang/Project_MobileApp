@@ -106,17 +106,9 @@
         android:orientation="horizontal">
 
         <ImageButton
-            android:id="@+id/imgfb"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:backgroundTint="@color/white"
-            app:srcCompat="@drawable/ic_facebook" />
-
-        <ImageButton
             android:id="@+id/btnGG"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:layout_weight="1"
             android:backgroundTint="@color/white"
             app:srcCompat="@drawable/ic_google" />

@@ -23,9 +23,6 @@ class ReminderAdapter(
         val reminder = getItem(position)
         with(holder.binding) {
             timeText.text = String.format("%02d:%02d", reminder.hour, reminder.minute)
-            switchEnable.isChecked = reminder.enabled
-
-            switchEnable.setOnCheckedChangeListener { _, isChecked -> onToggle(reminder, isChecked) }
             deleteButton.setOnClickListener { onDelete(reminder) }
         }
     }
