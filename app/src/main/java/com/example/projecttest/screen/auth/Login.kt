@@ -1,9 +1,11 @@
 package com.example.projecttest.screen.auth
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.text.InputType
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.example.projecttest.R
@@ -18,6 +20,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FacebookAuthProvider
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
@@ -42,17 +45,17 @@ class Login : AppCompatActivity() {
 
         auth = FirebaseAuth.getInstance()
 
-//        callbackManager = CallbackManager.Factory.create()
+        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+            .requestIdToken(getString(R.string.default_client_id))
+            .requestEmail()
+            .build()
+        googleSignInClient = GoogleSignIn.getClient(this, gso)
 
         val db = AppDatabase.Companion.getInstance(this)
         userDao = db.userDao()
 
+        binding.btnGG.setOnClickListener{ signWithGoogle() }
 
-        // Cấu hình Google Sign-In
-        configureGoogleSignIn()
-
-        // Sự kiện đăng nhập bằng Google
-        setupGoogleSignIn()
 
         // Sự kiện đăng nhập với email và mật khẩu
         setupEmailLogin()
@@ -75,53 +78,49 @@ class Login : AppCompatActivity() {
 
     }
 
-//    private fun setupFacebookSignIn() {
-//        binding.imgfb.setOnClickListener {
-//            LoginManager.getInstance().logInWithReadPermissions(this, listOf("public_profile", "email"))
-//            LoginManager.getInstance().registerCallback(callbackManager,
-//                object : FacebookCallback<LoginResult> {
-//                    override fun onSuccess(loginResult: LoginResult) {
-//                        handleFacebookAccessToken(loginResult.accessToken)
-//                    }
-//
-//                    override fun onCancel() {
-//                        showToast("Đăng nhập Facebook bị hủy.")
-//                    }
-//
-//                    override fun onError(error: FacebookException) {
-//                        showToast("Lỗi Facebook: ${error.message}")
-//                    }
-//                })
-//        }
-//    }
-
-    private fun handleFacebookAccessToken(token: AccessToken) {
-        val credential = FacebookAuthProvider.getCredential(token.token)
-        auth.signInWithCredential(credential)
-            .addOnCompleteListener(this) { task ->
-                if (task.isSuccessful) {
-                    showToast("Đăng nhập Facebook thành công!")
-                    navigateToMainActivity()
-                } else {
-                    showToast("Đăng nhập Facebook thất bại.")
-                }
-            }
+    private fun signWithGoogle(){
+        val signInIntent = googleSignInClient.signInIntent
+        launcher.launch(signInIntent)
     }
 
-    private fun configureGoogleSignIn() {
-        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-            .requestIdToken(getString(R.string.default_client_id)) // từ google-services.json
-            .requestEmail()
-            .build()
-        googleSignInClient = GoogleSignIn.getClient(this, gso)
-    }
-
-    private fun setupGoogleSignIn() {
-        binding.btnGG.setOnClickListener {
-            val signInIntent = googleSignInClient.signInIntent
-            startActivityForResult(signInIntent, RC_SIGN_IN)
+    private val launcher = registerForActivityResult(ActivityResultContracts.StartActivityForResult())
+    {result->
+        if (result.resultCode == Activity.RESULT_OK){
+            val task = GoogleSignIn.getSignedInAccountFromIntent(result.data)
+            handleResults(task)
         }
+
+
     }
+
+    private fun handleResults(task: Task<GoogleSignInAccount>) {
+        if (task.isSuccessful){
+            val account : GoogleSignInAccount? = task.result
+            if (account != null){
+                updateUI(account)
+            }
+        }else{
+            showToast("SignIN Failed")
+        }
+
+    }
+
+    private fun updateUI(account: GoogleSignInAccount) {
+        val credential = GoogleAuthProvider.getCredential(account.idToken,null)
+        auth.signInWithCredential(credential).addOnCompleteListener{
+            if (it.isSuccessful){
+                val email = account.email ?: ""
+                val password = ""
+                lifecycleScope.launch {
+                    userDao.logoutAllUsers()
+                    userDao.insertUser(UserEntity(email,password, isLoggedIn = true))
+                    navigateToMainActivity()
+                }
+            }else{
+                showToast("SignIN Failed")
+            }
+            }
+        }
 
     private fun setupEmailLogin() {
         binding.btnLogin.setOnClickListener {
@@ -182,36 +181,4 @@ class Login : AppCompatActivity() {
         startActivity(intent)
         finish()
     }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == RC_SIGN_IN) {
-            handleGoogleSignInResult(data)
-        }
-    }
-
-    private fun handleGoogleSignInResult(data: Intent?) {
-        val task = GoogleSignIn.getSignedInAccountFromIntent(data)
-        if (task.isSuccessful) {
-            val account: GoogleSignInAccount? = task.result
-            val credential = GoogleAuthProvider.getCredential(account?.idToken, null)
-            auth.signInWithCredential(credential)
-                .addOnCompleteListener(this) { authTask ->
-                    if (authTask.isSuccessful) {
-                        val email = account?.email ?: "unknown@gmail.com"
-                        lifecycleScope.launch {
-                            userDao.logoutAllUsers()
-                            userDao.insertUser(UserEntity(email, "", isLoggedIn = true))
-                            navigateToMainActivity()
-                        }
-                    } else {
-                        showToast("Đăng nhập Google thất bại!")
-                    }
-
-                }
-        } else {
-            showToast("Đăng nhập Google thất bại!")
-        }
-    }
-
 }

@@ -11,6 +11,8 @@
     import com.bumptech.glide.Glide
     import com.example.projecttest.R
     import com.example.projecttest.data.CourseModule
+    import com.example.projecttest.screen.training.ReadyActivity
+    import com.example.projecttest.screen.training.Training
     import com.google.firebase.auth.FirebaseAuth
     import com.google.firebase.firestore.FirebaseFirestore
     
