@@ -1,9 +1,10 @@
-package com.example.projecttest.screen
+package com.example.projecttest.screen.setting
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.SeekBar
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.projecttest.databinding.FragmentReportBinding
@@ -72,14 +73,14 @@ class Report : Fragment() {
 
         // Chiều cao
         binding.seekBar.setOnSeekBarChangeListener(object :
-            android.widget.SeekBar.OnSeekBarChangeListener {
-            override fun onProgressChanged(seekBar: android.widget.SeekBar?, progress: Int, fromUser: Boolean) {
+            SeekBar.OnSeekBarChangeListener {
+            override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
                 height = progress
                 binding.tvHeight.text = height.toString()
             }
 
-            override fun onStartTrackingTouch(seekBar: android.widget.SeekBar?) {}
-            override fun onStopTrackingTouch(seekBar: android.widget.SeekBar?) {}
+            override fun onStartTrackingTouch(seekBar: SeekBar?) {}
+            override fun onStopTrackingTouch(seekBar: SeekBar?) {}
         })
 
         // Tính BMI

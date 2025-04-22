@@ -1,4 +1,4 @@
-package com.example.projecttest.screen
+package com.example.projecttest.screen.training
 
 import android.content.Intent
 import android.os.Bundle
@@ -9,11 +9,12 @@ import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import com.example.projecttest.data.CourseModule
-import com.example.projecttest.R
 import com.bumptech.glide.Glide
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.example.projecttest.R
+import com.example.projecttest.data.CourseModule
+import com.example.projecttest.screen.training.Training
 
 class ReadyActivity : AppCompatActivity() {
 
@@ -47,7 +48,7 @@ class ReadyActivity : AppCompatActivity() {
         // Nhận dữ liệu từ Intent
         modules = intent.getParcelableArrayListExtra("Courses")
         currentIndex = intent.getIntExtra("CURRENT_INDEX", 0)
-        startTime = intent.getLongExtra("startTime", 0L) // Dùng Long cho startTime
+        startTime = System.currentTimeMillis()
 
         modules?.takeIf { it.isNotEmpty() }?.let { moduleList ->
             val currentModule = moduleList[currentIndex]
@@ -87,7 +88,6 @@ class ReadyActivity : AppCompatActivity() {
                     startCountdown(currentTrainingTime)
                 }
         }
-
 
         // Bắt đầu nút Next
         btnNextReady.setOnClickListener {

@@ -14,7 +14,7 @@ import com.bumptech.glide.Glide
 import com.example.projecttest.R
 import com.example.projecttest.data.Course
 import com.example.projecttest.databinding.ActivityCoursesBinding
-import com.example.projecttest.screen.adapter.LvAdapterCourse
+import com.example.projecttest.screen.adapter.RvAdapterCourse
 import com.example.projecttest.screen.adapter.OnItemClickListener
 
 class Courses : AppCompatActivity() {
@@ -79,7 +79,7 @@ class Courses : AppCompatActivity() {
     }
 
     private fun setAdapterCourse(ds: List<Course>, img: String) {
-        val adapter = LvAdapterCourse(ds, object : OnItemClickListener {
+        val adapter = RvAdapterCourse(ds, object : OnItemClickListener {
             override fun onItemClick(position: Int) {
 
                 Toast.makeText(this@Courses, ds[position].name, Toast.LENGTH_SHORT).show()
