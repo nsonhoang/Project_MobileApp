@@ -1,4 +1,4 @@
-package com.example.projecttest.screen
+package com.example.projecttest.screen.setting
 
 import android.content.Intent
 import android.os.Bundle
@@ -8,12 +8,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import com.example.projecttest.databinding.FragmentSettingBinding
-import com.example.projecttest.screen.setting.lang
-import com.example.projecttest.screen.setting.notification
+import com.example.projecttest.screen.auth.Login
 import com.example.projecttest.screen.setting.setnotification.AppDatabase
 import com.example.projecttest.screen.setting.setnotification.UserDao
-import com.example.projecttest.screen.setting.setprofile
-import com.example.projecttest.screen.setting.train
 import kotlinx.coroutines.launch
 
 class Setting : Fragment() {
@@ -28,7 +25,7 @@ class Setting : Fragment() {
         savedInstanceState: Bundle?
     ): View {
 
-        val db = AppDatabase.getInstance(requireContext())
+        val db = AppDatabase.Companion.getInstance(requireContext())
         userDao = db.userDao()
         _binding = FragmentSettingBinding.inflate(inflater, container, false)
 

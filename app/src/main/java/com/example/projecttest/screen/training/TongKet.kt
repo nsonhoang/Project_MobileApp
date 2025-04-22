@@ -1,7 +1,5 @@
+package com.example.projecttest.screen.training
 
-package com.example.projecttest.screen
-
-import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
@@ -11,7 +9,6 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.projecttest.R
 import com.example.projecttest.model.UserSummaryViewModel
 import com.google.firebase.auth.FirebaseAuth
-import kotlin.math.roundToInt
 import kotlin.random.Random
 
 class TongKet : AppCompatActivity() {
@@ -44,7 +41,7 @@ class TongKet : AppCompatActivity() {
         }
         val endTime = System.currentTimeMillis()
         val trainingDurationSeconds = (endTime - startTime) / 1000
-        val kcalBurned = Random.nextInt(50, 121)
+        val kcalBurned = Random.Default.nextInt(50, 121)
         val trainingDurationMinutes = trainingDurationSeconds / 60
 
         // Gọi ViewModel để fetch dữ liệu

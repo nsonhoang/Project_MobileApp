@@ -1,4 +1,4 @@
-package com.example.projecttest.screen
+package com.example.projecttest.screen.auth
 
 import android.content.Intent
 import android.os.Bundle
@@ -9,16 +9,11 @@ import androidx.lifecycle.lifecycleScope
 import com.example.projecttest.R
 import com.example.projecttest.data.UserEntity
 import com.example.projecttest.databinding.LoginBinding
+import com.example.projecttest.screen.MainActivity
+import com.example.projecttest.screen.auth.SignUp
 import com.example.projecttest.screen.setting.setnotification.AppDatabase
 import com.example.projecttest.screen.setting.setnotification.UserDao
 import com.facebook.AccessToken
-import com.facebook.CallbackManager
-import com.facebook.CallbackManager.Factory.create
-import com.facebook.FacebookCallback
-import com.facebook.FacebookException
-import com.facebook.FacebookSdk
-import com.facebook.login.LoginManager
-import com.facebook.login.LoginResult
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
@@ -27,7 +22,6 @@ import com.google.firebase.auth.FacebookAuthProvider
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import kotlinx.coroutines.launch
-
 
 class Login : AppCompatActivity() {
     private lateinit var binding: LoginBinding
@@ -50,7 +44,7 @@ class Login : AppCompatActivity() {
 
 //        callbackManager = CallbackManager.Factory.create()
 
-        val db = AppDatabase.getInstance(this)
+        val db = AppDatabase.Companion.getInstance(this)
         userDao = db.userDao()
 
 

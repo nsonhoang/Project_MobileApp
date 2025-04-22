@@ -1,4 +1,4 @@
-package com.example.projecttest.screen
+package com.example.projecttest.screen.training
 
 import android.content.Intent
 import android.os.Bundle
@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import com.example.projecttest.R
 import com.example.projecttest.data.CourseModule
+import com.example.projecttest.screen.training.TongKet
 
 class Training : AppCompatActivity() {
     private lateinit var tvTimer: TextView

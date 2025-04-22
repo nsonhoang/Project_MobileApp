@@ -45,11 +45,9 @@ class UserSummaryViewModel : ViewModel() {
             .collection("infoTraining")
             .document("1")
 
-        val timeInSeconds = (timeTraining / 1000).toInt()
-        val timeInMinutes = (timeInSeconds/ 60).toInt()
 
         val updatedData = mapOf(
-            "timeTraining" to timeInMinutes,
+            "timeTraining" to timeTraining,
             "kcalCount" to kcalCount,
             "trainingCount" to trainingCount
         )

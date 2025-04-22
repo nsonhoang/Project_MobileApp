@@ -6,7 +6,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/white"
     android:orientation="vertical"
-    tools:context=".screen.Login">
+    tools:context=".screen.auth.Login">
 
     <ImageView
         android:id="@+id/imageView3"

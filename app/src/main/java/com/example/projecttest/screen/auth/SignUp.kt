@@ -1,4 +1,4 @@
-package com.example.projecttest.screen
+package com.example.projecttest.screen.auth
 
 import android.content.Intent
 import android.os.Bundle
@@ -7,6 +7,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.projecttest.R
 import com.example.projecttest.databinding.SignupBinding
+import com.example.projecttest.screen.MainActivity
 import com.google.firebase.auth.FirebaseAuth
 
 class SignUp :  AppCompatActivity() {
@@ -89,4 +90,3 @@ class SignUp :  AppCompatActivity() {
         binding.edtAgainPassword.setSelection(binding.edtAgainPassword.text.length)
     }
 }
-
