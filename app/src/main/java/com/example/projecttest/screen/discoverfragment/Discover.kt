@@ -19,7 +19,7 @@ import com.example.projecttest.data.OutData
 import com.example.projecttest.data.TargetCourse
 import com.example.projecttest.databinding.FragmentDiscoverBinding
 import com.example.projecttest.viewmodel.CourseViewModel
-import com.example.projecttest.screen.adapter.LvAdapter
+import com.example.projecttest.screen.adapter.RvAdapterKalo
 import com.example.projecttest.screen.adapter.OnItemClickListener
 import com.example.projecttest.screen.adapter.RvAdapter2
 import com.example.projecttest.screen.adapter.RvAdapter3
@@ -269,7 +269,7 @@ class Discover : Fragment() {
     }
 
     private fun setAdapterListView(ds: List<OutData>) {
-        val adapter = LvAdapter(ds,object :OnItemClickListener{
+        val adapter = RvAdapterKalo(ds,object :OnItemClickListener{
             override fun onItemClick(position: Int) {
                 val i = Intent(requireActivity(),Food::class.java)
 

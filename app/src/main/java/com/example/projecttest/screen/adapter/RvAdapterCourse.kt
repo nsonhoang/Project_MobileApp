@@ -8,11 +8,9 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.projecttest.data.Course
-import com.example.projecttest.data.OutData
-import com.example.projecttest.data.TrainingProgram
 import com.example.projecttest.databinding.LayoutItemCourseBinding
 
-class LvAdapterCourse(var ds: List<Course>, val onItemClickListener: OnItemClickListener):RecyclerView.Adapter<LvAdapterCourse.CourseViewHolder >() {
+class RvAdapterCourse(var ds: List<Course>, val onItemClickListener: OnItemClickListener):RecyclerView.Adapter<RvAdapterCourse.CourseViewHolder >() {
 
     private lateinit var binding: LayoutItemCourseBinding
     inner class CourseViewHolder(view: View):RecyclerView.ViewHolder(view)
@@ -20,7 +18,7 @@ class LvAdapterCourse(var ds: List<Course>, val onItemClickListener: OnItemClick
     override fun getItemCount(): Int {
      return ds.size
     }
-    override fun onBindViewHolder(holder: LvAdapterCourse.CourseViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: RvAdapterCourse.CourseViewHolder, position: Int) {
         holder.itemView.apply {
             binding.txtDetailCourse.text=ds[position].detail
             binding.txtCourseName.text=ds[position].name
@@ -57,7 +55,7 @@ class LvAdapterCourse(var ds: List<Course>, val onItemClickListener: OnItemClick
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): LvAdapterCourse.CourseViewHolder{
+    ): RvAdapterCourse.CourseViewHolder{
         binding= LayoutItemCourseBinding.inflate(LayoutInflater.from(parent.context),parent,false)
         return CourseViewHolder(binding.root)
     }
