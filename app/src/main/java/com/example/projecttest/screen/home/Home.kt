@@ -68,7 +68,7 @@ class Home : Fragment() {
         // Kiểm tra nếu userId không null
         if (userId != null) {
             // Khi vào màn hình, tự động fetch dữ liệu
-            userSummaryViewModel.fetchUserSummary(userId)
+            userSummaryViewModel.fetchUserSummary()
             homeViewModel.fetchHomeList()
         } else {
             // Nếu không có userId, thông báo lỗi hoặc yêu cầu người dùng đăng nhập lại
@@ -145,7 +145,7 @@ class Home : Fragment() {
     }
 
     private fun setAdapter(ds: List<Course>) {
-    val adapter = WorkoutAdapter(ds, object : OnItemClickListener {
+        val adapter = WorkoutAdapter(ds, object : OnItemClickListener {
         override fun onItemClick(position: Int) {
             val selectedCourse = ds[position]
             Toast.makeText(requireContext(), "${selectedCourse.name}", Toast.LENGTH_SHORT).show()

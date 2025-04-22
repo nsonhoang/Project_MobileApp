@@ -32,20 +32,14 @@ class TongKet : AppCompatActivity() {
         // Lấy id người dùng từ Firebase Authentication
         val userId = FirebaseAuth.getInstance().currentUser!!.uid
 
-        // Lấy startTime từ ReadyActivity
         val startTime = intent.getLongExtra("startTime", 0L)
-        if (startTime == 0L) {
-            Toast.makeText(this, "Không lấy được thời gian bắt đầu", Toast.LENGTH_SHORT).show()
-            finish()
-            return
-        }
         val endTime = System.currentTimeMillis()
         val trainingDurationSeconds = (endTime - startTime) / 1000
         val kcalBurned = Random.Default.nextInt(50, 121)
         val trainingDurationMinutes = trainingDurationSeconds / 60
 
         // Gọi ViewModel để fetch dữ liệu
-        viewModel.fetchUserSummary(userId)
+        viewModel.fetchUserSummary()
 
         viewModel.userSummary.observe(this) { summary ->
             val currentTrainingCount = summary?.trainingCount ?: 0
@@ -63,7 +57,6 @@ class TongKet : AppCompatActivity() {
 
             // Cập nhật dữ liệu mới lên Firestore thông qua ViewModel
             viewModel.updateUserSummary(
-                userId,
                 newTimeTraining,
                 newKcalCount,
                 newTrainingCount
