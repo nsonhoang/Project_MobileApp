@@ -27,11 +27,23 @@ class Report : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentReportBinding.inflate(inflater, container, false)
+
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+
+        // Kiểm tra null trước khi sử dụng binding
+        if (_binding == null) {
+            Toast.makeText(context, "Binding không thành công", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        // Tiếp tục với binding
+        val binding = _binding!!
+
 
         val userid = FirebaseAuth.getInstance().currentUser!!.uid
         val ref = db.collection("User").document(userid).collection("infoTraining").document("1")
